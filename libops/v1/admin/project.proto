@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package libops.v1.admin;
+
+import "libops/v1/common/project.proto";
+import "google/protobuf/field_mask.proto";
+
+option go_package = "github.com/libops/proto/libops/v1/admin;adminv1";
+
+// AdminProjectConfig extends the organization-facing config with sensitive fields
+message AdminProjectConfig {
+  // Organization-safe fields (embedded)
+  libops.v1.common.ProjectConfig config = 1;
+
+  // --- Admin-Only & Sensitive Fields ---
+
+  string billing_account = 2;
+
+  optional string host_docker_config = 5;     // Sensitive
+
+  // GCP-managed resources (output from orchestration)
+  optional string gcp_project_id = 6;      // Set after project creation
+  optional string gcp_project_number = 7;  // Set after project creation
+
+  // Flag to identify if this is the organization's libops project (for vault, etc.)
+  bool organization_project = 9;
+}

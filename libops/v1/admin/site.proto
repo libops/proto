@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package libops.v1.admin;
+
+import "libops/v1/common/site.proto";
+
+option go_package = "github.com/libops/proto/libops/v1/admin;adminv1";
+
+// AdminSiteConfig extends the organization-facing config with internal GCP details
+message AdminSiteConfig {
+  // Organization-safe fields (embedded)
+  libops.v1.common.SiteConfig config = 1;
+
+  // --- Admin-Only Fields ---
+
+  // GitHub integration
+  optional string github_webhook_url = 2;
+  optional string github_webhook_secret = 3;  // Sensitive
+  optional string github_team_id = 7;         // GitHub team ID for access control
+
+  // Computed/managed fields (output from orchestration)
+  optional string gcp_instance_name = 4;   // GCE instance name
+  optional string gcp_external_ip = 5;     // External IP address
+  optional string gcp_internal_ip = 6;     // Internal IP address
+}

@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+package libops.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/libops/proto/libops/v1;libopsv1";
+
+// EventEnvelope is the shared control-plane event contract stored in event_queue
+// and consumed by workers.
+message EventEnvelope {
+  // Event ID is the CloudEvents id.
+  string event_id = 1;
+  // Event type is the CloudEvents type.
+  string event_type = 2;
+  // Event source is the CloudEvents source.
+  string event_source = 3;
+  // Event subject identifies the affected resource, when present.
+  string event_subject = 4;
+  // Event data contains the serialized event payload.
+  bytes event_data = 5;
+  // Content type describes event_data.
+  string content_type = 6;
+  // Organization ID is the internal organization row ID.
+  int64 organization_id = 7;
+  // Project ID is the internal project row ID, when scoped to a project.
+  optional int64 project_id = 8;
+  // Site ID is the internal site row ID, when scoped to a site.
+  optional int64 site_id = 9;
+  // Created at records when the event was queued.
+  google.protobuf.Timestamp created_at = 10;
+  // Request ID links the event to the originating API request.
+  string request_id = 11;
+  // Traceparent carries the W3C trace context across queue and Pub/Sub hops.
+  string traceparent = 12;
+}
+
+// ControlPlanePubSubEnvelope is the versioned Pub/Sub contract for messages
+// published by control-plane producers and consumed by Cloud Run workers.
+message ControlPlanePubSubEnvelope {
+  // Envelope ID is unique for this Pub/Sub payload.
+  string envelope_id = 1;
+  // Schema version is incremented when this envelope changes incompatibly.
+  int32 schema_version = 2;
+  // Dedupe key is stable for retries of the same logical request.
+  string dedupe_key = 3;
+  // Request ID links this message to the originating customer mutation.
+  string request_id = 4;
+  // Traceparent carries the W3C trace context across Pub/Sub.
+  string traceparent = 5;
+
+  // Payload is the typed control-plane message body.
+  oneof payload {
+    // Site reconciliation asks a site controller to reconcile local state.
+    SiteReconciliationPubSubRequest site_reconciliation = 10;
+  }
+}
+
+// SiteReconciliationPubSubRequest asks a customer site controller to reconcile.
+message SiteReconciliationPubSubRequest {
+  // Site public ID is the target site UUID.
+  string site_public_id = 1;
+  // Project public ID is the target project's UUID.
+  string project_public_id = 2;
+  // Organization public ID is the owning organization's UUID.
+  string org_public_id = 3;
+  // Controller URL is the DB-pinned controller endpoint for this site.
+  string controller_url = 4;
+  // Request type selects the controller reconciliation endpoint.
+  string request_type = 5;
+  // Event IDs are the outbox events collapsed into this request.
+  repeated string event_ids = 6;
+  // Timestamp is when the request was built.
+  string timestamp = 7;
+  // Deployment ID identifies the requested deployment, when request_type is deployment.
+  string deployment_id = 8;
+  // Git ref is the branch, tag, PR ref, or commit requested for deployment.
+  string git_ref = 9;
+}

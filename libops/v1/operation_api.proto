@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package libops.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/libops/proto/libops/v1;libopsv1";
+
+// OperationService exposes end-to-end status for customer-visible mutations.
+service OperationService {
+  // Get an operation by public operation ID or request ID.
+  rpc GetOperation(GetOperationRequest) returns (GetOperationResponse) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
+}
+
+enum OperationStatus {
+  OPERATION_STATUS_UNSPECIFIED = 0;
+  OPERATION_STATUS_RUNNING = 1;
+  OPERATION_STATUS_SUCCEEDED = 2;
+  OPERATION_STATUS_FAILED = 3;
+  OPERATION_STATUS_CANCELED = 4;
+}
+
+message Operation {
+  string operation_id = 1;
+  string request_id = 2;
+  string operation_type = 3;
+  OperationStatus status = 4;
+  int64 event_count = 5;
+  int64 event_completed_count = 6;
+  int64 event_failed_count = 7;
+  int64 publish_count = 8;
+  int64 publish_completed_count = 9;
+  int64 publish_failed_count = 10;
+  int64 reconciliation_count = 11;
+  int64 reconciliation_completed_count = 12;
+  int64 reconciliation_failed_count = 13;
+  string error_message = 14;
+  google.protobuf.Timestamp created_at = 15;
+  google.protobuf.Timestamp updated_at = 16;
+  google.protobuf.Timestamp completed_at = 17;
+}
+
+message GetOperationRequest {
+  string operation_id = 1;
+}
+
+message GetOperationResponse {
+  Operation operation = 1;
+}

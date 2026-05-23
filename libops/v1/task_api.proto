@@ -1,0 +1,233 @@
+syntax = "proto3";
+
+package libops.v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/struct.proto";
+import "libops/v1/options/scope.proto";
+
+option go_package = "github.com/libops/proto/libops/v1;libopsv1";
+
+// TaskService manages queued automation tasks.
+service TaskService {
+  // Create a new task from a natural language prompt.
+  rpc CreateTask(CreateTaskRequest) returns (CreateTaskResponse) {
+    option (libops.v1.options.required_scope) = {
+      resource: RESOURCE_TYPE_ORGANIZATION
+      level: ACCESS_LEVEL_WRITE
+      allow_parent_access: true
+      oauth_scopes: "write:organization"
+      resource_id_field: "organization_id"
+    };
+  }
+
+  // Get a task by ID.
+  rpc GetTask(GetTaskRequest) returns (GetTaskResponse) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+    option (libops.v1.options.required_scope) = {
+      resource: RESOURCE_TYPE_ORGANIZATION
+      level: ACCESS_LEVEL_READ
+      allow_parent_access: true
+      oauth_scopes: "read:organization"
+      resource_id_field: "organization_id"
+    };
+  }
+
+  // List tasks scoped by organization/project/site.
+  rpc ListTasks(ListTasksRequest) returns (ListTasksResponse) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+    option (libops.v1.options.required_scope) = {
+      resource: RESOURCE_TYPE_ORGANIZATION
+      level: ACCESS_LEVEL_READ
+      allow_parent_access: true
+      oauth_scopes: "read:organization"
+      resource_id_field: "organization_id"
+    };
+  }
+
+  // Update a task (status, prompt, input, results).
+  rpc UpdateTask(UpdateTaskRequest) returns (UpdateTaskResponse) {
+    option (libops.v1.options.required_scope) = {
+      resource: RESOURCE_TYPE_ORGANIZATION
+      level: ACCESS_LEVEL_WRITE
+      allow_parent_access: true
+      oauth_scopes: "write:organization"
+      resource_id_field: "organization_id"
+    };
+  }
+
+  // Cancel a queued, running, or input-blocked task.
+  rpc CancelTask(CancelTaskRequest) returns (CancelTaskResponse) {
+    option (libops.v1.options.required_scope) = {
+      resource: RESOURCE_TYPE_ORGANIZATION
+      level: ACCESS_LEVEL_WRITE
+      allow_parent_access: true
+      oauth_scopes: "write:organization"
+      resource_id_field: "organization_id"
+    };
+  }
+
+  // Append a structured log entry to a task.
+  rpc AppendTaskLog(AppendTaskLogRequest) returns (AppendTaskLogResponse) {
+    option (libops.v1.options.required_scope) = {
+      resource: RESOURCE_TYPE_ORGANIZATION
+      level: ACCESS_LEVEL_WRITE
+      allow_parent_access: true
+      oauth_scopes: "write:organization"
+      resource_id_field: "organization_id"
+    };
+  }
+}
+
+enum TaskStatus {
+  TASK_STATUS_UNSPECIFIED = 0;
+  TASK_STATUS_QUEUED = 1;
+  TASK_STATUS_RUNNING = 2;
+  TASK_STATUS_NEEDS_INPUT = 3;
+  TASK_STATUS_FAILED = 4;
+  TASK_STATUS_COMPLETED = 5;
+  TASK_STATUS_CANCELED = 6;
+}
+
+enum TaskResultType {
+  TASK_RESULT_UNSPECIFIED = 0;
+  TASK_RESULT_PROJECT_CREATED = 1;
+  TASK_RESULT_PR_CREATED = 2;
+  TASK_RESULT_DEPLOYMENT = 3;
+  TASK_RESULT_API_ACTION = 4;
+}
+
+message TaskLogEntry {
+  google.protobuf.Timestamp timestamp = 1;
+  string level = 2;
+  string message = 3;
+  google.protobuf.Struct attributes = 4;
+}
+
+message TaskInput {
+  string message = 1;
+  google.protobuf.Struct fields = 2;
+}
+
+message TaskMessage {
+  string role = 1;
+  string content = 2;
+  google.protobuf.Timestamp created_at = 3;
+}
+
+message TaskResult {
+  TaskResultType type = 1;
+  string project_id = 2;
+  string site_id = 3;
+  string pr_url = 4;
+  string deployment_id = 5;
+  google.protobuf.Struct metadata = 6;
+  TaskApiAction api_action = 7;
+}
+
+message TaskApiAction {
+  string method = 1;
+  string path = 2;
+  google.protobuf.Struct headers = 3;
+  google.protobuf.Struct body = 4;
+  string description = 5;
+}
+
+message Task {
+  string task_id = 1;
+  string organization_id = 2;
+  string project_id = 3;
+  string site_id = 4;
+  string prompt = 5;
+  TaskStatus status = 6;
+  repeated TaskLogEntry logs = 7;
+  repeated TaskResult results = 8;
+  TaskInput input_request = 9;
+  TaskInput input_response = 10;
+  google.protobuf.Timestamp created_at = 11;
+  google.protobuf.Timestamp updated_at = 12;
+  google.protobuf.Timestamp started_at = 13;
+  google.protobuf.Timestamp completed_at = 14;
+  repeated TaskMessage messages = 15;
+  string agent_model = 16;
+}
+
+message TaskUsageBudget {
+  string metric_key = 1;
+  string period = 2;
+  int64 used = 3;
+  int64 limit = 4;
+  int64 remaining = 5;
+  google.protobuf.Timestamp period_start = 6;
+  google.protobuf.Timestamp period_end = 7;
+  string source = 8;
+}
+
+message CreateTaskRequest {
+  string organization_id = 1;
+  string project_id = 2;
+  string site_id = 3;
+  string prompt = 4;
+  string client_request_id = 5;
+  google.protobuf.Struct metadata = 6;
+  string agent_model = 7;
+}
+
+message CreateTaskResponse {
+  Task task = 1;
+}
+
+message GetTaskRequest {
+  string organization_id = 1;
+  string task_id = 2;
+}
+
+message GetTaskResponse {
+  Task task = 1;
+}
+
+message ListTasksRequest {
+  string organization_id = 1;
+  string project_id = 2;
+  string site_id = 3;
+  int32 limit = 4;
+  int32 offset = 5;
+}
+
+message ListTasksResponse {
+  repeated Task tasks = 1;
+  TaskUsageBudget task_usage = 2;
+}
+
+message UpdateTaskRequest {
+  string organization_id = 1;
+  string task_id = 2;
+  TaskStatus status = 3;
+  string prompt = 4;
+  TaskInput input_request = 5;
+  TaskInput input_response = 6;
+  repeated TaskResult results = 7;
+}
+
+message UpdateTaskResponse {
+  Task task = 1;
+}
+
+message CancelTaskRequest {
+  string organization_id = 1;
+  string task_id = 2;
+}
+
+message CancelTaskResponse {
+  Task task = 1;
+}
+
+message AppendTaskLogRequest {
+  string organization_id = 1;
+  string task_id = 2;
+  TaskLogEntry entry = 3;
+}
+
+message AppendTaskLogResponse {
+  bool success = 1;
+}

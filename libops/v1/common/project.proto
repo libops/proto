@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package libops.v1.common;
+
+import "gnostic/openapi/v3/annotations.proto";
+import "libops/v1/common/types.proto";
+
+option go_package = "github.com/libops/proto/libops/v1/common;commonv1";
+
+// ProjectConfig is the organization-facing project configuration
+// Contains only safe, non-sensitive fields
+message ProjectConfig {
+  string organization_id = 1 [(gnostic.openapi.v3.property) = {format: "uuid"}];
+  string project_id = 2 [(gnostic.openapi.v3.property) = {format: "uuid"}];
+  string project_name = 3;
+
+  // Auto-create sites for new branches
+  bool create_branch_sites = 4;
+
+  // GCP deployment configuration
+  string region = 5;              // GCP region (e.g., "us-central1")
+  string zone = 6;                // GCP zone (e.g., "us-central1-f")
+  string machine_type = 7;        // GCP machine type (e.g., "e2-standard-2")
+  int32 disk_size_gb = 8;         // Disk size in GB
+  string os = 9;                  // OS image (default: "cos-125-19216-104-74")
+  string disk_type = 10;          // Disk type (default: "hyperdisk-balanced")
+
+  // Promotion strategy
+  PromoteStrategy promote = 11;   // How to promote code to production
+
+  // Status
+  Status status = 16;
+}
+
+enum PromoteStrategy {
+  PROMOTE_STRATEGY_UNSPECIFIED = 0;
+  PROMOTE_STRATEGY_GITHUB_TAG = 1;      // Promote on git tags
+  PROMOTE_STRATEGY_GITHUB_RELEASE = 2;  // Promote on GitHub releases
+}

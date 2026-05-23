@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package libops.v1;
+
+import "libops/v1/options/scope.proto";
+
+option go_package = "github.com/libops/proto/libops/v1;libopsv1";
+
+// AssistantService manages chat-driven automation requests.
+service AssistantService {
+  // Chat sends a user request to the assistant automation system.
+  rpc Chat(AssistantChatRequest) returns (AssistantChatResponse) {
+    option (libops.v1.options.required_scope) = {
+      resource: RESOURCE_TYPE_ORGANIZATION
+      level: ACCESS_LEVEL_WRITE
+      allow_parent_access: true
+      oauth_scopes: "write:organization"
+      resource_id_field: "organization_id"
+    };
+  }
+}
+
+// AssistantChatRequest sends a natural language request scoped to a context.
+message AssistantChatRequest {
+  // Target organization (required).
+  string organization_id = 1;
+  // Optional project scope for the request.
+  string project_id = 2;
+  // Optional site scope for the request.
+  string site_id = 3;
+  // The user message to execute.
+  string message = 4;
+  // Optional client-generated request identifier for idempotency.
+  string client_request_id = 5;
+  // Optional metadata for routing or model selection.
+  map<string, string> metadata = 6;
+  // Optional coding agent model selection.
+  string agent_model = 7;
+}
+
+// AssistantChatResponse returns the queued request details.
+message AssistantChatResponse {
+  // Server-generated request identifier.
+  string request_id = 1;
+  // Status for the queued request (e.g., "queued").
+  string status = 2;
+  // Optional immediate reply for UI display.
+  string reply = 3;
+}
