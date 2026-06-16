@@ -96,7 +96,7 @@ message ApiKeyMetadata {
 message CreateApiKeyRequest {
   string name = 1;              // User-friendly name for the key
   string description = 2;       // Optional description
-  repeated string scopes = 3;   // Optional scope restrictions (e.g., ["read:organization", "write:project"])
+  repeated string scopes = 3;   // Optional scope restrictions (e.g., ["organization:read", "project:write"])
   // NO account_id field - always creates for the authenticated user
 }
 

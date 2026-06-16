@@ -3357,8 +3357,8 @@ func (x *ListOrganizationMembersResponse) GetNextPageToken() string {
 type CreateOrganizationMemberRequest struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
 	OrganizationId string                 `protobuf:"bytes,1,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
-	AccountId      string                 `protobuf:"bytes,2,opt,name=account_id,json=accountId,proto3" json:"account_id,omitempty"` // Account to add
-	Role           string                 `protobuf:"bytes,3,opt,name=role,proto3" json:"role,omitempty"`                            // "owner", "developer", "read"
+	Email          string                 `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"` // Email address of the member account to add
+	Role           string                 `protobuf:"bytes,3,opt,name=role,proto3" json:"role,omitempty"`   // "owner", "developer", "read"
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -3400,9 +3400,9 @@ func (x *CreateOrganizationMemberRequest) GetOrganizationId() string {
 	return ""
 }
 
-func (x *CreateOrganizationMemberRequest) GetAccountId() string {
+func (x *CreateOrganizationMemberRequest) GetEmail() string {
 	if x != nil {
-		return x.AccountId
+		return x.Email
 	}
 	return ""
 }
@@ -3737,8 +3737,8 @@ func (x *ListProjectMembersResponse) GetNextPageToken() string {
 type CreateProjectMemberRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	ProjectId     string                 `protobuf:"bytes,1,opt,name=project_id,json=projectId,proto3" json:"project_id,omitempty"`
-	AccountId     string                 `protobuf:"bytes,2,opt,name=account_id,json=accountId,proto3" json:"account_id,omitempty"` // Account to add
-	Role          string                 `protobuf:"bytes,3,opt,name=role,proto3" json:"role,omitempty"`                            // "developer", "read"
+	Email         string                 `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"` // Email address of the member account to add
+	Role          string                 `protobuf:"bytes,3,opt,name=role,proto3" json:"role,omitempty"`   // "developer", "read"
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -3780,9 +3780,9 @@ func (x *CreateProjectMemberRequest) GetProjectId() string {
 	return ""
 }
 
-func (x *CreateProjectMemberRequest) GetAccountId() string {
+func (x *CreateProjectMemberRequest) GetEmail() string {
 	if x != nil {
-		return x.AccountId
+		return x.Email
 	}
 	return ""
 }
@@ -4117,8 +4117,8 @@ func (x *ListSiteMembersResponse) GetNextPageToken() string {
 type CreateSiteMemberRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	SiteId        string                 `protobuf:"bytes,1,opt,name=site_id,json=siteId,proto3" json:"site_id,omitempty"`
-	AccountId     string                 `protobuf:"bytes,2,opt,name=account_id,json=accountId,proto3" json:"account_id,omitempty"` // Account to add
-	Role          string                 `protobuf:"bytes,3,opt,name=role,proto3" json:"role,omitempty"`                            // "developer", "read"
+	Email         string                 `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"` // Email address of the member account to add
+	Role          string                 `protobuf:"bytes,3,opt,name=role,proto3" json:"role,omitempty"`   // "developer", "read"
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -4160,9 +4160,9 @@ func (x *CreateSiteMemberRequest) GetSiteId() string {
 	return ""
 }
 
-func (x *CreateSiteMemberRequest) GetAccountId() string {
+func (x *CreateSiteMemberRequest) GetEmail() string {
 	if x != nil {
-		return x.AccountId
+		return x.Email
 	}
 	return ""
 }
@@ -5088,11 +5088,10 @@ const file_libops_v1_organization_api_proto_rawDesc = "" +
 	"page_token\x18\x03 \x01(\tR\tpageToken\"|\n" +
 	"\x1fListOrganizationMembersResponse\x121\n" +
 	"\amembers\x18\x01 \x03(\v2\x17.libops.v1.MemberDetailR\amembers\x12&\n" +
-	"\x0fnext_page_token\x18\x02 \x01(\tR\rnextPageToken\"}\n" +
+	"\x0fnext_page_token\x18\x02 \x01(\tR\rnextPageToken\"t\n" +
 	"\x1fCreateOrganizationMemberRequest\x12'\n" +
-	"\x0forganization_id\x18\x01 \x01(\tR\x0eorganizationId\x12\x1d\n" +
-	"\n" +
-	"account_id\x18\x02 \x01(\tR\taccountId\x12\x12\n" +
+	"\x0forganization_id\x18\x01 \x01(\tR\x0eorganizationId\x12\x14\n" +
+	"\x05email\x18\x02 \x01(\tR\x05email\x12\x12\n" +
 	"\x04role\x18\x03 \x01(\tR\x04role\"S\n" +
 	" CreateOrganizationMemberResponse\x12/\n" +
 	"\x06member\x18\x01 \x01(\v2\x17.libops.v1.MemberDetailR\x06member\"\xba\x01\n" +
@@ -5117,12 +5116,11 @@ const file_libops_v1_organization_api_proto_rawDesc = "" +
 	"page_token\x18\x03 \x01(\tR\tpageToken\"w\n" +
 	"\x1aListProjectMembersResponse\x121\n" +
 	"\amembers\x18\x01 \x03(\v2\x17.libops.v1.MemberDetailR\amembers\x12&\n" +
-	"\x0fnext_page_token\x18\x02 \x01(\tR\rnextPageToken\"n\n" +
+	"\x0fnext_page_token\x18\x02 \x01(\tR\rnextPageToken\"e\n" +
 	"\x1aCreateProjectMemberRequest\x12\x1d\n" +
 	"\n" +
-	"project_id\x18\x01 \x01(\tR\tprojectId\x12\x1d\n" +
-	"\n" +
-	"account_id\x18\x02 \x01(\tR\taccountId\x12\x12\n" +
+	"project_id\x18\x01 \x01(\tR\tprojectId\x12\x14\n" +
+	"\x05email\x18\x02 \x01(\tR\x05email\x12\x12\n" +
 	"\x04role\x18\x03 \x01(\tR\x04role\"N\n" +
 	"\x1bCreateProjectMemberResponse\x12/\n" +
 	"\x06member\x18\x01 \x01(\v2\x17.libops.v1.MemberDetailR\x06member\"\xab\x01\n" +
@@ -5148,11 +5146,10 @@ const file_libops_v1_organization_api_proto_rawDesc = "" +
 	"page_token\x18\x03 \x01(\tR\tpageToken\"t\n" +
 	"\x17ListSiteMembersResponse\x121\n" +
 	"\amembers\x18\x01 \x03(\v2\x17.libops.v1.MemberDetailR\amembers\x12&\n" +
-	"\x0fnext_page_token\x18\x02 \x01(\tR\rnextPageToken\"e\n" +
+	"\x0fnext_page_token\x18\x02 \x01(\tR\rnextPageToken\"\\\n" +
 	"\x17CreateSiteMemberRequest\x12\x17\n" +
-	"\asite_id\x18\x01 \x01(\tR\x06siteId\x12\x1d\n" +
-	"\n" +
-	"account_id\x18\x02 \x01(\tR\taccountId\x12\x12\n" +
+	"\asite_id\x18\x01 \x01(\tR\x06siteId\x12\x14\n" +
+	"\x05email\x18\x02 \x01(\tR\x05email\x12\x12\n" +
 	"\x04role\x18\x03 \x01(\tR\x04role\"K\n" +
 	"\x18CreateSiteMemberResponse\x12/\n" +
 	"\x06member\x18\x01 \x01(\v2\x17.libops.v1.MemberDetailR\x06member\"\xa2\x01\n" +

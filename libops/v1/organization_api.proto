@@ -1009,7 +1009,7 @@ message ListOrganizationMembersResponse {
 
 message CreateOrganizationMemberRequest {
   string organization_id = 1;
-  string account_id = 2;       // Account to add
+  string email = 2;            // Email address of the member account to add
   string role = 3;             // "owner", "developer", "read"
 }
 
@@ -1046,7 +1046,7 @@ message ListProjectMembersResponse {
 
 message CreateProjectMemberRequest {
   string project_id = 1;
-  string account_id = 2;       // Account to add
+  string email = 2;            // Email address of the member account to add
   string role = 3;             // "developer", "read"
 }
 
@@ -1083,7 +1083,7 @@ message ListSiteMembersResponse {
 
 message CreateSiteMemberRequest {
   string site_id = 1;
-  string account_id = 2;       // Account to add
+  string email = 2;            // Email address of the member account to add
   string role = 3;             // "developer", "read"
 }
 

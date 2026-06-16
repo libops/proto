@@ -284,7 +284,7 @@ type CreateApiKeyRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`               // User-friendly name for the key
 	Description   string                 `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"` // Optional description
-	Scopes        []string               `protobuf:"bytes,3,rep,name=scopes,proto3" json:"scopes,omitempty"`           // Optional scope restrictions (e.g., ["read:organization", "write:project"])
+	Scopes        []string               `protobuf:"bytes,3,rep,name=scopes,proto3" json:"scopes,omitempty"`           // Optional scope restrictions (e.g., ["organization:read", "project:write"])
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
