@@ -168,6 +168,14 @@ service AdminReconciliationService {
   }
 }
 
+// AdminConvergenceService checks desired-state convergence and can request
+// repair workflows for stuck resources.
+service AdminConvergenceService {
+  rpc CheckConvergence(CheckConvergenceRequest) returns (CheckConvergenceResponse) {
+    option (libops.v1.options.required_scope) = { resource: RESOURCE_TYPE_SYSTEM, level: ACCESS_LEVEL_ADMIN, oauth_scopes: "admin:system" };
+  }
+}
+
 // ==============================================================================
 // REQUEST/RESPONSE - GetProject (Admin)
 // ==============================================================================
@@ -559,4 +567,39 @@ message GenerateTerraformVarsRequest {
 
 message GenerateTerraformVarsResponse {
   string tfvars_json = 1;  // JSON-encoded terraform variables
+}
+
+// ==============================================================================
+// REQUEST/RESPONSE - CheckConvergence (Admin)
+// ==============================================================================
+
+enum ConvergenceResourceType {
+  CONVERGENCE_RESOURCE_TYPE_UNSPECIFIED = 0;
+  CONVERGENCE_RESOURCE_TYPE_ORGANIZATION = 1;
+  CONVERGENCE_RESOURCE_TYPE_PROJECT = 2;
+  CONVERGENCE_RESOURCE_TYPE_SITE = 3;
+}
+
+message CheckConvergenceRequest {
+  ConvergenceResourceType resource_type = 1;
+  string resource_id = 2;
+  bool repair = 3;
+  bool include_children = 4;
+}
+
+message CheckConvergenceResponse {
+  repeated ConvergenceFinding findings = 1;
+  bool repair_requested = 2;
+}
+
+message ConvergenceFinding {
+  string resource_type = 1;
+  string resource_id = 2;
+  string name = 3;
+  string status = 4;
+  string severity = 5;
+  string reason = 6;
+  string action = 7;
+  string event_type = 8;
+  repeated string blockers = 9;
 }

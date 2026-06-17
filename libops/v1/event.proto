@@ -77,3 +77,20 @@ message SiteReconciliationPubSubRequest {
   // Git ref is the branch, tag, PR ref, or commit requested for deployment.
   string git_ref = 9;
 }
+
+// TerraformReconciliationRequested asks the control plane to schedule a
+// Terraform pass for the current database state of a resource scope.
+message TerraformReconciliationRequested {
+  // Resource type is organization, project, site, member, firewall, or cadence.
+  string resource_type = 1;
+  // Resource public ID is the UUID of the requested resource when one exists.
+  string resource_public_id = 2;
+  // Reason explains the convergence finding that requested the run.
+  string reason = 3;
+  // Cadence key makes automatic repair idempotent within a time bucket.
+  string cadence_key = 4;
+  // Requested at records when the convergence check produced this event.
+  google.protobuf.Timestamp requested_at = 5;
+  // Modules is advisory; the event router derives authoritative modules from scope.
+  repeated string modules = 6;
+}

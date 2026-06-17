@@ -26,6 +26,57 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type ConvergenceResourceType int32
+
+const (
+	ConvergenceResourceType_CONVERGENCE_RESOURCE_TYPE_UNSPECIFIED  ConvergenceResourceType = 0
+	ConvergenceResourceType_CONVERGENCE_RESOURCE_TYPE_ORGANIZATION ConvergenceResourceType = 1
+	ConvergenceResourceType_CONVERGENCE_RESOURCE_TYPE_PROJECT      ConvergenceResourceType = 2
+	ConvergenceResourceType_CONVERGENCE_RESOURCE_TYPE_SITE         ConvergenceResourceType = 3
+)
+
+// Enum value maps for ConvergenceResourceType.
+var (
+	ConvergenceResourceType_name = map[int32]string{
+		0: "CONVERGENCE_RESOURCE_TYPE_UNSPECIFIED",
+		1: "CONVERGENCE_RESOURCE_TYPE_ORGANIZATION",
+		2: "CONVERGENCE_RESOURCE_TYPE_PROJECT",
+		3: "CONVERGENCE_RESOURCE_TYPE_SITE",
+	}
+	ConvergenceResourceType_value = map[string]int32{
+		"CONVERGENCE_RESOURCE_TYPE_UNSPECIFIED":  0,
+		"CONVERGENCE_RESOURCE_TYPE_ORGANIZATION": 1,
+		"CONVERGENCE_RESOURCE_TYPE_PROJECT":      2,
+		"CONVERGENCE_RESOURCE_TYPE_SITE":         3,
+	}
+)
+
+func (x ConvergenceResourceType) Enum() *ConvergenceResourceType {
+	p := new(ConvergenceResourceType)
+	*p = x
+	return p
+}
+
+func (x ConvergenceResourceType) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (ConvergenceResourceType) Descriptor() protoreflect.EnumDescriptor {
+	return file_libops_v1_admin_api_proto_enumTypes[0].Descriptor()
+}
+
+func (ConvergenceResourceType) Type() protoreflect.EnumType {
+	return &file_libops_v1_admin_api_proto_enumTypes[0]
+}
+
+func (x ConvergenceResourceType) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+func (ConvergenceResourceType) EnumDescriptor() ([]byte, []int) {
+	return file_libops_v1_admin_api_proto_rawDescGZIP(), []int{0}
+}
+
 type AdminGetProjectRequest struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
 	OrganizationId string                 `protobuf:"bytes,1,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
@@ -2966,6 +3017,231 @@ func (x *GenerateTerraformVarsResponse) GetTfvarsJson() string {
 	return ""
 }
 
+type CheckConvergenceRequest struct {
+	state           protoimpl.MessageState  `protogen:"open.v1"`
+	ResourceType    ConvergenceResourceType `protobuf:"varint,1,opt,name=resource_type,json=resourceType,proto3,enum=libops.v1.ConvergenceResourceType" json:"resource_type,omitempty"`
+	ResourceId      string                  `protobuf:"bytes,2,opt,name=resource_id,json=resourceId,proto3" json:"resource_id,omitempty"`
+	Repair          bool                    `protobuf:"varint,3,opt,name=repair,proto3" json:"repair,omitempty"`
+	IncludeChildren bool                    `protobuf:"varint,4,opt,name=include_children,json=includeChildren,proto3" json:"include_children,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *CheckConvergenceRequest) Reset() {
+	*x = CheckConvergenceRequest{}
+	mi := &file_libops_v1_admin_api_proto_msgTypes[55]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CheckConvergenceRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CheckConvergenceRequest) ProtoMessage() {}
+
+func (x *CheckConvergenceRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_libops_v1_admin_api_proto_msgTypes[55]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+func (*CheckConvergenceRequest) Descriptor() ([]byte, []int) {
+	return file_libops_v1_admin_api_proto_rawDescGZIP(), []int{55}
+}
+
+func (x *CheckConvergenceRequest) GetResourceType() ConvergenceResourceType {
+	if x != nil {
+		return x.ResourceType
+	}
+	return ConvergenceResourceType_CONVERGENCE_RESOURCE_TYPE_UNSPECIFIED
+}
+
+func (x *CheckConvergenceRequest) GetResourceId() string {
+	if x != nil {
+		return x.ResourceId
+	}
+	return ""
+}
+
+func (x *CheckConvergenceRequest) GetRepair() bool {
+	if x != nil {
+		return x.Repair
+	}
+	return false
+}
+
+func (x *CheckConvergenceRequest) GetIncludeChildren() bool {
+	if x != nil {
+		return x.IncludeChildren
+	}
+	return false
+}
+
+type CheckConvergenceResponse struct {
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	Findings        []*ConvergenceFinding  `protobuf:"bytes,1,rep,name=findings,proto3" json:"findings,omitempty"`
+	RepairRequested bool                   `protobuf:"varint,2,opt,name=repair_requested,json=repairRequested,proto3" json:"repair_requested,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *CheckConvergenceResponse) Reset() {
+	*x = CheckConvergenceResponse{}
+	mi := &file_libops_v1_admin_api_proto_msgTypes[56]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CheckConvergenceResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CheckConvergenceResponse) ProtoMessage() {}
+
+func (x *CheckConvergenceResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_libops_v1_admin_api_proto_msgTypes[56]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+func (*CheckConvergenceResponse) Descriptor() ([]byte, []int) {
+	return file_libops_v1_admin_api_proto_rawDescGZIP(), []int{56}
+}
+
+func (x *CheckConvergenceResponse) GetFindings() []*ConvergenceFinding {
+	if x != nil {
+		return x.Findings
+	}
+	return nil
+}
+
+func (x *CheckConvergenceResponse) GetRepairRequested() bool {
+	if x != nil {
+		return x.RepairRequested
+	}
+	return false
+}
+
+type ConvergenceFinding struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ResourceType  string                 `protobuf:"bytes,1,opt,name=resource_type,json=resourceType,proto3" json:"resource_type,omitempty"`
+	ResourceId    string                 `protobuf:"bytes,2,opt,name=resource_id,json=resourceId,proto3" json:"resource_id,omitempty"`
+	Name          string                 `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+	Status        string                 `protobuf:"bytes,4,opt,name=status,proto3" json:"status,omitempty"`
+	Severity      string                 `protobuf:"bytes,5,opt,name=severity,proto3" json:"severity,omitempty"`
+	Reason        string                 `protobuf:"bytes,6,opt,name=reason,proto3" json:"reason,omitempty"`
+	Action        string                 `protobuf:"bytes,7,opt,name=action,proto3" json:"action,omitempty"`
+	EventType     string                 `protobuf:"bytes,8,opt,name=event_type,json=eventType,proto3" json:"event_type,omitempty"`
+	Blockers      []string               `protobuf:"bytes,9,rep,name=blockers,proto3" json:"blockers,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ConvergenceFinding) Reset() {
+	*x = ConvergenceFinding{}
+	mi := &file_libops_v1_admin_api_proto_msgTypes[57]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ConvergenceFinding) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ConvergenceFinding) ProtoMessage() {}
+
+func (x *ConvergenceFinding) ProtoReflect() protoreflect.Message {
+	mi := &file_libops_v1_admin_api_proto_msgTypes[57]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+func (*ConvergenceFinding) Descriptor() ([]byte, []int) {
+	return file_libops_v1_admin_api_proto_rawDescGZIP(), []int{57}
+}
+
+func (x *ConvergenceFinding) GetResourceType() string {
+	if x != nil {
+		return x.ResourceType
+	}
+	return ""
+}
+
+func (x *ConvergenceFinding) GetResourceId() string {
+	if x != nil {
+		return x.ResourceId
+	}
+	return ""
+}
+
+func (x *ConvergenceFinding) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *ConvergenceFinding) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+func (x *ConvergenceFinding) GetSeverity() string {
+	if x != nil {
+		return x.Severity
+	}
+	return ""
+}
+
+func (x *ConvergenceFinding) GetReason() string {
+	if x != nil {
+		return x.Reason
+	}
+	return ""
+}
+
+func (x *ConvergenceFinding) GetAction() string {
+	if x != nil {
+		return x.Action
+	}
+	return ""
+}
+
+func (x *ConvergenceFinding) GetEventType() string {
+	if x != nil {
+		return x.EventType
+	}
+	return ""
+}
+
+func (x *ConvergenceFinding) GetBlockers() []string {
+	if x != nil {
+		return x.Blockers
+	}
+	return nil
+}
+
 var File_libops_v1_admin_api_proto protoreflect.FileDescriptor
 
 const file_libops_v1_admin_api_proto_rawDesc = "" +
@@ -3189,7 +3465,33 @@ const file_libops_v1_admin_api_proto_rawDesc = "" +
 	"\b_site_id\"@\n" +
 	"\x1dGenerateTerraformVarsResponse\x12\x1f\n" +
 	"\vtfvars_json\x18\x01 \x01(\tR\n" +
-	"tfvarsJson2\xb7\x06\n" +
+	"tfvarsJson\"\xc6\x01\n" +
+	"\x17CheckConvergenceRequest\x12G\n" +
+	"\rresource_type\x18\x01 \x01(\x0e2\".libops.v1.ConvergenceResourceTypeR\fresourceType\x12\x1f\n" +
+	"\vresource_id\x18\x02 \x01(\tR\n" +
+	"resourceId\x12\x16\n" +
+	"\x06repair\x18\x03 \x01(\bR\x06repair\x12)\n" +
+	"\x10include_children\x18\x04 \x01(\bR\x0fincludeChildren\"\x80\x01\n" +
+	"\x18CheckConvergenceResponse\x129\n" +
+	"\bfindings\x18\x01 \x03(\v2\x1d.libops.v1.ConvergenceFindingR\bfindings\x12)\n" +
+	"\x10repair_requested\x18\x02 \x01(\bR\x0frepairRequested\"\x8d\x02\n" +
+	"\x12ConvergenceFinding\x12#\n" +
+	"\rresource_type\x18\x01 \x01(\tR\fresourceType\x12\x1f\n" +
+	"\vresource_id\x18\x02 \x01(\tR\n" +
+	"resourceId\x12\x12\n" +
+	"\x04name\x18\x03 \x01(\tR\x04name\x12\x16\n" +
+	"\x06status\x18\x04 \x01(\tR\x06status\x12\x1a\n" +
+	"\bseverity\x18\x05 \x01(\tR\bseverity\x12\x16\n" +
+	"\x06reason\x18\x06 \x01(\tR\x06reason\x12\x16\n" +
+	"\x06action\x18\a \x01(\tR\x06action\x12\x1d\n" +
+	"\n" +
+	"event_type\x18\b \x01(\tR\teventType\x12\x1a\n" +
+	"\bblockers\x18\t \x03(\tR\bblockers*\xbb\x01\n" +
+	"\x17ConvergenceResourceType\x12)\n" +
+	"%CONVERGENCE_RESOURCE_TYPE_UNSPECIFIED\x10\x00\x12*\n" +
+	"&CONVERGENCE_RESOURCE_TYPE_ORGANIZATION\x10\x01\x12%\n" +
+	"!CONVERGENCE_RESOURCE_TYPE_PROJECT\x10\x02\x12\"\n" +
+	"\x1eCONVERGENCE_RESOURCE_TYPE_SITE\x10\x032\xb7\x06\n" +
 	"\x18AdminOrganizationService\x12}\n" +
 	"\x0fGetOrganization\x12&.libops.v1.AdminGetOrganizationRequest\x1a'.libops.v1.AdminGetOrganizationResponse\"\x19\x92\xb5\x18\x12\b\x01\x10\x03\"\fadmin:system\x90\x02\x01\x12\x83\x01\n" +
 	"\x12CreateOrganization\x12).libops.v1.AdminCreateOrganizationRequest\x1a*.libops.v1.AdminCreateOrganizationResponse\"\x16\x92\xb5\x18\x12\b\x01\x10\x03\"\fadmin:system\x12\x83\x01\n" +
@@ -3224,7 +3526,9 @@ const file_libops_v1_admin_api_proto_rawDesc = "" +
 	"\x1aAdminReconciliationService\x12l\n" +
 	"\x14GetReconciliationRun\x12&.libops.v1.GetReconciliationRunRequest\x1a'.libops.v1.GetReconciliationRunResponse\"\x03\x90\x02\x01\x12{\n" +
 	"\x1aUpdateReconciliationStatus\x12,.libops.v1.UpdateReconciliationStatusRequest\x1a-.libops.v1.UpdateReconciliationStatusResponse\"\x00\x12o\n" +
-	"\x15GenerateTerraformVars\x12'.libops.v1.GenerateTerraformVarsRequest\x1a(.libops.v1.GenerateTerraformVarsResponse\"\x03\x90\x02\x01B\x8f\x01\n" +
+	"\x15GenerateTerraformVars\x12'.libops.v1.GenerateTerraformVarsRequest\x1a(.libops.v1.GenerateTerraformVarsResponse\"\x03\x90\x02\x012\x8e\x01\n" +
+	"\x17AdminConvergenceService\x12s\n" +
+	"\x10CheckConvergence\x12\".libops.v1.CheckConvergenceRequest\x1a#.libops.v1.CheckConvergenceResponse\"\x16\x92\xb5\x18\x12\b\x01\x10\x03\"\fadmin:systemB\x8f\x01\n" +
 	"\rcom.libops.v1B\rAdminApiProtoP\x01Z*github.com/libops/proto/libops/v1;libopsv1\xa2\x02\x03LXX\xaa\x02\tLibops.V1\xca\x02\tLibops\\V1\xe2\x02\x15Libops\\V1\\GPBMetadata\xea\x02\n" +
 	"Libops::V1b\x06proto3"
 
@@ -3240,156 +3544,165 @@ func file_libops_v1_admin_api_proto_rawDescGZIP() []byte {
 	return file_libops_v1_admin_api_proto_rawDescData
 }
 
-var file_libops_v1_admin_api_proto_msgTypes = make([]protoimpl.MessageInfo, 55)
+var file_libops_v1_admin_api_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
+var file_libops_v1_admin_api_proto_msgTypes = make([]protoimpl.MessageInfo, 58)
 var file_libops_v1_admin_api_proto_goTypes = []any{
-	(*AdminGetProjectRequest)(nil),                // 0: libops.v1.AdminGetProjectRequest
-	(*AdminGetProjectResponse)(nil),               // 1: libops.v1.AdminGetProjectResponse
-	(*AdminCreateProjectRequest)(nil),             // 2: libops.v1.AdminCreateProjectRequest
-	(*AdminCreateProjectResponse)(nil),            // 3: libops.v1.AdminCreateProjectResponse
-	(*AdminUpdateProjectRequest)(nil),             // 4: libops.v1.AdminUpdateProjectRequest
-	(*AdminUpdateProjectResponse)(nil),            // 5: libops.v1.AdminUpdateProjectResponse
-	(*AdminDeleteProjectRequest)(nil),             // 6: libops.v1.AdminDeleteProjectRequest
-	(*AdminListProjectsRequest)(nil),              // 7: libops.v1.AdminListProjectsRequest
-	(*AdminListProjectsResponse)(nil),             // 8: libops.v1.AdminListProjectsResponse
-	(*AdminListAllProjectsRequest)(nil),           // 9: libops.v1.AdminListAllProjectsRequest
-	(*AdminListAllProjectsResponse)(nil),          // 10: libops.v1.AdminListAllProjectsResponse
-	(*AdminGetOrganizationRequest)(nil),           // 11: libops.v1.AdminGetOrganizationRequest
-	(*AdminGetOrganizationResponse)(nil),          // 12: libops.v1.AdminGetOrganizationResponse
-	(*AdminCreateOrganizationRequest)(nil),        // 13: libops.v1.AdminCreateOrganizationRequest
-	(*AdminCreateOrganizationResponse)(nil),       // 14: libops.v1.AdminCreateOrganizationResponse
-	(*AdminUpdateOrganizationRequest)(nil),        // 15: libops.v1.AdminUpdateOrganizationRequest
-	(*AdminUpdateOrganizationResponse)(nil),       // 16: libops.v1.AdminUpdateOrganizationResponse
-	(*AdminDeleteOrganizationRequest)(nil),        // 17: libops.v1.AdminDeleteOrganizationRequest
-	(*AdminListOrganizationsRequest)(nil),         // 18: libops.v1.AdminListOrganizationsRequest
-	(*AdminListOrganizationsResponse)(nil),        // 19: libops.v1.AdminListOrganizationsResponse
-	(*AdminListOrganizationProjectsRequest)(nil),  // 20: libops.v1.AdminListOrganizationProjectsRequest
-	(*AdminListOrganizationProjectsResponse)(nil), // 21: libops.v1.AdminListOrganizationProjectsResponse
-	(*AdminGetSiteRequest)(nil),                   // 22: libops.v1.AdminGetSiteRequest
-	(*AdminGetSiteResponse)(nil),                  // 23: libops.v1.AdminGetSiteResponse
-	(*AdminCreateSiteRequest)(nil),                // 24: libops.v1.AdminCreateSiteRequest
-	(*AdminCreateSiteResponse)(nil),               // 25: libops.v1.AdminCreateSiteResponse
-	(*AdminUpdateSiteRequest)(nil),                // 26: libops.v1.AdminUpdateSiteRequest
-	(*AdminUpdateSiteResponse)(nil),               // 27: libops.v1.AdminUpdateSiteResponse
-	(*AdminDeleteSiteRequest)(nil),                // 28: libops.v1.AdminDeleteSiteRequest
-	(*AdminListSitesRequest)(nil),                 // 29: libops.v1.AdminListSitesRequest
-	(*AdminListSitesResponse)(nil),                // 30: libops.v1.AdminListSitesResponse
-	(*AdminListAllSitesRequest)(nil),              // 31: libops.v1.AdminListAllSitesRequest
-	(*AdminListAllSitesResponse)(nil),             // 32: libops.v1.AdminListAllSitesResponse
-	(*GetSiteSSHKeysRequest)(nil),                 // 33: libops.v1.GetSiteSSHKeysRequest
-	(*SSHKey)(nil),                                // 34: libops.v1.SSHKey
-	(*GetSiteSSHKeysResponse)(nil),                // 35: libops.v1.GetSiteSSHKeysResponse
-	(*GetSiteSecretsRequest)(nil),                 // 36: libops.v1.GetSiteSecretsRequest
-	(*Secret)(nil),                                // 37: libops.v1.Secret
-	(*GetSiteSecretsResponse)(nil),                // 38: libops.v1.GetSiteSecretsResponse
-	(*GetSiteFirewallRequest)(nil),                // 39: libops.v1.GetSiteFirewallRequest
-	(*FirewallRule)(nil),                          // 40: libops.v1.FirewallRule
-	(*GetSiteFirewallResponse)(nil),               // 41: libops.v1.GetSiteFirewallResponse
-	(*SiteCheckInRequest)(nil),                    // 42: libops.v1.SiteCheckInRequest
-	(*SiteCheckInResponse)(nil),                   // 43: libops.v1.SiteCheckInResponse
-	(*SyncManifestRequest)(nil),                   // 44: libops.v1.SyncManifestRequest
-	(*SyncManifestResponse)(nil),                  // 45: libops.v1.SyncManifestResponse
-	(*StateBlobs)(nil),                            // 46: libops.v1.StateBlobs
-	(*GetBlobRequest)(nil),                        // 47: libops.v1.GetBlobRequest
-	(*GetBlobResponse)(nil),                       // 48: libops.v1.GetBlobResponse
-	(*GetReconciliationRunRequest)(nil),           // 49: libops.v1.GetReconciliationRunRequest
-	(*GetReconciliationRunResponse)(nil),          // 50: libops.v1.GetReconciliationRunResponse
-	(*UpdateReconciliationStatusRequest)(nil),     // 51: libops.v1.UpdateReconciliationStatusRequest
-	(*UpdateReconciliationStatusResponse)(nil),    // 52: libops.v1.UpdateReconciliationStatusResponse
-	(*GenerateTerraformVarsRequest)(nil),          // 53: libops.v1.GenerateTerraformVarsRequest
-	(*GenerateTerraformVarsResponse)(nil),         // 54: libops.v1.GenerateTerraformVarsResponse
-	(*admin.AdminProjectConfig)(nil),              // 55: libops.v1.admin.AdminProjectConfig
-	(*fieldmaskpb.FieldMask)(nil),                 // 56: google.protobuf.FieldMask
-	(*admin.AdminFolderConfig)(nil),               // 57: libops.v1.admin.AdminFolderConfig
-	(*admin.AdminSiteConfig)(nil),                 // 58: libops.v1.admin.AdminSiteConfig
-	(*emptypb.Empty)(nil),                         // 59: google.protobuf.Empty
+	(ConvergenceResourceType)(0),                  // 0: libops.v1.ConvergenceResourceType
+	(*AdminGetProjectRequest)(nil),                // 1: libops.v1.AdminGetProjectRequest
+	(*AdminGetProjectResponse)(nil),               // 2: libops.v1.AdminGetProjectResponse
+	(*AdminCreateProjectRequest)(nil),             // 3: libops.v1.AdminCreateProjectRequest
+	(*AdminCreateProjectResponse)(nil),            // 4: libops.v1.AdminCreateProjectResponse
+	(*AdminUpdateProjectRequest)(nil),             // 5: libops.v1.AdminUpdateProjectRequest
+	(*AdminUpdateProjectResponse)(nil),            // 6: libops.v1.AdminUpdateProjectResponse
+	(*AdminDeleteProjectRequest)(nil),             // 7: libops.v1.AdminDeleteProjectRequest
+	(*AdminListProjectsRequest)(nil),              // 8: libops.v1.AdminListProjectsRequest
+	(*AdminListProjectsResponse)(nil),             // 9: libops.v1.AdminListProjectsResponse
+	(*AdminListAllProjectsRequest)(nil),           // 10: libops.v1.AdminListAllProjectsRequest
+	(*AdminListAllProjectsResponse)(nil),          // 11: libops.v1.AdminListAllProjectsResponse
+	(*AdminGetOrganizationRequest)(nil),           // 12: libops.v1.AdminGetOrganizationRequest
+	(*AdminGetOrganizationResponse)(nil),          // 13: libops.v1.AdminGetOrganizationResponse
+	(*AdminCreateOrganizationRequest)(nil),        // 14: libops.v1.AdminCreateOrganizationRequest
+	(*AdminCreateOrganizationResponse)(nil),       // 15: libops.v1.AdminCreateOrganizationResponse
+	(*AdminUpdateOrganizationRequest)(nil),        // 16: libops.v1.AdminUpdateOrganizationRequest
+	(*AdminUpdateOrganizationResponse)(nil),       // 17: libops.v1.AdminUpdateOrganizationResponse
+	(*AdminDeleteOrganizationRequest)(nil),        // 18: libops.v1.AdminDeleteOrganizationRequest
+	(*AdminListOrganizationsRequest)(nil),         // 19: libops.v1.AdminListOrganizationsRequest
+	(*AdminListOrganizationsResponse)(nil),        // 20: libops.v1.AdminListOrganizationsResponse
+	(*AdminListOrganizationProjectsRequest)(nil),  // 21: libops.v1.AdminListOrganizationProjectsRequest
+	(*AdminListOrganizationProjectsResponse)(nil), // 22: libops.v1.AdminListOrganizationProjectsResponse
+	(*AdminGetSiteRequest)(nil),                   // 23: libops.v1.AdminGetSiteRequest
+	(*AdminGetSiteResponse)(nil),                  // 24: libops.v1.AdminGetSiteResponse
+	(*AdminCreateSiteRequest)(nil),                // 25: libops.v1.AdminCreateSiteRequest
+	(*AdminCreateSiteResponse)(nil),               // 26: libops.v1.AdminCreateSiteResponse
+	(*AdminUpdateSiteRequest)(nil),                // 27: libops.v1.AdminUpdateSiteRequest
+	(*AdminUpdateSiteResponse)(nil),               // 28: libops.v1.AdminUpdateSiteResponse
+	(*AdminDeleteSiteRequest)(nil),                // 29: libops.v1.AdminDeleteSiteRequest
+	(*AdminListSitesRequest)(nil),                 // 30: libops.v1.AdminListSitesRequest
+	(*AdminListSitesResponse)(nil),                // 31: libops.v1.AdminListSitesResponse
+	(*AdminListAllSitesRequest)(nil),              // 32: libops.v1.AdminListAllSitesRequest
+	(*AdminListAllSitesResponse)(nil),             // 33: libops.v1.AdminListAllSitesResponse
+	(*GetSiteSSHKeysRequest)(nil),                 // 34: libops.v1.GetSiteSSHKeysRequest
+	(*SSHKey)(nil),                                // 35: libops.v1.SSHKey
+	(*GetSiteSSHKeysResponse)(nil),                // 36: libops.v1.GetSiteSSHKeysResponse
+	(*GetSiteSecretsRequest)(nil),                 // 37: libops.v1.GetSiteSecretsRequest
+	(*Secret)(nil),                                // 38: libops.v1.Secret
+	(*GetSiteSecretsResponse)(nil),                // 39: libops.v1.GetSiteSecretsResponse
+	(*GetSiteFirewallRequest)(nil),                // 40: libops.v1.GetSiteFirewallRequest
+	(*FirewallRule)(nil),                          // 41: libops.v1.FirewallRule
+	(*GetSiteFirewallResponse)(nil),               // 42: libops.v1.GetSiteFirewallResponse
+	(*SiteCheckInRequest)(nil),                    // 43: libops.v1.SiteCheckInRequest
+	(*SiteCheckInResponse)(nil),                   // 44: libops.v1.SiteCheckInResponse
+	(*SyncManifestRequest)(nil),                   // 45: libops.v1.SyncManifestRequest
+	(*SyncManifestResponse)(nil),                  // 46: libops.v1.SyncManifestResponse
+	(*StateBlobs)(nil),                            // 47: libops.v1.StateBlobs
+	(*GetBlobRequest)(nil),                        // 48: libops.v1.GetBlobRequest
+	(*GetBlobResponse)(nil),                       // 49: libops.v1.GetBlobResponse
+	(*GetReconciliationRunRequest)(nil),           // 50: libops.v1.GetReconciliationRunRequest
+	(*GetReconciliationRunResponse)(nil),          // 51: libops.v1.GetReconciliationRunResponse
+	(*UpdateReconciliationStatusRequest)(nil),     // 52: libops.v1.UpdateReconciliationStatusRequest
+	(*UpdateReconciliationStatusResponse)(nil),    // 53: libops.v1.UpdateReconciliationStatusResponse
+	(*GenerateTerraformVarsRequest)(nil),          // 54: libops.v1.GenerateTerraformVarsRequest
+	(*GenerateTerraformVarsResponse)(nil),         // 55: libops.v1.GenerateTerraformVarsResponse
+	(*CheckConvergenceRequest)(nil),               // 56: libops.v1.CheckConvergenceRequest
+	(*CheckConvergenceResponse)(nil),              // 57: libops.v1.CheckConvergenceResponse
+	(*ConvergenceFinding)(nil),                    // 58: libops.v1.ConvergenceFinding
+	(*admin.AdminProjectConfig)(nil),              // 59: libops.v1.admin.AdminProjectConfig
+	(*fieldmaskpb.FieldMask)(nil),                 // 60: google.protobuf.FieldMask
+	(*admin.AdminFolderConfig)(nil),               // 61: libops.v1.admin.AdminFolderConfig
+	(*admin.AdminSiteConfig)(nil),                 // 62: libops.v1.admin.AdminSiteConfig
+	(*emptypb.Empty)(nil),                         // 63: google.protobuf.Empty
 }
 var file_libops_v1_admin_api_proto_depIdxs = []int32{
-	55, // 0: libops.v1.AdminGetProjectResponse.project:type_name -> libops.v1.admin.AdminProjectConfig
-	55, // 1: libops.v1.AdminCreateProjectRequest.project:type_name -> libops.v1.admin.AdminProjectConfig
-	55, // 2: libops.v1.AdminCreateProjectResponse.project:type_name -> libops.v1.admin.AdminProjectConfig
-	55, // 3: libops.v1.AdminUpdateProjectRequest.project:type_name -> libops.v1.admin.AdminProjectConfig
-	56, // 4: libops.v1.AdminUpdateProjectRequest.update_mask:type_name -> google.protobuf.FieldMask
-	55, // 5: libops.v1.AdminUpdateProjectResponse.project:type_name -> libops.v1.admin.AdminProjectConfig
-	55, // 6: libops.v1.AdminListProjectsResponse.projects:type_name -> libops.v1.admin.AdminProjectConfig
-	55, // 7: libops.v1.AdminListAllProjectsResponse.projects:type_name -> libops.v1.admin.AdminProjectConfig
-	57, // 8: libops.v1.AdminGetOrganizationResponse.folder:type_name -> libops.v1.admin.AdminFolderConfig
-	57, // 9: libops.v1.AdminCreateOrganizationRequest.folder:type_name -> libops.v1.admin.AdminFolderConfig
-	57, // 10: libops.v1.AdminCreateOrganizationResponse.folder:type_name -> libops.v1.admin.AdminFolderConfig
-	57, // 11: libops.v1.AdminUpdateOrganizationRequest.folder:type_name -> libops.v1.admin.AdminFolderConfig
-	56, // 12: libops.v1.AdminUpdateOrganizationRequest.update_mask:type_name -> google.protobuf.FieldMask
-	57, // 13: libops.v1.AdminUpdateOrganizationResponse.folder:type_name -> libops.v1.admin.AdminFolderConfig
-	57, // 14: libops.v1.AdminListOrganizationsResponse.organizations:type_name -> libops.v1.admin.AdminFolderConfig
-	58, // 15: libops.v1.AdminGetSiteResponse.site:type_name -> libops.v1.admin.AdminSiteConfig
-	58, // 16: libops.v1.AdminCreateSiteRequest.site:type_name -> libops.v1.admin.AdminSiteConfig
-	58, // 17: libops.v1.AdminCreateSiteResponse.site:type_name -> libops.v1.admin.AdminSiteConfig
-	58, // 18: libops.v1.AdminUpdateSiteRequest.site:type_name -> libops.v1.admin.AdminSiteConfig
-	56, // 19: libops.v1.AdminUpdateSiteRequest.update_mask:type_name -> google.protobuf.FieldMask
-	58, // 20: libops.v1.AdminUpdateSiteResponse.site:type_name -> libops.v1.admin.AdminSiteConfig
-	58, // 21: libops.v1.AdminListSitesResponse.sites:type_name -> libops.v1.admin.AdminSiteConfig
-	58, // 22: libops.v1.AdminListAllSitesResponse.sites:type_name -> libops.v1.admin.AdminSiteConfig
-	34, // 23: libops.v1.GetSiteSSHKeysResponse.keys:type_name -> libops.v1.SSHKey
-	37, // 24: libops.v1.GetSiteSecretsResponse.secrets:type_name -> libops.v1.Secret
-	40, // 25: libops.v1.GetSiteFirewallResponse.rules:type_name -> libops.v1.FirewallRule
-	46, // 26: libops.v1.SyncManifestResponse.blobs:type_name -> libops.v1.StateBlobs
-	11, // 27: libops.v1.AdminOrganizationService.GetOrganization:input_type -> libops.v1.AdminGetOrganizationRequest
-	13, // 28: libops.v1.AdminOrganizationService.CreateOrganization:input_type -> libops.v1.AdminCreateOrganizationRequest
-	15, // 29: libops.v1.AdminOrganizationService.UpdateOrganization:input_type -> libops.v1.AdminUpdateOrganizationRequest
-	17, // 30: libops.v1.AdminOrganizationService.DeleteOrganization:input_type -> libops.v1.AdminDeleteOrganizationRequest
-	18, // 31: libops.v1.AdminOrganizationService.ListOrganizations:input_type -> libops.v1.AdminListOrganizationsRequest
-	20, // 32: libops.v1.AdminOrganizationService.ListOrganizationProjects:input_type -> libops.v1.AdminListOrganizationProjectsRequest
-	29, // 33: libops.v1.AdminSiteService.ListSites:input_type -> libops.v1.AdminListSitesRequest
-	22, // 34: libops.v1.AdminSiteService.GetSite:input_type -> libops.v1.AdminGetSiteRequest
-	24, // 35: libops.v1.AdminSiteService.CreateSite:input_type -> libops.v1.AdminCreateSiteRequest
-	26, // 36: libops.v1.AdminSiteService.UpdateSite:input_type -> libops.v1.AdminUpdateSiteRequest
-	28, // 37: libops.v1.AdminSiteService.DeleteSite:input_type -> libops.v1.AdminDeleteSiteRequest
-	31, // 38: libops.v1.AdminSiteService.ListAllSites:input_type -> libops.v1.AdminListAllSitesRequest
-	33, // 39: libops.v1.AdminSiteService.GetSiteSSHKeys:input_type -> libops.v1.GetSiteSSHKeysRequest
-	36, // 40: libops.v1.AdminSiteService.GetSiteSecrets:input_type -> libops.v1.GetSiteSecretsRequest
-	39, // 41: libops.v1.AdminSiteService.GetSiteFirewall:input_type -> libops.v1.GetSiteFirewallRequest
-	42, // 42: libops.v1.AdminSiteService.SiteCheckIn:input_type -> libops.v1.SiteCheckInRequest
-	44, // 43: libops.v1.AdminSiteService.SyncManifest:input_type -> libops.v1.SyncManifestRequest
-	47, // 44: libops.v1.AdminSiteService.GetBlob:input_type -> libops.v1.GetBlobRequest
-	0,  // 45: libops.v1.AdminProjectService.GetProject:input_type -> libops.v1.AdminGetProjectRequest
-	2,  // 46: libops.v1.AdminProjectService.CreateProject:input_type -> libops.v1.AdminCreateProjectRequest
-	4,  // 47: libops.v1.AdminProjectService.UpdateProject:input_type -> libops.v1.AdminUpdateProjectRequest
-	6,  // 48: libops.v1.AdminProjectService.DeleteProject:input_type -> libops.v1.AdminDeleteProjectRequest
-	7,  // 49: libops.v1.AdminProjectService.ListProjects:input_type -> libops.v1.AdminListProjectsRequest
-	9,  // 50: libops.v1.AdminProjectService.ListAllProjects:input_type -> libops.v1.AdminListAllProjectsRequest
-	49, // 51: libops.v1.AdminReconciliationService.GetReconciliationRun:input_type -> libops.v1.GetReconciliationRunRequest
-	51, // 52: libops.v1.AdminReconciliationService.UpdateReconciliationStatus:input_type -> libops.v1.UpdateReconciliationStatusRequest
-	53, // 53: libops.v1.AdminReconciliationService.GenerateTerraformVars:input_type -> libops.v1.GenerateTerraformVarsRequest
-	12, // 54: libops.v1.AdminOrganizationService.GetOrganization:output_type -> libops.v1.AdminGetOrganizationResponse
-	14, // 55: libops.v1.AdminOrganizationService.CreateOrganization:output_type -> libops.v1.AdminCreateOrganizationResponse
-	16, // 56: libops.v1.AdminOrganizationService.UpdateOrganization:output_type -> libops.v1.AdminUpdateOrganizationResponse
-	59, // 57: libops.v1.AdminOrganizationService.DeleteOrganization:output_type -> google.protobuf.Empty
-	19, // 58: libops.v1.AdminOrganizationService.ListOrganizations:output_type -> libops.v1.AdminListOrganizationsResponse
-	21, // 59: libops.v1.AdminOrganizationService.ListOrganizationProjects:output_type -> libops.v1.AdminListOrganizationProjectsResponse
-	30, // 60: libops.v1.AdminSiteService.ListSites:output_type -> libops.v1.AdminListSitesResponse
-	23, // 61: libops.v1.AdminSiteService.GetSite:output_type -> libops.v1.AdminGetSiteResponse
-	25, // 62: libops.v1.AdminSiteService.CreateSite:output_type -> libops.v1.AdminCreateSiteResponse
-	27, // 63: libops.v1.AdminSiteService.UpdateSite:output_type -> libops.v1.AdminUpdateSiteResponse
-	59, // 64: libops.v1.AdminSiteService.DeleteSite:output_type -> google.protobuf.Empty
-	32, // 65: libops.v1.AdminSiteService.ListAllSites:output_type -> libops.v1.AdminListAllSitesResponse
-	35, // 66: libops.v1.AdminSiteService.GetSiteSSHKeys:output_type -> libops.v1.GetSiteSSHKeysResponse
-	38, // 67: libops.v1.AdminSiteService.GetSiteSecrets:output_type -> libops.v1.GetSiteSecretsResponse
-	41, // 68: libops.v1.AdminSiteService.GetSiteFirewall:output_type -> libops.v1.GetSiteFirewallResponse
-	43, // 69: libops.v1.AdminSiteService.SiteCheckIn:output_type -> libops.v1.SiteCheckInResponse
-	45, // 70: libops.v1.AdminSiteService.SyncManifest:output_type -> libops.v1.SyncManifestResponse
-	48, // 71: libops.v1.AdminSiteService.GetBlob:output_type -> libops.v1.GetBlobResponse
-	1,  // 72: libops.v1.AdminProjectService.GetProject:output_type -> libops.v1.AdminGetProjectResponse
-	3,  // 73: libops.v1.AdminProjectService.CreateProject:output_type -> libops.v1.AdminCreateProjectResponse
-	5,  // 74: libops.v1.AdminProjectService.UpdateProject:output_type -> libops.v1.AdminUpdateProjectResponse
-	59, // 75: libops.v1.AdminProjectService.DeleteProject:output_type -> google.protobuf.Empty
-	8,  // 76: libops.v1.AdminProjectService.ListProjects:output_type -> libops.v1.AdminListProjectsResponse
-	10, // 77: libops.v1.AdminProjectService.ListAllProjects:output_type -> libops.v1.AdminListAllProjectsResponse
-	50, // 78: libops.v1.AdminReconciliationService.GetReconciliationRun:output_type -> libops.v1.GetReconciliationRunResponse
-	52, // 79: libops.v1.AdminReconciliationService.UpdateReconciliationStatus:output_type -> libops.v1.UpdateReconciliationStatusResponse
-	54, // 80: libops.v1.AdminReconciliationService.GenerateTerraformVars:output_type -> libops.v1.GenerateTerraformVarsResponse
-	54, // [54:81] is the sub-list for method output_type
-	27, // [27:54] is the sub-list for method input_type
-	27, // [27:27] is the sub-list for extension type_name
-	27, // [27:27] is the sub-list for extension extendee
-	0,  // [0:27] is the sub-list for field type_name
+	59, // 0: libops.v1.AdminGetProjectResponse.project:type_name -> libops.v1.admin.AdminProjectConfig
+	59, // 1: libops.v1.AdminCreateProjectRequest.project:type_name -> libops.v1.admin.AdminProjectConfig
+	59, // 2: libops.v1.AdminCreateProjectResponse.project:type_name -> libops.v1.admin.AdminProjectConfig
+	59, // 3: libops.v1.AdminUpdateProjectRequest.project:type_name -> libops.v1.admin.AdminProjectConfig
+	60, // 4: libops.v1.AdminUpdateProjectRequest.update_mask:type_name -> google.protobuf.FieldMask
+	59, // 5: libops.v1.AdminUpdateProjectResponse.project:type_name -> libops.v1.admin.AdminProjectConfig
+	59, // 6: libops.v1.AdminListProjectsResponse.projects:type_name -> libops.v1.admin.AdminProjectConfig
+	59, // 7: libops.v1.AdminListAllProjectsResponse.projects:type_name -> libops.v1.admin.AdminProjectConfig
+	61, // 8: libops.v1.AdminGetOrganizationResponse.folder:type_name -> libops.v1.admin.AdminFolderConfig
+	61, // 9: libops.v1.AdminCreateOrganizationRequest.folder:type_name -> libops.v1.admin.AdminFolderConfig
+	61, // 10: libops.v1.AdminCreateOrganizationResponse.folder:type_name -> libops.v1.admin.AdminFolderConfig
+	61, // 11: libops.v1.AdminUpdateOrganizationRequest.folder:type_name -> libops.v1.admin.AdminFolderConfig
+	60, // 12: libops.v1.AdminUpdateOrganizationRequest.update_mask:type_name -> google.protobuf.FieldMask
+	61, // 13: libops.v1.AdminUpdateOrganizationResponse.folder:type_name -> libops.v1.admin.AdminFolderConfig
+	61, // 14: libops.v1.AdminListOrganizationsResponse.organizations:type_name -> libops.v1.admin.AdminFolderConfig
+	62, // 15: libops.v1.AdminGetSiteResponse.site:type_name -> libops.v1.admin.AdminSiteConfig
+	62, // 16: libops.v1.AdminCreateSiteRequest.site:type_name -> libops.v1.admin.AdminSiteConfig
+	62, // 17: libops.v1.AdminCreateSiteResponse.site:type_name -> libops.v1.admin.AdminSiteConfig
+	62, // 18: libops.v1.AdminUpdateSiteRequest.site:type_name -> libops.v1.admin.AdminSiteConfig
+	60, // 19: libops.v1.AdminUpdateSiteRequest.update_mask:type_name -> google.protobuf.FieldMask
+	62, // 20: libops.v1.AdminUpdateSiteResponse.site:type_name -> libops.v1.admin.AdminSiteConfig
+	62, // 21: libops.v1.AdminListSitesResponse.sites:type_name -> libops.v1.admin.AdminSiteConfig
+	62, // 22: libops.v1.AdminListAllSitesResponse.sites:type_name -> libops.v1.admin.AdminSiteConfig
+	35, // 23: libops.v1.GetSiteSSHKeysResponse.keys:type_name -> libops.v1.SSHKey
+	38, // 24: libops.v1.GetSiteSecretsResponse.secrets:type_name -> libops.v1.Secret
+	41, // 25: libops.v1.GetSiteFirewallResponse.rules:type_name -> libops.v1.FirewallRule
+	47, // 26: libops.v1.SyncManifestResponse.blobs:type_name -> libops.v1.StateBlobs
+	0,  // 27: libops.v1.CheckConvergenceRequest.resource_type:type_name -> libops.v1.ConvergenceResourceType
+	58, // 28: libops.v1.CheckConvergenceResponse.findings:type_name -> libops.v1.ConvergenceFinding
+	12, // 29: libops.v1.AdminOrganizationService.GetOrganization:input_type -> libops.v1.AdminGetOrganizationRequest
+	14, // 30: libops.v1.AdminOrganizationService.CreateOrganization:input_type -> libops.v1.AdminCreateOrganizationRequest
+	16, // 31: libops.v1.AdminOrganizationService.UpdateOrganization:input_type -> libops.v1.AdminUpdateOrganizationRequest
+	18, // 32: libops.v1.AdminOrganizationService.DeleteOrganization:input_type -> libops.v1.AdminDeleteOrganizationRequest
+	19, // 33: libops.v1.AdminOrganizationService.ListOrganizations:input_type -> libops.v1.AdminListOrganizationsRequest
+	21, // 34: libops.v1.AdminOrganizationService.ListOrganizationProjects:input_type -> libops.v1.AdminListOrganizationProjectsRequest
+	30, // 35: libops.v1.AdminSiteService.ListSites:input_type -> libops.v1.AdminListSitesRequest
+	23, // 36: libops.v1.AdminSiteService.GetSite:input_type -> libops.v1.AdminGetSiteRequest
+	25, // 37: libops.v1.AdminSiteService.CreateSite:input_type -> libops.v1.AdminCreateSiteRequest
+	27, // 38: libops.v1.AdminSiteService.UpdateSite:input_type -> libops.v1.AdminUpdateSiteRequest
+	29, // 39: libops.v1.AdminSiteService.DeleteSite:input_type -> libops.v1.AdminDeleteSiteRequest
+	32, // 40: libops.v1.AdminSiteService.ListAllSites:input_type -> libops.v1.AdminListAllSitesRequest
+	34, // 41: libops.v1.AdminSiteService.GetSiteSSHKeys:input_type -> libops.v1.GetSiteSSHKeysRequest
+	37, // 42: libops.v1.AdminSiteService.GetSiteSecrets:input_type -> libops.v1.GetSiteSecretsRequest
+	40, // 43: libops.v1.AdminSiteService.GetSiteFirewall:input_type -> libops.v1.GetSiteFirewallRequest
+	43, // 44: libops.v1.AdminSiteService.SiteCheckIn:input_type -> libops.v1.SiteCheckInRequest
+	45, // 45: libops.v1.AdminSiteService.SyncManifest:input_type -> libops.v1.SyncManifestRequest
+	48, // 46: libops.v1.AdminSiteService.GetBlob:input_type -> libops.v1.GetBlobRequest
+	1,  // 47: libops.v1.AdminProjectService.GetProject:input_type -> libops.v1.AdminGetProjectRequest
+	3,  // 48: libops.v1.AdminProjectService.CreateProject:input_type -> libops.v1.AdminCreateProjectRequest
+	5,  // 49: libops.v1.AdminProjectService.UpdateProject:input_type -> libops.v1.AdminUpdateProjectRequest
+	7,  // 50: libops.v1.AdminProjectService.DeleteProject:input_type -> libops.v1.AdminDeleteProjectRequest
+	8,  // 51: libops.v1.AdminProjectService.ListProjects:input_type -> libops.v1.AdminListProjectsRequest
+	10, // 52: libops.v1.AdminProjectService.ListAllProjects:input_type -> libops.v1.AdminListAllProjectsRequest
+	50, // 53: libops.v1.AdminReconciliationService.GetReconciliationRun:input_type -> libops.v1.GetReconciliationRunRequest
+	52, // 54: libops.v1.AdminReconciliationService.UpdateReconciliationStatus:input_type -> libops.v1.UpdateReconciliationStatusRequest
+	54, // 55: libops.v1.AdminReconciliationService.GenerateTerraformVars:input_type -> libops.v1.GenerateTerraformVarsRequest
+	56, // 56: libops.v1.AdminConvergenceService.CheckConvergence:input_type -> libops.v1.CheckConvergenceRequest
+	13, // 57: libops.v1.AdminOrganizationService.GetOrganization:output_type -> libops.v1.AdminGetOrganizationResponse
+	15, // 58: libops.v1.AdminOrganizationService.CreateOrganization:output_type -> libops.v1.AdminCreateOrganizationResponse
+	17, // 59: libops.v1.AdminOrganizationService.UpdateOrganization:output_type -> libops.v1.AdminUpdateOrganizationResponse
+	63, // 60: libops.v1.AdminOrganizationService.DeleteOrganization:output_type -> google.protobuf.Empty
+	20, // 61: libops.v1.AdminOrganizationService.ListOrganizations:output_type -> libops.v1.AdminListOrganizationsResponse
+	22, // 62: libops.v1.AdminOrganizationService.ListOrganizationProjects:output_type -> libops.v1.AdminListOrganizationProjectsResponse
+	31, // 63: libops.v1.AdminSiteService.ListSites:output_type -> libops.v1.AdminListSitesResponse
+	24, // 64: libops.v1.AdminSiteService.GetSite:output_type -> libops.v1.AdminGetSiteResponse
+	26, // 65: libops.v1.AdminSiteService.CreateSite:output_type -> libops.v1.AdminCreateSiteResponse
+	28, // 66: libops.v1.AdminSiteService.UpdateSite:output_type -> libops.v1.AdminUpdateSiteResponse
+	63, // 67: libops.v1.AdminSiteService.DeleteSite:output_type -> google.protobuf.Empty
+	33, // 68: libops.v1.AdminSiteService.ListAllSites:output_type -> libops.v1.AdminListAllSitesResponse
+	36, // 69: libops.v1.AdminSiteService.GetSiteSSHKeys:output_type -> libops.v1.GetSiteSSHKeysResponse
+	39, // 70: libops.v1.AdminSiteService.GetSiteSecrets:output_type -> libops.v1.GetSiteSecretsResponse
+	42, // 71: libops.v1.AdminSiteService.GetSiteFirewall:output_type -> libops.v1.GetSiteFirewallResponse
+	44, // 72: libops.v1.AdminSiteService.SiteCheckIn:output_type -> libops.v1.SiteCheckInResponse
+	46, // 73: libops.v1.AdminSiteService.SyncManifest:output_type -> libops.v1.SyncManifestResponse
+	49, // 74: libops.v1.AdminSiteService.GetBlob:output_type -> libops.v1.GetBlobResponse
+	2,  // 75: libops.v1.AdminProjectService.GetProject:output_type -> libops.v1.AdminGetProjectResponse
+	4,  // 76: libops.v1.AdminProjectService.CreateProject:output_type -> libops.v1.AdminCreateProjectResponse
+	6,  // 77: libops.v1.AdminProjectService.UpdateProject:output_type -> libops.v1.AdminUpdateProjectResponse
+	63, // 78: libops.v1.AdminProjectService.DeleteProject:output_type -> google.protobuf.Empty
+	9,  // 79: libops.v1.AdminProjectService.ListProjects:output_type -> libops.v1.AdminListProjectsResponse
+	11, // 80: libops.v1.AdminProjectService.ListAllProjects:output_type -> libops.v1.AdminListAllProjectsResponse
+	51, // 81: libops.v1.AdminReconciliationService.GetReconciliationRun:output_type -> libops.v1.GetReconciliationRunResponse
+	53, // 82: libops.v1.AdminReconciliationService.UpdateReconciliationStatus:output_type -> libops.v1.UpdateReconciliationStatusResponse
+	55, // 83: libops.v1.AdminReconciliationService.GenerateTerraformVars:output_type -> libops.v1.GenerateTerraformVarsResponse
+	57, // 84: libops.v1.AdminConvergenceService.CheckConvergence:output_type -> libops.v1.CheckConvergenceResponse
+	57, // [57:85] is the sub-list for method output_type
+	29, // [29:57] is the sub-list for method input_type
+	29, // [29:29] is the sub-list for extension type_name
+	29, // [29:29] is the sub-list for extension extendee
+	0,  // [0:29] is the sub-list for field type_name
 }
 
 func init() { file_libops_v1_admin_api_proto_init() }
@@ -3411,13 +3724,14 @@ func file_libops_v1_admin_api_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_libops_v1_admin_api_proto_rawDesc), len(file_libops_v1_admin_api_proto_rawDesc)),
-			NumEnums:      0,
-			NumMessages:   55,
+			NumEnums:      1,
+			NumMessages:   58,
 			NumExtensions: 0,
-			NumServices:   4,
+			NumServices:   5,
 		},
 		GoTypes:           file_libops_v1_admin_api_proto_goTypes,
 		DependencyIndexes: file_libops_v1_admin_api_proto_depIdxs,
+		EnumInfos:         file_libops_v1_admin_api_proto_enumTypes,
 		MessageInfos:      file_libops_v1_admin_api_proto_msgTypes,
 	}.Build()
 	File_libops_v1_admin_api_proto = out.File

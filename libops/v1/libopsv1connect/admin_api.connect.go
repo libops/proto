@@ -31,6 +31,8 @@ const (
 	// AdminReconciliationServiceName is the fully-qualified name of the AdminReconciliationService
 	// service.
 	AdminReconciliationServiceName = "libops.v1.AdminReconciliationService"
+	// AdminConvergenceServiceName is the fully-qualified name of the AdminConvergenceService service.
+	AdminConvergenceServiceName = "libops.v1.AdminConvergenceService"
 )
 
 // These constants are the fully-qualified names of the RPCs defined in this package. They're
@@ -122,6 +124,9 @@ const (
 	// AdminReconciliationServiceGenerateTerraformVarsProcedure is the fully-qualified name of the
 	// AdminReconciliationService's GenerateTerraformVars RPC.
 	AdminReconciliationServiceGenerateTerraformVarsProcedure = "/libops.v1.AdminReconciliationService/GenerateTerraformVars"
+	// AdminConvergenceServiceCheckConvergenceProcedure is the fully-qualified name of the
+	// AdminConvergenceService's CheckConvergence RPC.
+	AdminConvergenceServiceCheckConvergenceProcedure = "/libops.v1.AdminConvergenceService/CheckConvergence"
 )
 
 // AdminOrganizationServiceClient is a client for the libops.v1.AdminOrganizationService service.
@@ -1091,4 +1096,75 @@ func (UnimplementedAdminReconciliationServiceHandler) UpdateReconciliationStatus
 
 func (UnimplementedAdminReconciliationServiceHandler) GenerateTerraformVars(context.Context, *connect.Request[v1.GenerateTerraformVarsRequest]) (*connect.Response[v1.GenerateTerraformVarsResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("libops.v1.AdminReconciliationService.GenerateTerraformVars is not implemented"))
+}
+
+// AdminConvergenceServiceClient is a client for the libops.v1.AdminConvergenceService service.
+type AdminConvergenceServiceClient interface {
+	CheckConvergence(context.Context, *connect.Request[v1.CheckConvergenceRequest]) (*connect.Response[v1.CheckConvergenceResponse], error)
+}
+
+// NewAdminConvergenceServiceClient constructs a client for the libops.v1.AdminConvergenceService
+// service. By default, it uses the Connect protocol with the binary Protobuf Codec, asks for
+// gzipped responses, and sends uncompressed requests. To use the gRPC or gRPC-Web protocols, supply
+// the connect.WithGRPC() or connect.WithGRPCWeb() options.
+//
+// The URL supplied here should be the base URL for the Connect or gRPC server (for example,
+// http://api.acme.com or https://acme.com/grpc).
+func NewAdminConvergenceServiceClient(httpClient connect.HTTPClient, baseURL string, opts ...connect.ClientOption) AdminConvergenceServiceClient {
+	baseURL = strings.TrimRight(baseURL, "/")
+	adminConvergenceServiceMethods := v1.File_libops_v1_admin_api_proto.Services().ByName("AdminConvergenceService").Methods()
+	return &adminConvergenceServiceClient{
+		checkConvergence: connect.NewClient[v1.CheckConvergenceRequest, v1.CheckConvergenceResponse](
+			httpClient,
+			baseURL+AdminConvergenceServiceCheckConvergenceProcedure,
+			connect.WithSchema(adminConvergenceServiceMethods.ByName("CheckConvergence")),
+			connect.WithClientOptions(opts...),
+		),
+	}
+}
+
+// adminConvergenceServiceClient implements AdminConvergenceServiceClient.
+type adminConvergenceServiceClient struct {
+	checkConvergence *connect.Client[v1.CheckConvergenceRequest, v1.CheckConvergenceResponse]
+}
+
+// CheckConvergence calls libops.v1.AdminConvergenceService.CheckConvergence.
+func (c *adminConvergenceServiceClient) CheckConvergence(ctx context.Context, req *connect.Request[v1.CheckConvergenceRequest]) (*connect.Response[v1.CheckConvergenceResponse], error) {
+	return c.checkConvergence.CallUnary(ctx, req)
+}
+
+// AdminConvergenceServiceHandler is an implementation of the libops.v1.AdminConvergenceService
+// service.
+type AdminConvergenceServiceHandler interface {
+	CheckConvergence(context.Context, *connect.Request[v1.CheckConvergenceRequest]) (*connect.Response[v1.CheckConvergenceResponse], error)
+}
+
+// NewAdminConvergenceServiceHandler builds an HTTP handler from the service implementation. It
+// returns the path on which to mount the handler and the handler itself.
+//
+// By default, handlers support the Connect, gRPC, and gRPC-Web protocols with the binary Protobuf
+// and JSON codecs. They also support gzip compression.
+func NewAdminConvergenceServiceHandler(svc AdminConvergenceServiceHandler, opts ...connect.HandlerOption) (string, http.Handler) {
+	adminConvergenceServiceMethods := v1.File_libops_v1_admin_api_proto.Services().ByName("AdminConvergenceService").Methods()
+	adminConvergenceServiceCheckConvergenceHandler := connect.NewUnaryHandler(
+		AdminConvergenceServiceCheckConvergenceProcedure,
+		svc.CheckConvergence,
+		connect.WithSchema(adminConvergenceServiceMethods.ByName("CheckConvergence")),
+		connect.WithHandlerOptions(opts...),
+	)
+	return "/libops.v1.AdminConvergenceService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		switch r.URL.Path {
+		case AdminConvergenceServiceCheckConvergenceProcedure:
+			adminConvergenceServiceCheckConvergenceHandler.ServeHTTP(w, r)
+		default:
+			http.NotFound(w, r)
+		}
+	})
+}
+
+// UnimplementedAdminConvergenceServiceHandler returns CodeUnimplemented from all methods.
+type UnimplementedAdminConvergenceServiceHandler struct{}
+
+func (UnimplementedAdminConvergenceServiceHandler) CheckConvergence(context.Context, *connect.Request[v1.CheckConvergenceRequest]) (*connect.Response[v1.CheckConvergenceResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("libops.v1.AdminConvergenceService.CheckConvergence is not implemented"))
 }

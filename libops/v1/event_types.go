@@ -69,4 +69,6 @@ const (
 	EventTypeSiteDeploymentCreated   = "io.libops.site.deployment.created.v1"
 	EventTypeSiteDeploymentTriggered = "io.libops.site.deployment.triggered.v1"
 	EventTypeGithubPush              = "io.libops.github.push.v1"
+
+	EventTypeTerraformReconciliationRequested = "io.libops.terraform.reconciliation.requested.v1"
 )

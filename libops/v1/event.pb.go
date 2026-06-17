@@ -402,6 +402,98 @@ func (x *SiteReconciliationPubSubRequest) GetGitRef() string {
 	return ""
 }
 
+// TerraformReconciliationRequested asks the control plane to schedule a
+// Terraform pass for the current database state of a resource scope.
+type TerraformReconciliationRequested struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Resource type is organization, project, site, member, firewall, or cadence.
+	ResourceType string `protobuf:"bytes,1,opt,name=resource_type,json=resourceType,proto3" json:"resource_type,omitempty"`
+	// Resource public ID is the UUID of the requested resource when one exists.
+	ResourcePublicId string `protobuf:"bytes,2,opt,name=resource_public_id,json=resourcePublicId,proto3" json:"resource_public_id,omitempty"`
+	// Reason explains the convergence finding that requested the run.
+	Reason string `protobuf:"bytes,3,opt,name=reason,proto3" json:"reason,omitempty"`
+	// Cadence key makes automatic repair idempotent within a time bucket.
+	CadenceKey string `protobuf:"bytes,4,opt,name=cadence_key,json=cadenceKey,proto3" json:"cadence_key,omitempty"`
+	// Requested at records when the convergence check produced this event.
+	RequestedAt *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=requested_at,json=requestedAt,proto3" json:"requested_at,omitempty"`
+	// Modules is advisory; the event router derives authoritative modules from scope.
+	Modules       []string `protobuf:"bytes,6,rep,name=modules,proto3" json:"modules,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TerraformReconciliationRequested) Reset() {
+	*x = TerraformReconciliationRequested{}
+	mi := &file_libops_v1_event_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TerraformReconciliationRequested) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TerraformReconciliationRequested) ProtoMessage() {}
+
+func (x *TerraformReconciliationRequested) ProtoReflect() protoreflect.Message {
+	mi := &file_libops_v1_event_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TerraformReconciliationRequested.ProtoReflect.Descriptor instead.
+func (*TerraformReconciliationRequested) Descriptor() ([]byte, []int) {
+	return file_libops_v1_event_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *TerraformReconciliationRequested) GetResourceType() string {
+	if x != nil {
+		return x.ResourceType
+	}
+	return ""
+}
+
+func (x *TerraformReconciliationRequested) GetResourcePublicId() string {
+	if x != nil {
+		return x.ResourcePublicId
+	}
+	return ""
+}
+
+func (x *TerraformReconciliationRequested) GetReason() string {
+	if x != nil {
+		return x.Reason
+	}
+	return ""
+}
+
+func (x *TerraformReconciliationRequested) GetCadenceKey() string {
+	if x != nil {
+		return x.CadenceKey
+	}
+	return ""
+}
+
+func (x *TerraformReconciliationRequested) GetRequestedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.RequestedAt
+	}
+	return nil
+}
+
+func (x *TerraformReconciliationRequested) GetModules() []string {
+	if x != nil {
+		return x.Modules
+	}
+	return nil
+}
+
 var File_libops_v1_event_proto protoreflect.FileDescriptor
 
 const file_libops_v1_event_proto_rawDesc = "" +
@@ -450,7 +542,15 @@ const file_libops_v1_event_proto_rawDesc = "" +
 	"\tevent_ids\x18\x06 \x03(\tR\beventIds\x12\x1c\n" +
 	"\ttimestamp\x18\a \x01(\tR\ttimestamp\x12#\n" +
 	"\rdeployment_id\x18\b \x01(\tR\fdeploymentId\x12\x17\n" +
-	"\agit_ref\x18\t \x01(\tR\x06gitRefB\x8c\x01\n" +
+	"\agit_ref\x18\t \x01(\tR\x06gitRef\"\x87\x02\n" +
+	" TerraformReconciliationRequested\x12#\n" +
+	"\rresource_type\x18\x01 \x01(\tR\fresourceType\x12,\n" +
+	"\x12resource_public_id\x18\x02 \x01(\tR\x10resourcePublicId\x12\x16\n" +
+	"\x06reason\x18\x03 \x01(\tR\x06reason\x12\x1f\n" +
+	"\vcadence_key\x18\x04 \x01(\tR\n" +
+	"cadenceKey\x12=\n" +
+	"\frequested_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\vrequestedAt\x12\x18\n" +
+	"\amodules\x18\x06 \x03(\tR\amodulesB\x8c\x01\n" +
 	"\rcom.libops.v1B\n" +
 	"EventProtoP\x01Z*github.com/libops/proto/libops/v1;libopsv1\xa2\x02\x03LXX\xaa\x02\tLibops.V1\xca\x02\tLibops\\V1\xe2\x02\x15Libops\\V1\\GPBMetadata\xea\x02\n" +
 	"Libops::V1b\x06proto3"
@@ -467,21 +567,23 @@ func file_libops_v1_event_proto_rawDescGZIP() []byte {
 	return file_libops_v1_event_proto_rawDescData
 }
 
-var file_libops_v1_event_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_libops_v1_event_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_libops_v1_event_proto_goTypes = []any{
-	(*EventEnvelope)(nil),                   // 0: libops.v1.EventEnvelope
-	(*ControlPlanePubSubEnvelope)(nil),      // 1: libops.v1.ControlPlanePubSubEnvelope
-	(*SiteReconciliationPubSubRequest)(nil), // 2: libops.v1.SiteReconciliationPubSubRequest
-	(*timestamppb.Timestamp)(nil),           // 3: google.protobuf.Timestamp
+	(*EventEnvelope)(nil),                    // 0: libops.v1.EventEnvelope
+	(*ControlPlanePubSubEnvelope)(nil),       // 1: libops.v1.ControlPlanePubSubEnvelope
+	(*SiteReconciliationPubSubRequest)(nil),  // 2: libops.v1.SiteReconciliationPubSubRequest
+	(*TerraformReconciliationRequested)(nil), // 3: libops.v1.TerraformReconciliationRequested
+	(*timestamppb.Timestamp)(nil),            // 4: google.protobuf.Timestamp
 }
 var file_libops_v1_event_proto_depIdxs = []int32{
-	3, // 0: libops.v1.EventEnvelope.created_at:type_name -> google.protobuf.Timestamp
+	4, // 0: libops.v1.EventEnvelope.created_at:type_name -> google.protobuf.Timestamp
 	2, // 1: libops.v1.ControlPlanePubSubEnvelope.site_reconciliation:type_name -> libops.v1.SiteReconciliationPubSubRequest
-	2, // [2:2] is the sub-list for method output_type
-	2, // [2:2] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	4, // 2: libops.v1.TerraformReconciliationRequested.requested_at:type_name -> google.protobuf.Timestamp
+	3, // [3:3] is the sub-list for method output_type
+	3, // [3:3] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_libops_v1_event_proto_init() }
@@ -499,7 +601,7 @@ func file_libops_v1_event_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_libops_v1_event_proto_rawDesc), len(file_libops_v1_event_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
