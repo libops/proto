@@ -38,7 +38,9 @@ type AssistantChatRequest struct {
 	// Optional metadata for routing or model selection.
 	Metadata map[string]string `protobuf:"bytes,6,rep,name=metadata,proto3" json:"metadata,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
 	// Optional coding agent model selection.
-	AgentModel    string `protobuf:"bytes,7,opt,name=agent_model,json=agentModel,proto3" json:"agent_model,omitempty"`
+	AgentModel string `protobuf:"bytes,7,opt,name=agent_model,json=agentModel,proto3" json:"agent_model,omitempty"`
+	// Optional coding harness selection.
+	Harness       TaskHarness `protobuf:"varint,8,opt,name=harness,proto3,enum=libops.v1.TaskHarness" json:"harness,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -122,6 +124,13 @@ func (x *AssistantChatRequest) GetAgentModel() string {
 	return ""
 }
 
+func (x *AssistantChatRequest) GetHarness() TaskHarness {
+	if x != nil {
+		return x.Harness
+	}
+	return TaskHarness_TASK_HARNESS_UNSPECIFIED
+}
+
 // AssistantChatResponse returns the queued request details.
 type AssistantChatResponse struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
@@ -190,7 +199,7 @@ var File_libops_v1_assistant_api_proto protoreflect.FileDescriptor
 
 const file_libops_v1_assistant_api_proto_rawDesc = "" +
 	"\n" +
-	"\x1dlibops/v1/assistant_api.proto\x12\tlibops.v1\x1a\x1dlibops/v1/options/scope.proto\"\xe6\x02\n" +
+	"\x1dlibops/v1/assistant_api.proto\x12\tlibops.v1\x1a\x1dlibops/v1/options/scope.proto\x1a\x18libops/v1/task_api.proto\"\x98\x03\n" +
 	"\x14AssistantChatRequest\x12'\n" +
 	"\x0forganization_id\x18\x01 \x01(\tR\x0eorganizationId\x12\x1d\n" +
 	"\n" +
@@ -200,7 +209,8 @@ const file_libops_v1_assistant_api_proto_rawDesc = "" +
 	"\x11client_request_id\x18\x05 \x01(\tR\x0fclientRequestId\x12I\n" +
 	"\bmetadata\x18\x06 \x03(\v2-.libops.v1.AssistantChatRequest.MetadataEntryR\bmetadata\x12\x1f\n" +
 	"\vagent_model\x18\a \x01(\tR\n" +
-	"agentModel\x1a;\n" +
+	"agentModel\x120\n" +
+	"\aharness\x18\b \x01(\x0e2\x16.libops.v1.TaskHarnessR\aharness\x1a;\n" +
 	"\rMetadataEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"d\n" +
@@ -231,16 +241,18 @@ var file_libops_v1_assistant_api_proto_goTypes = []any{
 	(*AssistantChatRequest)(nil),  // 0: libops.v1.AssistantChatRequest
 	(*AssistantChatResponse)(nil), // 1: libops.v1.AssistantChatResponse
 	nil,                           // 2: libops.v1.AssistantChatRequest.MetadataEntry
+	(TaskHarness)(0),              // 3: libops.v1.TaskHarness
 }
 var file_libops_v1_assistant_api_proto_depIdxs = []int32{
 	2, // 0: libops.v1.AssistantChatRequest.metadata:type_name -> libops.v1.AssistantChatRequest.MetadataEntry
-	0, // 1: libops.v1.AssistantService.Chat:input_type -> libops.v1.AssistantChatRequest
-	1, // 2: libops.v1.AssistantService.Chat:output_type -> libops.v1.AssistantChatResponse
-	2, // [2:3] is the sub-list for method output_type
-	1, // [1:2] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	3, // 1: libops.v1.AssistantChatRequest.harness:type_name -> libops.v1.TaskHarness
+	0, // 2: libops.v1.AssistantService.Chat:input_type -> libops.v1.AssistantChatRequest
+	1, // 3: libops.v1.AssistantService.Chat:output_type -> libops.v1.AssistantChatResponse
+	3, // [3:4] is the sub-list for method output_type
+	2, // [2:3] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_libops_v1_assistant_api_proto_init() }
@@ -248,6 +260,7 @@ func file_libops_v1_assistant_api_proto_init() {
 	if File_libops_v1_assistant_api_proto != nil {
 		return
 	}
+	file_libops_v1_task_api_proto_init()
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{

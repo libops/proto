@@ -97,6 +97,15 @@ enum TaskResultType {
   TASK_RESULT_API_ACTION = 4;
 }
 
+enum TaskHarness {
+  TASK_HARNESS_UNSPECIFIED = 0;
+  TASK_HARNESS_CODEX = 1;
+  TASK_HARNESS_CLAUDE = 2;
+  TASK_HARNESS_PI = 3;
+  TASK_HARNESS_OPENCODE = 4;
+  TASK_HARNESS_GEMINI = 5;
+}
+
 message TaskLogEntry {
   google.protobuf.Timestamp timestamp = 1;
   string level = 2;
@@ -150,6 +159,7 @@ message Task {
   google.protobuf.Timestamp completed_at = 14;
   repeated TaskMessage messages = 15;
   string agent_model = 16;
+  TaskHarness harness = 17;
 }
 
 message TaskUsageBudget {
@@ -171,6 +181,7 @@ message CreateTaskRequest {
   string client_request_id = 5;
   google.protobuf.Struct metadata = 6;
   string agent_model = 7;
+  TaskHarness harness = 8;
 }
 
 message CreateTaskResponse {

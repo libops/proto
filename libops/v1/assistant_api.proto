@@ -3,6 +3,7 @@ syntax = "proto3";
 package libops.v1;
 
 import "libops/v1/options/scope.proto";
+import "libops/v1/task_api.proto";
 
 option go_package = "github.com/libops/proto/libops/v1;libopsv1";
 
@@ -36,6 +37,8 @@ message AssistantChatRequest {
   map<string, string> metadata = 6;
   // Optional coding agent model selection.
   string agent_model = 7;
+  // Optional coding harness selection.
+  TaskHarness harness = 8;
 }
 
 // AssistantChatResponse returns the queued request details.

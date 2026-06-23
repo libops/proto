@@ -73,6 +73,7 @@ func (x ConvergenceResourceType) Number() protoreflect.EnumNumber {
 	return protoreflect.EnumNumber(x)
 }
 
+// Deprecated: Use ConvergenceResourceType.Descriptor instead.
 func (ConvergenceResourceType) EnumDescriptor() ([]byte, []int) {
 	return file_libops_v1_admin_api_proto_rawDescGZIP(), []int{0}
 }
@@ -3052,6 +3053,7 @@ func (x *CheckConvergenceRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
+// Deprecated: Use CheckConvergenceRequest.ProtoReflect.Descriptor instead.
 func (*CheckConvergenceRequest) Descriptor() ([]byte, []int) {
 	return file_libops_v1_admin_api_proto_rawDescGZIP(), []int{55}
 }
@@ -3117,6 +3119,7 @@ func (x *CheckConvergenceResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
+// Deprecated: Use CheckConvergenceResponse.ProtoReflect.Descriptor instead.
 func (*CheckConvergenceResponse) Descriptor() ([]byte, []int) {
 	return file_libops_v1_admin_api_proto_rawDescGZIP(), []int{56}
 }
@@ -3175,6 +3178,7 @@ func (x *ConvergenceFinding) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
+// Deprecated: Use ConvergenceFinding.ProtoReflect.Descriptor instead.
 func (*ConvergenceFinding) Descriptor() ([]byte, []int) {
 	return file_libops_v1_admin_api_proto_rawDescGZIP(), []int{57}
 }

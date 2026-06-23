@@ -140,6 +140,64 @@ func (TaskResultType) EnumDescriptor() ([]byte, []int) {
 	return file_libops_v1_task_api_proto_rawDescGZIP(), []int{1}
 }
 
+type TaskHarness int32
+
+const (
+	TaskHarness_TASK_HARNESS_UNSPECIFIED TaskHarness = 0
+	TaskHarness_TASK_HARNESS_CODEX       TaskHarness = 1
+	TaskHarness_TASK_HARNESS_CLAUDE      TaskHarness = 2
+	TaskHarness_TASK_HARNESS_PI          TaskHarness = 3
+	TaskHarness_TASK_HARNESS_OPENCODE    TaskHarness = 4
+	TaskHarness_TASK_HARNESS_GEMINI      TaskHarness = 5
+)
+
+// Enum value maps for TaskHarness.
+var (
+	TaskHarness_name = map[int32]string{
+		0: "TASK_HARNESS_UNSPECIFIED",
+		1: "TASK_HARNESS_CODEX",
+		2: "TASK_HARNESS_CLAUDE",
+		3: "TASK_HARNESS_PI",
+		4: "TASK_HARNESS_OPENCODE",
+		5: "TASK_HARNESS_GEMINI",
+	}
+	TaskHarness_value = map[string]int32{
+		"TASK_HARNESS_UNSPECIFIED": 0,
+		"TASK_HARNESS_CODEX":       1,
+		"TASK_HARNESS_CLAUDE":      2,
+		"TASK_HARNESS_PI":          3,
+		"TASK_HARNESS_OPENCODE":    4,
+		"TASK_HARNESS_GEMINI":      5,
+	}
+)
+
+func (x TaskHarness) Enum() *TaskHarness {
+	p := new(TaskHarness)
+	*p = x
+	return p
+}
+
+func (x TaskHarness) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (TaskHarness) Descriptor() protoreflect.EnumDescriptor {
+	return file_libops_v1_task_api_proto_enumTypes[2].Descriptor()
+}
+
+func (TaskHarness) Type() protoreflect.EnumType {
+	return &file_libops_v1_task_api_proto_enumTypes[2]
+}
+
+func (x TaskHarness) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use TaskHarness.Descriptor instead.
+func (TaskHarness) EnumDescriptor() ([]byte, []int) {
+	return file_libops_v1_task_api_proto_rawDescGZIP(), []int{2}
+}
+
 type TaskLogEntry struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Timestamp     *timestamppb.Timestamp `protobuf:"bytes,1,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
@@ -506,6 +564,7 @@ type Task struct {
 	CompletedAt    *timestamppb.Timestamp `protobuf:"bytes,14,opt,name=completed_at,json=completedAt,proto3" json:"completed_at,omitempty"`
 	Messages       []*TaskMessage         `protobuf:"bytes,15,rep,name=messages,proto3" json:"messages,omitempty"`
 	AgentModel     string                 `protobuf:"bytes,16,opt,name=agent_model,json=agentModel,proto3" json:"agent_model,omitempty"`
+	Harness        TaskHarness            `protobuf:"varint,17,opt,name=harness,proto3,enum=libops.v1.TaskHarness" json:"harness,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -652,6 +711,13 @@ func (x *Task) GetAgentModel() string {
 	return ""
 }
 
+func (x *Task) GetHarness() TaskHarness {
+	if x != nil {
+		return x.Harness
+	}
+	return TaskHarness_TASK_HARNESS_UNSPECIFIED
+}
+
 type TaskUsageBudget struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	MetricKey     string                 `protobuf:"bytes,1,opt,name=metric_key,json=metricKey,proto3" json:"metric_key,omitempty"`
@@ -761,6 +827,7 @@ type CreateTaskRequest struct {
 	ClientRequestId string                 `protobuf:"bytes,5,opt,name=client_request_id,json=clientRequestId,proto3" json:"client_request_id,omitempty"`
 	Metadata        *structpb.Struct       `protobuf:"bytes,6,opt,name=metadata,proto3" json:"metadata,omitempty"`
 	AgentModel      string                 `protobuf:"bytes,7,opt,name=agent_model,json=agentModel,proto3" json:"agent_model,omitempty"`
+	Harness         TaskHarness            `protobuf:"varint,8,opt,name=harness,proto3,enum=libops.v1.TaskHarness" json:"harness,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
 }
@@ -842,6 +909,13 @@ func (x *CreateTaskRequest) GetAgentModel() string {
 		return x.AgentModel
 	}
 	return ""
+}
+
+func (x *CreateTaskRequest) GetHarness() TaskHarness {
+	if x != nil {
+		return x.Harness
+	}
+	return TaskHarness_TASK_HARNESS_UNSPECIFIED
 }
 
 type CreateTaskResponse struct {
@@ -1484,7 +1558,7 @@ const file_libops_v1_task_api_proto_rawDesc = "" +
 	"\x04path\x18\x02 \x01(\tR\x04path\x121\n" +
 	"\aheaders\x18\x03 \x01(\v2\x17.google.protobuf.StructR\aheaders\x12+\n" +
 	"\x04body\x18\x04 \x01(\v2\x17.google.protobuf.StructR\x04body\x12 \n" +
-	"\vdescription\x18\x05 \x01(\tR\vdescription\"\xe2\x05\n" +
+	"\vdescription\x18\x05 \x01(\tR\vdescription\"\x94\x06\n" +
 	"\x04Task\x12\x17\n" +
 	"\atask_id\x18\x01 \x01(\tR\x06taskId\x12'\n" +
 	"\x0forganization_id\x18\x02 \x01(\tR\x0eorganizationId\x12\x1d\n" +
@@ -1507,7 +1581,8 @@ const file_libops_v1_task_api_proto_rawDesc = "" +
 	"\fcompleted_at\x18\x0e \x01(\v2\x1a.google.protobuf.TimestampR\vcompletedAt\x122\n" +
 	"\bmessages\x18\x0f \x03(\v2\x16.libops.v1.TaskMessageR\bmessages\x12\x1f\n" +
 	"\vagent_model\x18\x10 \x01(\tR\n" +
-	"agentModel\"\xa2\x02\n" +
+	"agentModel\x120\n" +
+	"\aharness\x18\x11 \x01(\x0e2\x16.libops.v1.TaskHarnessR\aharness\"\xa2\x02\n" +
 	"\x0fTaskUsageBudget\x12\x1d\n" +
 	"\n" +
 	"metric_key\x18\x01 \x01(\tR\tmetricKey\x12\x16\n" +
@@ -1518,7 +1593,7 @@ const file_libops_v1_task_api_proto_rawDesc = "" +
 	"\fperiod_start\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\vperiodStart\x129\n" +
 	"\n" +
 	"period_end\x18\a \x01(\v2\x1a.google.protobuf.TimestampR\tperiodEnd\x12\x16\n" +
-	"\x06source\x18\b \x01(\tR\x06source\"\x8e\x02\n" +
+	"\x06source\x18\b \x01(\tR\x06source\"\xc0\x02\n" +
 	"\x11CreateTaskRequest\x12'\n" +
 	"\x0forganization_id\x18\x01 \x01(\tR\x0eorganizationId\x12\x1d\n" +
 	"\n" +
@@ -1528,7 +1603,8 @@ const file_libops_v1_task_api_proto_rawDesc = "" +
 	"\x11client_request_id\x18\x05 \x01(\tR\x0fclientRequestId\x123\n" +
 	"\bmetadata\x18\x06 \x01(\v2\x17.google.protobuf.StructR\bmetadata\x12\x1f\n" +
 	"\vagent_model\x18\a \x01(\tR\n" +
-	"agentModel\"9\n" +
+	"agentModel\x120\n" +
+	"\aharness\x18\b \x01(\x0e2\x16.libops.v1.TaskHarnessR\aharness\"9\n" +
 	"\x12CreateTaskResponse\x12#\n" +
 	"\x04task\x18\x01 \x01(\v2\x0f.libops.v1.TaskR\x04task\"R\n" +
 	"\x0eGetTaskRequest\x12'\n" +
@@ -1582,7 +1658,14 @@ const file_libops_v1_task_api_proto_rawDesc = "" +
 	"\x1bTASK_RESULT_PROJECT_CREATED\x10\x01\x12\x1a\n" +
 	"\x16TASK_RESULT_PR_CREATED\x10\x02\x12\x1a\n" +
 	"\x16TASK_RESULT_DEPLOYMENT\x10\x03\x12\x1a\n" +
-	"\x16TASK_RESULT_API_ACTION\x10\x042\xf7\x05\n" +
+	"\x16TASK_RESULT_API_ACTION\x10\x04*\xa5\x01\n" +
+	"\vTaskHarness\x12\x1c\n" +
+	"\x18TASK_HARNESS_UNSPECIFIED\x10\x00\x12\x16\n" +
+	"\x12TASK_HARNESS_CODEX\x10\x01\x12\x17\n" +
+	"\x13TASK_HARNESS_CLAUDE\x10\x02\x12\x13\n" +
+	"\x0fTASK_HARNESS_PI\x10\x03\x12\x19\n" +
+	"\x15TASK_HARNESS_OPENCODE\x10\x04\x12\x17\n" +
+	"\x13TASK_HARNESS_GEMINI\x10\x052\xf7\x05\n" +
 	"\vTaskService\x12z\n" +
 	"\n" +
 	"CreateTask\x12\x1c.libops.v1.CreateTaskRequest\x1a\x1d.libops.v1.CreateTaskResponse\"/\x92\xb5\x18+\b\x03\x10\x02\x18\x01\"\x12write:organization*\x0forganization_id\x12s\n" +
@@ -1608,84 +1691,87 @@ func file_libops_v1_task_api_proto_rawDescGZIP() []byte {
 	return file_libops_v1_task_api_proto_rawDescData
 }
 
-var file_libops_v1_task_api_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
+var file_libops_v1_task_api_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
 var file_libops_v1_task_api_proto_msgTypes = make([]protoimpl.MessageInfo, 19)
 var file_libops_v1_task_api_proto_goTypes = []any{
 	(TaskStatus)(0),               // 0: libops.v1.TaskStatus
 	(TaskResultType)(0),           // 1: libops.v1.TaskResultType
-	(*TaskLogEntry)(nil),          // 2: libops.v1.TaskLogEntry
-	(*TaskInput)(nil),             // 3: libops.v1.TaskInput
-	(*TaskMessage)(nil),           // 4: libops.v1.TaskMessage
-	(*TaskResult)(nil),            // 5: libops.v1.TaskResult
-	(*TaskApiAction)(nil),         // 6: libops.v1.TaskApiAction
-	(*Task)(nil),                  // 7: libops.v1.Task
-	(*TaskUsageBudget)(nil),       // 8: libops.v1.TaskUsageBudget
-	(*CreateTaskRequest)(nil),     // 9: libops.v1.CreateTaskRequest
-	(*CreateTaskResponse)(nil),    // 10: libops.v1.CreateTaskResponse
-	(*GetTaskRequest)(nil),        // 11: libops.v1.GetTaskRequest
-	(*GetTaskResponse)(nil),       // 12: libops.v1.GetTaskResponse
-	(*ListTasksRequest)(nil),      // 13: libops.v1.ListTasksRequest
-	(*ListTasksResponse)(nil),     // 14: libops.v1.ListTasksResponse
-	(*UpdateTaskRequest)(nil),     // 15: libops.v1.UpdateTaskRequest
-	(*UpdateTaskResponse)(nil),    // 16: libops.v1.UpdateTaskResponse
-	(*CancelTaskRequest)(nil),     // 17: libops.v1.CancelTaskRequest
-	(*CancelTaskResponse)(nil),    // 18: libops.v1.CancelTaskResponse
-	(*AppendTaskLogRequest)(nil),  // 19: libops.v1.AppendTaskLogRequest
-	(*AppendTaskLogResponse)(nil), // 20: libops.v1.AppendTaskLogResponse
-	(*timestamppb.Timestamp)(nil), // 21: google.protobuf.Timestamp
-	(*structpb.Struct)(nil),       // 22: google.protobuf.Struct
+	(TaskHarness)(0),              // 2: libops.v1.TaskHarness
+	(*TaskLogEntry)(nil),          // 3: libops.v1.TaskLogEntry
+	(*TaskInput)(nil),             // 4: libops.v1.TaskInput
+	(*TaskMessage)(nil),           // 5: libops.v1.TaskMessage
+	(*TaskResult)(nil),            // 6: libops.v1.TaskResult
+	(*TaskApiAction)(nil),         // 7: libops.v1.TaskApiAction
+	(*Task)(nil),                  // 8: libops.v1.Task
+	(*TaskUsageBudget)(nil),       // 9: libops.v1.TaskUsageBudget
+	(*CreateTaskRequest)(nil),     // 10: libops.v1.CreateTaskRequest
+	(*CreateTaskResponse)(nil),    // 11: libops.v1.CreateTaskResponse
+	(*GetTaskRequest)(nil),        // 12: libops.v1.GetTaskRequest
+	(*GetTaskResponse)(nil),       // 13: libops.v1.GetTaskResponse
+	(*ListTasksRequest)(nil),      // 14: libops.v1.ListTasksRequest
+	(*ListTasksResponse)(nil),     // 15: libops.v1.ListTasksResponse
+	(*UpdateTaskRequest)(nil),     // 16: libops.v1.UpdateTaskRequest
+	(*UpdateTaskResponse)(nil),    // 17: libops.v1.UpdateTaskResponse
+	(*CancelTaskRequest)(nil),     // 18: libops.v1.CancelTaskRequest
+	(*CancelTaskResponse)(nil),    // 19: libops.v1.CancelTaskResponse
+	(*AppendTaskLogRequest)(nil),  // 20: libops.v1.AppendTaskLogRequest
+	(*AppendTaskLogResponse)(nil), // 21: libops.v1.AppendTaskLogResponse
+	(*timestamppb.Timestamp)(nil), // 22: google.protobuf.Timestamp
+	(*structpb.Struct)(nil),       // 23: google.protobuf.Struct
 }
 var file_libops_v1_task_api_proto_depIdxs = []int32{
-	21, // 0: libops.v1.TaskLogEntry.timestamp:type_name -> google.protobuf.Timestamp
-	22, // 1: libops.v1.TaskLogEntry.attributes:type_name -> google.protobuf.Struct
-	22, // 2: libops.v1.TaskInput.fields:type_name -> google.protobuf.Struct
-	21, // 3: libops.v1.TaskMessage.created_at:type_name -> google.protobuf.Timestamp
+	22, // 0: libops.v1.TaskLogEntry.timestamp:type_name -> google.protobuf.Timestamp
+	23, // 1: libops.v1.TaskLogEntry.attributes:type_name -> google.protobuf.Struct
+	23, // 2: libops.v1.TaskInput.fields:type_name -> google.protobuf.Struct
+	22, // 3: libops.v1.TaskMessage.created_at:type_name -> google.protobuf.Timestamp
 	1,  // 4: libops.v1.TaskResult.type:type_name -> libops.v1.TaskResultType
-	22, // 5: libops.v1.TaskResult.metadata:type_name -> google.protobuf.Struct
-	6,  // 6: libops.v1.TaskResult.api_action:type_name -> libops.v1.TaskApiAction
-	22, // 7: libops.v1.TaskApiAction.headers:type_name -> google.protobuf.Struct
-	22, // 8: libops.v1.TaskApiAction.body:type_name -> google.protobuf.Struct
+	23, // 5: libops.v1.TaskResult.metadata:type_name -> google.protobuf.Struct
+	7,  // 6: libops.v1.TaskResult.api_action:type_name -> libops.v1.TaskApiAction
+	23, // 7: libops.v1.TaskApiAction.headers:type_name -> google.protobuf.Struct
+	23, // 8: libops.v1.TaskApiAction.body:type_name -> google.protobuf.Struct
 	0,  // 9: libops.v1.Task.status:type_name -> libops.v1.TaskStatus
-	2,  // 10: libops.v1.Task.logs:type_name -> libops.v1.TaskLogEntry
-	5,  // 11: libops.v1.Task.results:type_name -> libops.v1.TaskResult
-	3,  // 12: libops.v1.Task.input_request:type_name -> libops.v1.TaskInput
-	3,  // 13: libops.v1.Task.input_response:type_name -> libops.v1.TaskInput
-	21, // 14: libops.v1.Task.created_at:type_name -> google.protobuf.Timestamp
-	21, // 15: libops.v1.Task.updated_at:type_name -> google.protobuf.Timestamp
-	21, // 16: libops.v1.Task.started_at:type_name -> google.protobuf.Timestamp
-	21, // 17: libops.v1.Task.completed_at:type_name -> google.protobuf.Timestamp
-	4,  // 18: libops.v1.Task.messages:type_name -> libops.v1.TaskMessage
-	21, // 19: libops.v1.TaskUsageBudget.period_start:type_name -> google.protobuf.Timestamp
-	21, // 20: libops.v1.TaskUsageBudget.period_end:type_name -> google.protobuf.Timestamp
-	22, // 21: libops.v1.CreateTaskRequest.metadata:type_name -> google.protobuf.Struct
-	7,  // 22: libops.v1.CreateTaskResponse.task:type_name -> libops.v1.Task
-	7,  // 23: libops.v1.GetTaskResponse.task:type_name -> libops.v1.Task
-	7,  // 24: libops.v1.ListTasksResponse.tasks:type_name -> libops.v1.Task
-	8,  // 25: libops.v1.ListTasksResponse.task_usage:type_name -> libops.v1.TaskUsageBudget
-	0,  // 26: libops.v1.UpdateTaskRequest.status:type_name -> libops.v1.TaskStatus
-	3,  // 27: libops.v1.UpdateTaskRequest.input_request:type_name -> libops.v1.TaskInput
-	3,  // 28: libops.v1.UpdateTaskRequest.input_response:type_name -> libops.v1.TaskInput
-	5,  // 29: libops.v1.UpdateTaskRequest.results:type_name -> libops.v1.TaskResult
-	7,  // 30: libops.v1.UpdateTaskResponse.task:type_name -> libops.v1.Task
-	7,  // 31: libops.v1.CancelTaskResponse.task:type_name -> libops.v1.Task
-	2,  // 32: libops.v1.AppendTaskLogRequest.entry:type_name -> libops.v1.TaskLogEntry
-	9,  // 33: libops.v1.TaskService.CreateTask:input_type -> libops.v1.CreateTaskRequest
-	11, // 34: libops.v1.TaskService.GetTask:input_type -> libops.v1.GetTaskRequest
-	13, // 35: libops.v1.TaskService.ListTasks:input_type -> libops.v1.ListTasksRequest
-	15, // 36: libops.v1.TaskService.UpdateTask:input_type -> libops.v1.UpdateTaskRequest
-	17, // 37: libops.v1.TaskService.CancelTask:input_type -> libops.v1.CancelTaskRequest
-	19, // 38: libops.v1.TaskService.AppendTaskLog:input_type -> libops.v1.AppendTaskLogRequest
-	10, // 39: libops.v1.TaskService.CreateTask:output_type -> libops.v1.CreateTaskResponse
-	12, // 40: libops.v1.TaskService.GetTask:output_type -> libops.v1.GetTaskResponse
-	14, // 41: libops.v1.TaskService.ListTasks:output_type -> libops.v1.ListTasksResponse
-	16, // 42: libops.v1.TaskService.UpdateTask:output_type -> libops.v1.UpdateTaskResponse
-	18, // 43: libops.v1.TaskService.CancelTask:output_type -> libops.v1.CancelTaskResponse
-	20, // 44: libops.v1.TaskService.AppendTaskLog:output_type -> libops.v1.AppendTaskLogResponse
-	39, // [39:45] is the sub-list for method output_type
-	33, // [33:39] is the sub-list for method input_type
-	33, // [33:33] is the sub-list for extension type_name
-	33, // [33:33] is the sub-list for extension extendee
-	0,  // [0:33] is the sub-list for field type_name
+	3,  // 10: libops.v1.Task.logs:type_name -> libops.v1.TaskLogEntry
+	6,  // 11: libops.v1.Task.results:type_name -> libops.v1.TaskResult
+	4,  // 12: libops.v1.Task.input_request:type_name -> libops.v1.TaskInput
+	4,  // 13: libops.v1.Task.input_response:type_name -> libops.v1.TaskInput
+	22, // 14: libops.v1.Task.created_at:type_name -> google.protobuf.Timestamp
+	22, // 15: libops.v1.Task.updated_at:type_name -> google.protobuf.Timestamp
+	22, // 16: libops.v1.Task.started_at:type_name -> google.protobuf.Timestamp
+	22, // 17: libops.v1.Task.completed_at:type_name -> google.protobuf.Timestamp
+	5,  // 18: libops.v1.Task.messages:type_name -> libops.v1.TaskMessage
+	2,  // 19: libops.v1.Task.harness:type_name -> libops.v1.TaskHarness
+	22, // 20: libops.v1.TaskUsageBudget.period_start:type_name -> google.protobuf.Timestamp
+	22, // 21: libops.v1.TaskUsageBudget.period_end:type_name -> google.protobuf.Timestamp
+	23, // 22: libops.v1.CreateTaskRequest.metadata:type_name -> google.protobuf.Struct
+	2,  // 23: libops.v1.CreateTaskRequest.harness:type_name -> libops.v1.TaskHarness
+	8,  // 24: libops.v1.CreateTaskResponse.task:type_name -> libops.v1.Task
+	8,  // 25: libops.v1.GetTaskResponse.task:type_name -> libops.v1.Task
+	8,  // 26: libops.v1.ListTasksResponse.tasks:type_name -> libops.v1.Task
+	9,  // 27: libops.v1.ListTasksResponse.task_usage:type_name -> libops.v1.TaskUsageBudget
+	0,  // 28: libops.v1.UpdateTaskRequest.status:type_name -> libops.v1.TaskStatus
+	4,  // 29: libops.v1.UpdateTaskRequest.input_request:type_name -> libops.v1.TaskInput
+	4,  // 30: libops.v1.UpdateTaskRequest.input_response:type_name -> libops.v1.TaskInput
+	6,  // 31: libops.v1.UpdateTaskRequest.results:type_name -> libops.v1.TaskResult
+	8,  // 32: libops.v1.UpdateTaskResponse.task:type_name -> libops.v1.Task
+	8,  // 33: libops.v1.CancelTaskResponse.task:type_name -> libops.v1.Task
+	3,  // 34: libops.v1.AppendTaskLogRequest.entry:type_name -> libops.v1.TaskLogEntry
+	10, // 35: libops.v1.TaskService.CreateTask:input_type -> libops.v1.CreateTaskRequest
+	12, // 36: libops.v1.TaskService.GetTask:input_type -> libops.v1.GetTaskRequest
+	14, // 37: libops.v1.TaskService.ListTasks:input_type -> libops.v1.ListTasksRequest
+	16, // 38: libops.v1.TaskService.UpdateTask:input_type -> libops.v1.UpdateTaskRequest
+	18, // 39: libops.v1.TaskService.CancelTask:input_type -> libops.v1.CancelTaskRequest
+	20, // 40: libops.v1.TaskService.AppendTaskLog:input_type -> libops.v1.AppendTaskLogRequest
+	11, // 41: libops.v1.TaskService.CreateTask:output_type -> libops.v1.CreateTaskResponse
+	13, // 42: libops.v1.TaskService.GetTask:output_type -> libops.v1.GetTaskResponse
+	15, // 43: libops.v1.TaskService.ListTasks:output_type -> libops.v1.ListTasksResponse
+	17, // 44: libops.v1.TaskService.UpdateTask:output_type -> libops.v1.UpdateTaskResponse
+	19, // 45: libops.v1.TaskService.CancelTask:output_type -> libops.v1.CancelTaskResponse
+	21, // 46: libops.v1.TaskService.AppendTaskLog:output_type -> libops.v1.AppendTaskLogResponse
+	41, // [41:47] is the sub-list for method output_type
+	35, // [35:41] is the sub-list for method input_type
+	35, // [35:35] is the sub-list for extension type_name
+	35, // [35:35] is the sub-list for extension extendee
+	0,  // [0:35] is the sub-list for field type_name
 }
 
 func init() { file_libops_v1_task_api_proto_init() }
@@ -1698,7 +1784,7 @@ func file_libops_v1_task_api_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_libops_v1_task_api_proto_rawDesc), len(file_libops_v1_task_api_proto_rawDesc)),
-			NumEnums:      2,
+			NumEnums:      3,
 			NumMessages:   19,
 			NumExtensions: 0,
 			NumServices:   1,
