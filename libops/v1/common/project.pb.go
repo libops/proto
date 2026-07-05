@@ -22,6 +22,58 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type ProjectRuntimeRole int32
+
+const (
+	ProjectRuntimeRole_PROJECT_RUNTIME_ROLE_UNSPECIFIED ProjectRuntimeRole = 0
+	ProjectRuntimeRole_PROJECT_RUNTIME_ROLE_PRODUCTION  ProjectRuntimeRole = 1
+	ProjectRuntimeRole_PROJECT_RUNTIME_ROLE_EPHEMERAL   ProjectRuntimeRole = 2
+	ProjectRuntimeRole_PROJECT_RUNTIME_ROLE_CUSTOM      ProjectRuntimeRole = 3
+)
+
+// Enum value maps for ProjectRuntimeRole.
+var (
+	ProjectRuntimeRole_name = map[int32]string{
+		0: "PROJECT_RUNTIME_ROLE_UNSPECIFIED",
+		1: "PROJECT_RUNTIME_ROLE_PRODUCTION",
+		2: "PROJECT_RUNTIME_ROLE_EPHEMERAL",
+		3: "PROJECT_RUNTIME_ROLE_CUSTOM",
+	}
+	ProjectRuntimeRole_value = map[string]int32{
+		"PROJECT_RUNTIME_ROLE_UNSPECIFIED": 0,
+		"PROJECT_RUNTIME_ROLE_PRODUCTION":  1,
+		"PROJECT_RUNTIME_ROLE_EPHEMERAL":   2,
+		"PROJECT_RUNTIME_ROLE_CUSTOM":      3,
+	}
+)
+
+func (x ProjectRuntimeRole) Enum() *ProjectRuntimeRole {
+	p := new(ProjectRuntimeRole)
+	*p = x
+	return p
+}
+
+func (x ProjectRuntimeRole) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (ProjectRuntimeRole) Descriptor() protoreflect.EnumDescriptor {
+	return file_libops_v1_common_project_proto_enumTypes[0].Descriptor()
+}
+
+func (ProjectRuntimeRole) Type() protoreflect.EnumType {
+	return &file_libops_v1_common_project_proto_enumTypes[0]
+}
+
+func (x ProjectRuntimeRole) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use ProjectRuntimeRole.Descriptor instead.
+func (ProjectRuntimeRole) EnumDescriptor() ([]byte, []int) {
+	return file_libops_v1_common_project_proto_rawDescGZIP(), []int{0}
+}
+
 type PromoteStrategy int32
 
 const (
@@ -55,11 +107,11 @@ func (x PromoteStrategy) String() string {
 }
 
 func (PromoteStrategy) Descriptor() protoreflect.EnumDescriptor {
-	return file_libops_v1_common_project_proto_enumTypes[0].Descriptor()
+	return file_libops_v1_common_project_proto_enumTypes[1].Descriptor()
 }
 
 func (PromoteStrategy) Type() protoreflect.EnumType {
-	return &file_libops_v1_common_project_proto_enumTypes[0]
+	return &file_libops_v1_common_project_proto_enumTypes[1]
 }
 
 func (x PromoteStrategy) Number() protoreflect.EnumNumber {
@@ -68,7 +120,7 @@ func (x PromoteStrategy) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use PromoteStrategy.Descriptor instead.
 func (PromoteStrategy) EnumDescriptor() ([]byte, []int) {
-	return file_libops_v1_common_project_proto_rawDescGZIP(), []int{0}
+	return file_libops_v1_common_project_proto_rawDescGZIP(), []int{1}
 }
 
 // ProjectConfig is the organization-facing project configuration
@@ -209,6 +261,158 @@ func (x *ProjectConfig) GetStatus() Status {
 	return Status_STATUS_UNSPECIFIED
 }
 
+// ProjectRuntimeConfig describes one VM/runtime host inside a project.
+// Sites are assigned to a runtime so multiple apps can share a VM.
+type ProjectRuntimeConfig struct {
+	state     protoimpl.MessageState `protogen:"open.v1"`
+	RuntimeId string                 `protobuf:"bytes,1,opt,name=runtime_id,json=runtimeId,proto3" json:"runtime_id,omitempty"`
+	ProjectId string                 `protobuf:"bytes,2,opt,name=project_id,json=projectId,proto3" json:"project_id,omitempty"`
+	Name      string                 `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+	Role      ProjectRuntimeRole     `protobuf:"varint,4,opt,name=role,proto3,enum=libops.v1.common.ProjectRuntimeRole" json:"role,omitempty"`
+	// GCP runtime placement and host configuration.
+	Region      string `protobuf:"bytes,5,opt,name=region,proto3" json:"region,omitempty"`
+	Zone        string `protobuf:"bytes,6,opt,name=zone,proto3" json:"zone,omitempty"`
+	MachineType string `protobuf:"bytes,7,opt,name=machine_type,json=machineType,proto3" json:"machine_type,omitempty"`
+	DiskSizeGb  int32  `protobuf:"varint,8,opt,name=disk_size_gb,json=diskSizeGb,proto3" json:"disk_size_gb,omitempty"`
+	Os          string `protobuf:"bytes,9,opt,name=os,proto3" json:"os,omitempty"`
+	DiskType    string `protobuf:"bytes,10,opt,name=disk_type,json=diskType,proto3" json:"disk_type,omitempty"`
+	// Runtime host identity, populated by orchestration.
+	GcpInstanceName string `protobuf:"bytes,11,opt,name=gcp_instance_name,json=gcpInstanceName,proto3" json:"gcp_instance_name,omitempty"`
+	GcpExternalIp   string `protobuf:"bytes,12,opt,name=gcp_external_ip,json=gcpExternalIp,proto3" json:"gcp_external_ip,omitempty"`
+	GcpInternalIp   string `protobuf:"bytes,13,opt,name=gcp_internal_ip,json=gcpInternalIp,proto3" json:"gcp_internal_ip,omitempty"`
+	Status          Status `protobuf:"varint,16,opt,name=status,proto3,enum=libops.v1.common.Status" json:"status,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *ProjectRuntimeConfig) Reset() {
+	*x = ProjectRuntimeConfig{}
+	mi := &file_libops_v1_common_project_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ProjectRuntimeConfig) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ProjectRuntimeConfig) ProtoMessage() {}
+
+func (x *ProjectRuntimeConfig) ProtoReflect() protoreflect.Message {
+	mi := &file_libops_v1_common_project_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ProjectRuntimeConfig.ProtoReflect.Descriptor instead.
+func (*ProjectRuntimeConfig) Descriptor() ([]byte, []int) {
+	return file_libops_v1_common_project_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *ProjectRuntimeConfig) GetRuntimeId() string {
+	if x != nil {
+		return x.RuntimeId
+	}
+	return ""
+}
+
+func (x *ProjectRuntimeConfig) GetProjectId() string {
+	if x != nil {
+		return x.ProjectId
+	}
+	return ""
+}
+
+func (x *ProjectRuntimeConfig) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *ProjectRuntimeConfig) GetRole() ProjectRuntimeRole {
+	if x != nil {
+		return x.Role
+	}
+	return ProjectRuntimeRole_PROJECT_RUNTIME_ROLE_UNSPECIFIED
+}
+
+func (x *ProjectRuntimeConfig) GetRegion() string {
+	if x != nil {
+		return x.Region
+	}
+	return ""
+}
+
+func (x *ProjectRuntimeConfig) GetZone() string {
+	if x != nil {
+		return x.Zone
+	}
+	return ""
+}
+
+func (x *ProjectRuntimeConfig) GetMachineType() string {
+	if x != nil {
+		return x.MachineType
+	}
+	return ""
+}
+
+func (x *ProjectRuntimeConfig) GetDiskSizeGb() int32 {
+	if x != nil {
+		return x.DiskSizeGb
+	}
+	return 0
+}
+
+func (x *ProjectRuntimeConfig) GetOs() string {
+	if x != nil {
+		return x.Os
+	}
+	return ""
+}
+
+func (x *ProjectRuntimeConfig) GetDiskType() string {
+	if x != nil {
+		return x.DiskType
+	}
+	return ""
+}
+
+func (x *ProjectRuntimeConfig) GetGcpInstanceName() string {
+	if x != nil {
+		return x.GcpInstanceName
+	}
+	return ""
+}
+
+func (x *ProjectRuntimeConfig) GetGcpExternalIp() string {
+	if x != nil {
+		return x.GcpExternalIp
+	}
+	return ""
+}
+
+func (x *ProjectRuntimeConfig) GetGcpInternalIp() string {
+	if x != nil {
+		return x.GcpInternalIp
+	}
+	return ""
+}
+
+func (x *ProjectRuntimeConfig) GetStatus() Status {
+	if x != nil {
+		return x.Status
+	}
+	return Status_STATUS_UNSPECIFIED
+}
+
 var File_libops_v1_common_project_proto protoreflect.FileDescriptor
 
 const file_libops_v1_common_project_proto_rawDesc = "" +
@@ -231,7 +435,33 @@ const file_libops_v1_common_project_proto_rawDesc = "" +
 	"\tdisk_type\x18\n" +
 	" \x01(\tR\bdiskType\x12;\n" +
 	"\apromote\x18\v \x01(\x0e2!.libops.v1.common.PromoteStrategyR\apromote\x120\n" +
-	"\x06status\x18\x10 \x01(\x0e2\x18.libops.v1.common.StatusR\x06status*y\n" +
+	"\x06status\x18\x10 \x01(\x0e2\x18.libops.v1.common.StatusR\x06status\"\x86\x04\n" +
+	"\x14ProjectRuntimeConfig\x12)\n" +
+	"\n" +
+	"runtime_id\x18\x01 \x01(\tB\n" +
+	"\xbaG\a\x9a\x02\x04uuidR\truntimeId\x12)\n" +
+	"\n" +
+	"project_id\x18\x02 \x01(\tB\n" +
+	"\xbaG\a\x9a\x02\x04uuidR\tprojectId\x12\x12\n" +
+	"\x04name\x18\x03 \x01(\tR\x04name\x128\n" +
+	"\x04role\x18\x04 \x01(\x0e2$.libops.v1.common.ProjectRuntimeRoleR\x04role\x12\x16\n" +
+	"\x06region\x18\x05 \x01(\tR\x06region\x12\x12\n" +
+	"\x04zone\x18\x06 \x01(\tR\x04zone\x12!\n" +
+	"\fmachine_type\x18\a \x01(\tR\vmachineType\x12 \n" +
+	"\fdisk_size_gb\x18\b \x01(\x05R\n" +
+	"diskSizeGb\x12\x0e\n" +
+	"\x02os\x18\t \x01(\tR\x02os\x12\x1b\n" +
+	"\tdisk_type\x18\n" +
+	" \x01(\tR\bdiskType\x12*\n" +
+	"\x11gcp_instance_name\x18\v \x01(\tR\x0fgcpInstanceName\x12&\n" +
+	"\x0fgcp_external_ip\x18\f \x01(\tR\rgcpExternalIp\x12&\n" +
+	"\x0fgcp_internal_ip\x18\r \x01(\tR\rgcpInternalIp\x120\n" +
+	"\x06status\x18\x10 \x01(\x0e2\x18.libops.v1.common.StatusR\x06status*\xa4\x01\n" +
+	"\x12ProjectRuntimeRole\x12$\n" +
+	" PROJECT_RUNTIME_ROLE_UNSPECIFIED\x10\x00\x12#\n" +
+	"\x1fPROJECT_RUNTIME_ROLE_PRODUCTION\x10\x01\x12\"\n" +
+	"\x1ePROJECT_RUNTIME_ROLE_EPHEMERAL\x10\x02\x12\x1f\n" +
+	"\x1bPROJECT_RUNTIME_ROLE_CUSTOM\x10\x03*y\n" +
 	"\x0fPromoteStrategy\x12 \n" +
 	"\x1cPROMOTE_STRATEGY_UNSPECIFIED\x10\x00\x12\x1f\n" +
 	"\x1bPROMOTE_STRATEGY_GITHUB_TAG\x10\x01\x12#\n" +
@@ -250,21 +480,25 @@ func file_libops_v1_common_project_proto_rawDescGZIP() []byte {
 	return file_libops_v1_common_project_proto_rawDescData
 }
 
-var file_libops_v1_common_project_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_libops_v1_common_project_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_libops_v1_common_project_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
+var file_libops_v1_common_project_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_libops_v1_common_project_proto_goTypes = []any{
-	(PromoteStrategy)(0),  // 0: libops.v1.common.PromoteStrategy
-	(*ProjectConfig)(nil), // 1: libops.v1.common.ProjectConfig
-	(Status)(0),           // 2: libops.v1.common.Status
+	(ProjectRuntimeRole)(0),      // 0: libops.v1.common.ProjectRuntimeRole
+	(PromoteStrategy)(0),         // 1: libops.v1.common.PromoteStrategy
+	(*ProjectConfig)(nil),        // 2: libops.v1.common.ProjectConfig
+	(*ProjectRuntimeConfig)(nil), // 3: libops.v1.common.ProjectRuntimeConfig
+	(Status)(0),                  // 4: libops.v1.common.Status
 }
 var file_libops_v1_common_project_proto_depIdxs = []int32{
-	0, // 0: libops.v1.common.ProjectConfig.promote:type_name -> libops.v1.common.PromoteStrategy
-	2, // 1: libops.v1.common.ProjectConfig.status:type_name -> libops.v1.common.Status
-	2, // [2:2] is the sub-list for method output_type
-	2, // [2:2] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	1, // 0: libops.v1.common.ProjectConfig.promote:type_name -> libops.v1.common.PromoteStrategy
+	4, // 1: libops.v1.common.ProjectConfig.status:type_name -> libops.v1.common.Status
+	0, // 2: libops.v1.common.ProjectRuntimeConfig.role:type_name -> libops.v1.common.ProjectRuntimeRole
+	4, // 3: libops.v1.common.ProjectRuntimeConfig.status:type_name -> libops.v1.common.Status
+	4, // [4:4] is the sub-list for method output_type
+	4, // [4:4] is the sub-list for method input_type
+	4, // [4:4] is the sub-list for extension type_name
+	4, // [4:4] is the sub-list for extension extendee
+	0, // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_libops_v1_common_project_proto_init() }
@@ -278,8 +512,8 @@ func file_libops_v1_common_project_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_libops_v1_common_project_proto_rawDesc), len(file_libops_v1_common_project_proto_rawDesc)),
-			NumEnums:      1,
-			NumMessages:   1,
+			NumEnums:      2,
+			NumMessages:   2,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

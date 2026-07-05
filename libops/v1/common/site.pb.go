@@ -190,6 +190,12 @@ type SiteConfig struct {
 	// GCP deployment configuration
 	Os           string `protobuf:"bytes,16,opt,name=os,proto3" json:"os,omitempty"`                                          // OS image (default: "cos-125-19216-104-74")
 	IsProduction bool   `protobuf:"varint,17,opt,name=is_production,json=isProduction,proto3" json:"is_production,omitempty"` // Whether this is the production instance
+	// Runtime/VM placement. On create, set one of project_runtime_id,
+	// project_runtime_name, or project_runtime_role to choose a runtime. If unset,
+	// production sites use the production runtime and other sites use ephemeral.
+	ProjectRuntimeId   string             `protobuf:"bytes,18,opt,name=project_runtime_id,json=projectRuntimeId,proto3" json:"project_runtime_id,omitempty"`
+	ProjectRuntimeName string             `protobuf:"bytes,19,opt,name=project_runtime_name,json=projectRuntimeName,proto3" json:"project_runtime_name,omitempty"`
+	ProjectRuntimeRole ProjectRuntimeRole `protobuf:"varint,20,opt,name=project_runtime_role,json=projectRuntimeRole,proto3,enum=libops.v1.common.ProjectRuntimeRole" json:"project_runtime_role,omitempty"`
 	// Status (organization-visible)
 	Status        Status `protobuf:"varint,11,opt,name=status,proto3,enum=libops.v1.common.Status" json:"status,omitempty"`
 	unknownFields protoimpl.UnknownFields
@@ -338,6 +344,27 @@ func (x *SiteConfig) GetIsProduction() bool {
 	return false
 }
 
+func (x *SiteConfig) GetProjectRuntimeId() string {
+	if x != nil {
+		return x.ProjectRuntimeId
+	}
+	return ""
+}
+
+func (x *SiteConfig) GetProjectRuntimeName() string {
+	if x != nil {
+		return x.ProjectRuntimeName
+	}
+	return ""
+}
+
+func (x *SiteConfig) GetProjectRuntimeRole() ProjectRuntimeRole {
+	if x != nil {
+		return x.ProjectRuntimeRole
+	}
+	return ProjectRuntimeRole_PROJECT_RUNTIME_ROLE_UNSPECIFIED
+}
+
 func (x *SiteConfig) GetStatus() Status {
 	if x != nil {
 		return x.Status
@@ -349,7 +376,7 @@ var File_libops_v1_common_site_proto protoreflect.FileDescriptor
 
 const file_libops_v1_common_site_proto_rawDesc = "" +
 	"\n" +
-	"\x1blibops/v1/common/site.proto\x12\x10libops.v1.common\x1a$gnostic/openapi/v3/annotations.proto\x1a\x1clibops/v1/common/types.proto\"\xbb\x02\n" +
+	"\x1blibops/v1/common/site.proto\x12\x10libops.v1.common\x1a$gnostic/openapi/v3/annotations.proto\x1a\x1elibops/v1/common/project.proto\x1a\x1clibops/v1/common/types.proto\"\xbb\x02\n" +
 	"\fDomainConfig\x12\x16\n" +
 	"\x06domain\x18\x01 \x01(\tR\x06domain\x12#\n" +
 	"\asite_id\x18\x02 \x01(\tB\n" +
@@ -359,7 +386,7 @@ const file_libops_v1_common_site_proto_rawDesc = "" +
 	"\x06status\x18\x05 \x01(\x0e2\x18.libops.v1.common.StatusR\x06status\x12C\n" +
 	"\vedge_action\x18\x06 \x01(\x0e2\".libops.v1.common.DomainEdgeActionR\n" +
 	"edgeAction\x125\n" +
-	"\x17success_log_sample_rate\x18\a \x01(\x01R\x14successLogSampleRate\"\xe2\x04\n" +
+	"\x17success_log_sample_rate\x18\a \x01(\x01R\x14successLogSampleRate\"\xa6\x06\n" +
 	"\n" +
 	"SiteConfig\x12#\n" +
 	"\asite_id\x18\x01 \x01(\tB\n" +
@@ -384,7 +411,11 @@ const file_libops_v1_common_site_proto_rawDesc = "" +
 	"rolloutCmd\x12'\n" +
 	"\x0foverlay_volumes\x18\x0f \x03(\tR\x0eoverlayVolumes\x12\x0e\n" +
 	"\x02os\x18\x10 \x01(\tR\x02os\x12#\n" +
-	"\ris_production\x18\x11 \x01(\bR\fisProduction\x120\n" +
+	"\ris_production\x18\x11 \x01(\bR\fisProduction\x128\n" +
+	"\x12project_runtime_id\x18\x12 \x01(\tB\n" +
+	"\xbaG\a\x9a\x02\x04uuidR\x10projectRuntimeId\x120\n" +
+	"\x14project_runtime_name\x18\x13 \x01(\tR\x12projectRuntimeName\x12V\n" +
+	"\x14project_runtime_role\x18\x14 \x01(\x0e2$.libops.v1.common.ProjectRuntimeRoleR\x12projectRuntimeRole\x120\n" +
 	"\x06status\x18\v \x01(\x0e2\x18.libops.v1.common.StatusR\x06status*\x94\x01\n" +
 	"\x10DomainEdgeAction\x12\"\n" +
 	"\x1eDOMAIN_EDGE_ACTION_UNSPECIFIED\x10\x00\x12\x1c\n" +
@@ -408,20 +439,22 @@ func file_libops_v1_common_site_proto_rawDescGZIP() []byte {
 var file_libops_v1_common_site_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_libops_v1_common_site_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_libops_v1_common_site_proto_goTypes = []any{
-	(DomainEdgeAction)(0), // 0: libops.v1.common.DomainEdgeAction
-	(*DomainConfig)(nil),  // 1: libops.v1.common.DomainConfig
-	(*SiteConfig)(nil),    // 2: libops.v1.common.SiteConfig
-	(Status)(0),           // 3: libops.v1.common.Status
+	(DomainEdgeAction)(0),   // 0: libops.v1.common.DomainEdgeAction
+	(*DomainConfig)(nil),    // 1: libops.v1.common.DomainConfig
+	(*SiteConfig)(nil),      // 2: libops.v1.common.SiteConfig
+	(Status)(0),             // 3: libops.v1.common.Status
+	(ProjectRuntimeRole)(0), // 4: libops.v1.common.ProjectRuntimeRole
 }
 var file_libops_v1_common_site_proto_depIdxs = []int32{
 	3, // 0: libops.v1.common.DomainConfig.status:type_name -> libops.v1.common.Status
 	0, // 1: libops.v1.common.DomainConfig.edge_action:type_name -> libops.v1.common.DomainEdgeAction
-	3, // 2: libops.v1.common.SiteConfig.status:type_name -> libops.v1.common.Status
-	3, // [3:3] is the sub-list for method output_type
-	3, // [3:3] is the sub-list for method input_type
-	3, // [3:3] is the sub-list for extension type_name
-	3, // [3:3] is the sub-list for extension extendee
-	0, // [0:3] is the sub-list for field type_name
+	4, // 2: libops.v1.common.SiteConfig.project_runtime_role:type_name -> libops.v1.common.ProjectRuntimeRole
+	3, // 3: libops.v1.common.SiteConfig.status:type_name -> libops.v1.common.Status
+	4, // [4:4] is the sub-list for method output_type
+	4, // [4:4] is the sub-list for method input_type
+	4, // [4:4] is the sub-list for extension type_name
+	4, // [4:4] is the sub-list for extension extendee
+	0, // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_libops_v1_common_site_proto_init() }
@@ -429,6 +462,7 @@ func file_libops_v1_common_site_proto_init() {
 	if File_libops_v1_common_site_proto != nil {
 		return
 	}
+	file_libops_v1_common_project_proto_init()
 	file_libops_v1_common_types_proto_init()
 	type x struct{}
 	out := protoimpl.TypeBuilder{

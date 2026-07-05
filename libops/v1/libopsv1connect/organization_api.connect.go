@@ -111,6 +111,15 @@ const (
 	// ProjectServiceListProjectSitesProcedure is the fully-qualified name of the ProjectService's
 	// ListProjectSites RPC.
 	ProjectServiceListProjectSitesProcedure = "/libops.v1.ProjectService/ListProjectSites"
+	// ProjectServiceListProjectRuntimesProcedure is the fully-qualified name of the ProjectService's
+	// ListProjectRuntimes RPC.
+	ProjectServiceListProjectRuntimesProcedure = "/libops.v1.ProjectService/ListProjectRuntimes"
+	// ProjectServiceGetProjectRuntimeProcedure is the fully-qualified name of the ProjectService's
+	// GetProjectRuntime RPC.
+	ProjectServiceGetProjectRuntimeProcedure = "/libops.v1.ProjectService/GetProjectRuntime"
+	// ProjectServiceCreateProjectRuntimeProcedure is the fully-qualified name of the ProjectService's
+	// CreateProjectRuntime RPC.
+	ProjectServiceCreateProjectRuntimeProcedure = "/libops.v1.ProjectService/CreateProjectRuntime"
 	// FirewallServiceListOrganizationFirewallRulesProcedure is the fully-qualified name of the
 	// FirewallService's ListOrganizationFirewallRules RPC.
 	FirewallServiceListOrganizationFirewallRulesProcedure = "/libops.v1.FirewallService/ListOrganizationFirewallRules"
@@ -735,6 +744,12 @@ type ProjectServiceClient interface {
 	ListProjects(context.Context, *connect.Request[v1.ListProjectsRequest]) (*connect.Response[v1.ListProjectsResponse], error)
 	// List sites for a project
 	ListProjectSites(context.Context, *connect.Request[v1.ListProjectSitesRequest]) (*connect.Response[v1.ListProjectSitesResponse], error)
+	// List runtime hosts for a project.
+	ListProjectRuntimes(context.Context, *connect.Request[v1.ListProjectRuntimesRequest]) (*connect.Response[v1.ListProjectRuntimesResponse], error)
+	// Get a runtime host for a project.
+	GetProjectRuntime(context.Context, *connect.Request[v1.GetProjectRuntimeRequest]) (*connect.Response[v1.GetProjectRuntimeResponse], error)
+	// Create a runtime host for a project.
+	CreateProjectRuntime(context.Context, *connect.Request[v1.CreateProjectRuntimeRequest]) (*connect.Response[v1.CreateProjectRuntimeResponse], error)
 }
 
 // NewProjectServiceClient constructs a client for the libops.v1.ProjectService service. By default,
@@ -787,17 +802,40 @@ func NewProjectServiceClient(httpClient connect.HTTPClient, baseURL string, opts
 			connect.WithIdempotency(connect.IdempotencyNoSideEffects),
 			connect.WithClientOptions(opts...),
 		),
+		listProjectRuntimes: connect.NewClient[v1.ListProjectRuntimesRequest, v1.ListProjectRuntimesResponse](
+			httpClient,
+			baseURL+ProjectServiceListProjectRuntimesProcedure,
+			connect.WithSchema(projectServiceMethods.ByName("ListProjectRuntimes")),
+			connect.WithIdempotency(connect.IdempotencyNoSideEffects),
+			connect.WithClientOptions(opts...),
+		),
+		getProjectRuntime: connect.NewClient[v1.GetProjectRuntimeRequest, v1.GetProjectRuntimeResponse](
+			httpClient,
+			baseURL+ProjectServiceGetProjectRuntimeProcedure,
+			connect.WithSchema(projectServiceMethods.ByName("GetProjectRuntime")),
+			connect.WithIdempotency(connect.IdempotencyNoSideEffects),
+			connect.WithClientOptions(opts...),
+		),
+		createProjectRuntime: connect.NewClient[v1.CreateProjectRuntimeRequest, v1.CreateProjectRuntimeResponse](
+			httpClient,
+			baseURL+ProjectServiceCreateProjectRuntimeProcedure,
+			connect.WithSchema(projectServiceMethods.ByName("CreateProjectRuntime")),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
 // projectServiceClient implements ProjectServiceClient.
 type projectServiceClient struct {
-	getProject       *connect.Client[v1.GetProjectRequest, v1.GetProjectResponse]
-	createProject    *connect.Client[v1.CreateProjectRequest, v1.CreateProjectResponse]
-	updateProject    *connect.Client[v1.UpdateProjectRequest, v1.UpdateProjectResponse]
-	deleteProject    *connect.Client[v1.DeleteProjectRequest, emptypb.Empty]
-	listProjects     *connect.Client[v1.ListProjectsRequest, v1.ListProjectsResponse]
-	listProjectSites *connect.Client[v1.ListProjectSitesRequest, v1.ListProjectSitesResponse]
+	getProject           *connect.Client[v1.GetProjectRequest, v1.GetProjectResponse]
+	createProject        *connect.Client[v1.CreateProjectRequest, v1.CreateProjectResponse]
+	updateProject        *connect.Client[v1.UpdateProjectRequest, v1.UpdateProjectResponse]
+	deleteProject        *connect.Client[v1.DeleteProjectRequest, emptypb.Empty]
+	listProjects         *connect.Client[v1.ListProjectsRequest, v1.ListProjectsResponse]
+	listProjectSites     *connect.Client[v1.ListProjectSitesRequest, v1.ListProjectSitesResponse]
+	listProjectRuntimes  *connect.Client[v1.ListProjectRuntimesRequest, v1.ListProjectRuntimesResponse]
+	getProjectRuntime    *connect.Client[v1.GetProjectRuntimeRequest, v1.GetProjectRuntimeResponse]
+	createProjectRuntime *connect.Client[v1.CreateProjectRuntimeRequest, v1.CreateProjectRuntimeResponse]
 }
 
 // GetProject calls libops.v1.ProjectService.GetProject.
@@ -830,6 +868,21 @@ func (c *projectServiceClient) ListProjectSites(ctx context.Context, req *connec
 	return c.listProjectSites.CallUnary(ctx, req)
 }
 
+// ListProjectRuntimes calls libops.v1.ProjectService.ListProjectRuntimes.
+func (c *projectServiceClient) ListProjectRuntimes(ctx context.Context, req *connect.Request[v1.ListProjectRuntimesRequest]) (*connect.Response[v1.ListProjectRuntimesResponse], error) {
+	return c.listProjectRuntimes.CallUnary(ctx, req)
+}
+
+// GetProjectRuntime calls libops.v1.ProjectService.GetProjectRuntime.
+func (c *projectServiceClient) GetProjectRuntime(ctx context.Context, req *connect.Request[v1.GetProjectRuntimeRequest]) (*connect.Response[v1.GetProjectRuntimeResponse], error) {
+	return c.getProjectRuntime.CallUnary(ctx, req)
+}
+
+// CreateProjectRuntime calls libops.v1.ProjectService.CreateProjectRuntime.
+func (c *projectServiceClient) CreateProjectRuntime(ctx context.Context, req *connect.Request[v1.CreateProjectRuntimeRequest]) (*connect.Response[v1.CreateProjectRuntimeResponse], error) {
+	return c.createProjectRuntime.CallUnary(ctx, req)
+}
+
 // ProjectServiceHandler is an implementation of the libops.v1.ProjectService service.
 type ProjectServiceHandler interface {
 	// Get project configuration (organization view)
@@ -844,6 +897,12 @@ type ProjectServiceHandler interface {
 	ListProjects(context.Context, *connect.Request[v1.ListProjectsRequest]) (*connect.Response[v1.ListProjectsResponse], error)
 	// List sites for a project
 	ListProjectSites(context.Context, *connect.Request[v1.ListProjectSitesRequest]) (*connect.Response[v1.ListProjectSitesResponse], error)
+	// List runtime hosts for a project.
+	ListProjectRuntimes(context.Context, *connect.Request[v1.ListProjectRuntimesRequest]) (*connect.Response[v1.ListProjectRuntimesResponse], error)
+	// Get a runtime host for a project.
+	GetProjectRuntime(context.Context, *connect.Request[v1.GetProjectRuntimeRequest]) (*connect.Response[v1.GetProjectRuntimeResponse], error)
+	// Create a runtime host for a project.
+	CreateProjectRuntime(context.Context, *connect.Request[v1.CreateProjectRuntimeRequest]) (*connect.Response[v1.CreateProjectRuntimeResponse], error)
 }
 
 // NewProjectServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -892,6 +951,26 @@ func NewProjectServiceHandler(svc ProjectServiceHandler, opts ...connect.Handler
 		connect.WithIdempotency(connect.IdempotencyNoSideEffects),
 		connect.WithHandlerOptions(opts...),
 	)
+	projectServiceListProjectRuntimesHandler := connect.NewUnaryHandler(
+		ProjectServiceListProjectRuntimesProcedure,
+		svc.ListProjectRuntimes,
+		connect.WithSchema(projectServiceMethods.ByName("ListProjectRuntimes")),
+		connect.WithIdempotency(connect.IdempotencyNoSideEffects),
+		connect.WithHandlerOptions(opts...),
+	)
+	projectServiceGetProjectRuntimeHandler := connect.NewUnaryHandler(
+		ProjectServiceGetProjectRuntimeProcedure,
+		svc.GetProjectRuntime,
+		connect.WithSchema(projectServiceMethods.ByName("GetProjectRuntime")),
+		connect.WithIdempotency(connect.IdempotencyNoSideEffects),
+		connect.WithHandlerOptions(opts...),
+	)
+	projectServiceCreateProjectRuntimeHandler := connect.NewUnaryHandler(
+		ProjectServiceCreateProjectRuntimeProcedure,
+		svc.CreateProjectRuntime,
+		connect.WithSchema(projectServiceMethods.ByName("CreateProjectRuntime")),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/libops.v1.ProjectService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case ProjectServiceGetProjectProcedure:
@@ -906,6 +985,12 @@ func NewProjectServiceHandler(svc ProjectServiceHandler, opts ...connect.Handler
 			projectServiceListProjectsHandler.ServeHTTP(w, r)
 		case ProjectServiceListProjectSitesProcedure:
 			projectServiceListProjectSitesHandler.ServeHTTP(w, r)
+		case ProjectServiceListProjectRuntimesProcedure:
+			projectServiceListProjectRuntimesHandler.ServeHTTP(w, r)
+		case ProjectServiceGetProjectRuntimeProcedure:
+			projectServiceGetProjectRuntimeHandler.ServeHTTP(w, r)
+		case ProjectServiceCreateProjectRuntimeProcedure:
+			projectServiceCreateProjectRuntimeHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -937,6 +1022,18 @@ func (UnimplementedProjectServiceHandler) ListProjects(context.Context, *connect
 
 func (UnimplementedProjectServiceHandler) ListProjectSites(context.Context, *connect.Request[v1.ListProjectSitesRequest]) (*connect.Response[v1.ListProjectSitesResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("libops.v1.ProjectService.ListProjectSites is not implemented"))
+}
+
+func (UnimplementedProjectServiceHandler) ListProjectRuntimes(context.Context, *connect.Request[v1.ListProjectRuntimesRequest]) (*connect.Response[v1.ListProjectRuntimesResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("libops.v1.ProjectService.ListProjectRuntimes is not implemented"))
+}
+
+func (UnimplementedProjectServiceHandler) GetProjectRuntime(context.Context, *connect.Request[v1.GetProjectRuntimeRequest]) (*connect.Response[v1.GetProjectRuntimeResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("libops.v1.ProjectService.GetProjectRuntime is not implemented"))
+}
+
+func (UnimplementedProjectServiceHandler) CreateProjectRuntime(context.Context, *connect.Request[v1.CreateProjectRuntimeRequest]) (*connect.Response[v1.CreateProjectRuntimeResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("libops.v1.ProjectService.CreateProjectRuntime is not implemented"))
 }
 
 // FirewallServiceClient is a client for the libops.v1.FirewallService service.

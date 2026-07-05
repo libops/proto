@@ -255,6 +255,42 @@ service ProjectService {
       oauth_scopes: "read:project"
       resource_id_field: "project_id"};
   }
+
+  // List runtime hosts for a project.
+  rpc ListProjectRuntimes(ListProjectRuntimesRequest) returns (ListProjectRuntimesResponse) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+    option (libops.v1.options.required_scope) = {
+      resource: RESOURCE_TYPE_PROJECT
+      level: ACCESS_LEVEL_READ
+      allow_parent_access: true
+
+      oauth_scopes: "read:project"
+      resource_id_field: "project_id"};
+  }
+
+  // Get a runtime host for a project.
+  rpc GetProjectRuntime(GetProjectRuntimeRequest) returns (GetProjectRuntimeResponse) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+    option (libops.v1.options.required_scope) = {
+      resource: RESOURCE_TYPE_PROJECT
+      level: ACCESS_LEVEL_READ
+      allow_parent_access: true
+
+      oauth_scopes: "read:project"
+      resource_id_field: "project_id"};
+  }
+
+  // Create a runtime host for a project.
+  rpc CreateProjectRuntime(CreateProjectRuntimeRequest) returns (CreateProjectRuntimeResponse) {
+    option (libops.v1.options.required_scope) = {
+      resource: RESOURCE_TYPE_PROJECT
+      level: ACCESS_LEVEL_WRITE
+      allow_parent_access: true
+
+      oauth_scopes: "write:project"
+      parent_resource_id_field: "project_id"
+      parent_resource: RESOURCE_TYPE_PROJECT};
+  }
 }
 
 // ==============================================================================
@@ -335,6 +371,39 @@ message ListProjectSitesRequest {
 message ListProjectSitesResponse {
   repeated string site_names = 1;
   string next_page_token = 2;
+}
+
+// ==============================================================================
+// REQUEST/RESPONSE - Project Runtimes
+// ==============================================================================
+
+message ListProjectRuntimesRequest {
+  string project_id = 1;
+  int32 page_size = 2;
+  string page_token = 3;
+}
+
+message ListProjectRuntimesResponse {
+  repeated libops.v1.common.ProjectRuntimeConfig runtimes = 1;
+  string next_page_token = 2;
+}
+
+message GetProjectRuntimeRequest {
+  string project_id = 1;
+  string runtime_id = 2;
+}
+
+message GetProjectRuntimeResponse {
+  libops.v1.common.ProjectRuntimeConfig runtime = 1;
+}
+
+message CreateProjectRuntimeRequest {
+  string project_id = 1;
+  libops.v1.common.ProjectRuntimeConfig runtime = 2;
+}
+
+message CreateProjectRuntimeResponse {
+  libops.v1.common.ProjectRuntimeConfig runtime = 1;
 }
 
 // ==============================================================================

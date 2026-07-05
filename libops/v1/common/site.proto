@@ -3,6 +3,7 @@ syntax = "proto3";
 package libops.v1.common;
 
 import "gnostic/openapi/v3/annotations.proto";
+import "libops/v1/common/project.proto";
 import "libops/v1/common/types.proto";
 
 option go_package = "github.com/libops/proto/libops/v1/common;commonv1";
@@ -51,6 +52,13 @@ message SiteConfig {
   // GCP deployment configuration
   string os = 16;                 // OS image (default: "cos-125-19216-104-74")
   bool is_production = 17;        // Whether this is the production instance
+
+  // Runtime/VM placement. On create, set one of project_runtime_id,
+  // project_runtime_name, or project_runtime_role to choose a runtime. If unset,
+  // production sites use the production runtime and other sites use ephemeral.
+  string project_runtime_id = 18 [(gnostic.openapi.v3.property) = {format: "uuid"}];
+  string project_runtime_name = 19;
+  ProjectRuntimeRole project_runtime_role = 20;
 
   // Status (organization-visible)
   Status status = 11;

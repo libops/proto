@@ -32,6 +32,37 @@ message ProjectConfig {
   Status status = 16;
 }
 
+enum ProjectRuntimeRole {
+  PROJECT_RUNTIME_ROLE_UNSPECIFIED = 0;
+  PROJECT_RUNTIME_ROLE_PRODUCTION = 1;
+  PROJECT_RUNTIME_ROLE_EPHEMERAL = 2;
+  PROJECT_RUNTIME_ROLE_CUSTOM = 3;
+}
+
+// ProjectRuntimeConfig describes one VM/runtime host inside a project.
+// Sites are assigned to a runtime so multiple apps can share a VM.
+message ProjectRuntimeConfig {
+  string runtime_id = 1 [(gnostic.openapi.v3.property) = {format: "uuid"}];
+  string project_id = 2 [(gnostic.openapi.v3.property) = {format: "uuid"}];
+  string name = 3;
+  ProjectRuntimeRole role = 4;
+
+  // GCP runtime placement and host configuration.
+  string region = 5;
+  string zone = 6;
+  string machine_type = 7;
+  int32 disk_size_gb = 8;
+  string os = 9;
+  string disk_type = 10;
+
+  // Runtime host identity, populated by orchestration.
+  string gcp_instance_name = 11;
+  string gcp_external_ip = 12;
+  string gcp_internal_ip = 13;
+
+  Status status = 16;
+}
+
 enum PromoteStrategy {
   PROMOTE_STRATEGY_UNSPECIFIED = 0;
   PROMOTE_STRATEGY_GITHUB_TAG = 1;      // Promote on git tags
