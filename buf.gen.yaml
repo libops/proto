@@ -9,13 +9,13 @@ managed:
     - module: buf.build/gnostic/gnostic
 plugins:
   # Generate Go protobuf code
-  - remote: buf.build/protocolbuffers/go
+  - remote: buf.build/protocolbuffers/go:v1.36.11
     out: .
     opt:
       - paths=source_relative
 
   # Generate ConnectRPC Go code
-  - remote: buf.build/connectrpc/go
+  - remote: buf.build/connectrpc/go:v1.18.1
     out: .
     opt:
       - paths=source_relative

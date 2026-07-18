@@ -10,6 +10,7 @@ import (
 	_ "github.com/google/gnostic/openapiv3"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -22,74 +23,359 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type DomainEdgeAction int32
+type DomainKind int32
 
 const (
-	DomainEdgeAction_DOMAIN_EDGE_ACTION_UNSPECIFIED DomainEdgeAction = 0
-	DomainEdgeAction_DOMAIN_EDGE_ACTION_ALLOW       DomainEdgeAction = 1
-	DomainEdgeAction_DOMAIN_EDGE_ACTION_CHALLENGE   DomainEdgeAction = 2
-	DomainEdgeAction_DOMAIN_EDGE_ACTION_BLOCK       DomainEdgeAction = 3
+	DomainKind_DOMAIN_KIND_UNSPECIFIED DomainKind = 0
+	DomainKind_DOMAIN_KIND_MANAGED     DomainKind = 1
+	DomainKind_DOMAIN_KIND_VANITY      DomainKind = 2
 )
 
-// Enum value maps for DomainEdgeAction.
+// Enum value maps for DomainKind.
 var (
-	DomainEdgeAction_name = map[int32]string{
-		0: "DOMAIN_EDGE_ACTION_UNSPECIFIED",
-		1: "DOMAIN_EDGE_ACTION_ALLOW",
-		2: "DOMAIN_EDGE_ACTION_CHALLENGE",
-		3: "DOMAIN_EDGE_ACTION_BLOCK",
+	DomainKind_name = map[int32]string{
+		0: "DOMAIN_KIND_UNSPECIFIED",
+		1: "DOMAIN_KIND_MANAGED",
+		2: "DOMAIN_KIND_VANITY",
 	}
-	DomainEdgeAction_value = map[string]int32{
-		"DOMAIN_EDGE_ACTION_UNSPECIFIED": 0,
-		"DOMAIN_EDGE_ACTION_ALLOW":       1,
-		"DOMAIN_EDGE_ACTION_CHALLENGE":   2,
-		"DOMAIN_EDGE_ACTION_BLOCK":       3,
+	DomainKind_value = map[string]int32{
+		"DOMAIN_KIND_UNSPECIFIED": 0,
+		"DOMAIN_KIND_MANAGED":     1,
+		"DOMAIN_KIND_VANITY":      2,
 	}
 )
 
-func (x DomainEdgeAction) Enum() *DomainEdgeAction {
-	p := new(DomainEdgeAction)
+func (x DomainKind) Enum() *DomainKind {
+	p := new(DomainKind)
 	*p = x
 	return p
 }
 
-func (x DomainEdgeAction) String() string {
+func (x DomainKind) String() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
-func (DomainEdgeAction) Descriptor() protoreflect.EnumDescriptor {
+func (DomainKind) Descriptor() protoreflect.EnumDescriptor {
 	return file_libops_v1_common_site_proto_enumTypes[0].Descriptor()
 }
 
-func (DomainEdgeAction) Type() protoreflect.EnumType {
+func (DomainKind) Type() protoreflect.EnumType {
 	return &file_libops_v1_common_site_proto_enumTypes[0]
 }
 
-func (x DomainEdgeAction) Number() protoreflect.EnumNumber {
+func (x DomainKind) Number() protoreflect.EnumNumber {
 	return protoreflect.EnumNumber(x)
 }
 
-// Deprecated: Use DomainEdgeAction.Descriptor instead.
-func (DomainEdgeAction) EnumDescriptor() ([]byte, []int) {
+// Deprecated: Use DomainKind.Descriptor instead.
+func (DomainKind) EnumDescriptor() ([]byte, []int) {
 	return file_libops_v1_common_site_proto_rawDescGZIP(), []int{0}
 }
 
+type DomainProvisioningState int32
+
+const (
+	DomainProvisioningState_DOMAIN_PROVISIONING_STATE_UNSPECIFIED                 DomainProvisioningState = 0
+	DomainProvisioningState_DOMAIN_PROVISIONING_STATE_AWAITING_OWNERSHIP_PROOF    DomainProvisioningState = 1
+	DomainProvisioningState_DOMAIN_PROVISIONING_STATE_PREPARING_DNS_AUTHORIZATION DomainProvisioningState = 2
+	DomainProvisioningState_DOMAIN_PROVISIONING_STATE_AWAITING_CERTIFICATE_DNS    DomainProvisioningState = 3
+	DomainProvisioningState_DOMAIN_PROVISIONING_STATE_PROVISIONING_CERTIFICATE    DomainProvisioningState = 4
+	DomainProvisioningState_DOMAIN_PROVISIONING_STATE_PROVISIONING_MAP_ENTRY      DomainProvisioningState = 5
+	DomainProvisioningState_DOMAIN_PROVISIONING_STATE_READY_FOR_TRAFFIC           DomainProvisioningState = 6
+	DomainProvisioningState_DOMAIN_PROVISIONING_STATE_ACTIVE                      DomainProvisioningState = 7
+	DomainProvisioningState_DOMAIN_PROVISIONING_STATE_DEGRADED                    DomainProvisioningState = 8
+	DomainProvisioningState_DOMAIN_PROVISIONING_STATE_FAILED                      DomainProvisioningState = 9
+	DomainProvisioningState_DOMAIN_PROVISIONING_STATE_DELETING                    DomainProvisioningState = 10
+	DomainProvisioningState_DOMAIN_PROVISIONING_STATE_DELETED                     DomainProvisioningState = 11
+	DomainProvisioningState_DOMAIN_PROVISIONING_STATE_EXPIRED                     DomainProvisioningState = 12
+)
+
+// Enum value maps for DomainProvisioningState.
+var (
+	DomainProvisioningState_name = map[int32]string{
+		0:  "DOMAIN_PROVISIONING_STATE_UNSPECIFIED",
+		1:  "DOMAIN_PROVISIONING_STATE_AWAITING_OWNERSHIP_PROOF",
+		2:  "DOMAIN_PROVISIONING_STATE_PREPARING_DNS_AUTHORIZATION",
+		3:  "DOMAIN_PROVISIONING_STATE_AWAITING_CERTIFICATE_DNS",
+		4:  "DOMAIN_PROVISIONING_STATE_PROVISIONING_CERTIFICATE",
+		5:  "DOMAIN_PROVISIONING_STATE_PROVISIONING_MAP_ENTRY",
+		6:  "DOMAIN_PROVISIONING_STATE_READY_FOR_TRAFFIC",
+		7:  "DOMAIN_PROVISIONING_STATE_ACTIVE",
+		8:  "DOMAIN_PROVISIONING_STATE_DEGRADED",
+		9:  "DOMAIN_PROVISIONING_STATE_FAILED",
+		10: "DOMAIN_PROVISIONING_STATE_DELETING",
+		11: "DOMAIN_PROVISIONING_STATE_DELETED",
+		12: "DOMAIN_PROVISIONING_STATE_EXPIRED",
+	}
+	DomainProvisioningState_value = map[string]int32{
+		"DOMAIN_PROVISIONING_STATE_UNSPECIFIED":                 0,
+		"DOMAIN_PROVISIONING_STATE_AWAITING_OWNERSHIP_PROOF":    1,
+		"DOMAIN_PROVISIONING_STATE_PREPARING_DNS_AUTHORIZATION": 2,
+		"DOMAIN_PROVISIONING_STATE_AWAITING_CERTIFICATE_DNS":    3,
+		"DOMAIN_PROVISIONING_STATE_PROVISIONING_CERTIFICATE":    4,
+		"DOMAIN_PROVISIONING_STATE_PROVISIONING_MAP_ENTRY":      5,
+		"DOMAIN_PROVISIONING_STATE_READY_FOR_TRAFFIC":           6,
+		"DOMAIN_PROVISIONING_STATE_ACTIVE":                      7,
+		"DOMAIN_PROVISIONING_STATE_DEGRADED":                    8,
+		"DOMAIN_PROVISIONING_STATE_FAILED":                      9,
+		"DOMAIN_PROVISIONING_STATE_DELETING":                    10,
+		"DOMAIN_PROVISIONING_STATE_DELETED":                     11,
+		"DOMAIN_PROVISIONING_STATE_EXPIRED":                     12,
+	}
+)
+
+func (x DomainProvisioningState) Enum() *DomainProvisioningState {
+	p := new(DomainProvisioningState)
+	*p = x
+	return p
+}
+
+func (x DomainProvisioningState) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (DomainProvisioningState) Descriptor() protoreflect.EnumDescriptor {
+	return file_libops_v1_common_site_proto_enumTypes[1].Descriptor()
+}
+
+func (DomainProvisioningState) Type() protoreflect.EnumType {
+	return &file_libops_v1_common_site_proto_enumTypes[1]
+}
+
+func (x DomainProvisioningState) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use DomainProvisioningState.Descriptor instead.
+func (DomainProvisioningState) EnumDescriptor() ([]byte, []int) {
+	return file_libops_v1_common_site_proto_rawDescGZIP(), []int{1}
+}
+
+type DomainRouteState int32
+
+const (
+	DomainRouteState_DOMAIN_ROUTE_STATE_UNSPECIFIED DomainRouteState = 0
+	DomainRouteState_DOMAIN_ROUTE_STATE_PENDING     DomainRouteState = 1
+	DomainRouteState_DOMAIN_ROUTE_STATE_ENABLED     DomainRouteState = 2
+	DomainRouteState_DOMAIN_ROUTE_STATE_BLOCKED     DomainRouteState = 3
+	DomainRouteState_DOMAIN_ROUTE_STATE_DELETING    DomainRouteState = 4
+	DomainRouteState_DOMAIN_ROUTE_STATE_DELETED     DomainRouteState = 5
+)
+
+// Enum value maps for DomainRouteState.
+var (
+	DomainRouteState_name = map[int32]string{
+		0: "DOMAIN_ROUTE_STATE_UNSPECIFIED",
+		1: "DOMAIN_ROUTE_STATE_PENDING",
+		2: "DOMAIN_ROUTE_STATE_ENABLED",
+		3: "DOMAIN_ROUTE_STATE_BLOCKED",
+		4: "DOMAIN_ROUTE_STATE_DELETING",
+		5: "DOMAIN_ROUTE_STATE_DELETED",
+	}
+	DomainRouteState_value = map[string]int32{
+		"DOMAIN_ROUTE_STATE_UNSPECIFIED": 0,
+		"DOMAIN_ROUTE_STATE_PENDING":     1,
+		"DOMAIN_ROUTE_STATE_ENABLED":     2,
+		"DOMAIN_ROUTE_STATE_BLOCKED":     3,
+		"DOMAIN_ROUTE_STATE_DELETING":    4,
+		"DOMAIN_ROUTE_STATE_DELETED":     5,
+	}
+)
+
+func (x DomainRouteState) Enum() *DomainRouteState {
+	p := new(DomainRouteState)
+	*p = x
+	return p
+}
+
+func (x DomainRouteState) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (DomainRouteState) Descriptor() protoreflect.EnumDescriptor {
+	return file_libops_v1_common_site_proto_enumTypes[2].Descriptor()
+}
+
+func (DomainRouteState) Type() protoreflect.EnumType {
+	return &file_libops_v1_common_site_proto_enumTypes[2]
+}
+
+func (x DomainRouteState) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use DomainRouteState.Descriptor instead.
+func (DomainRouteState) EnumDescriptor() ([]byte, []int) {
+	return file_libops_v1_common_site_proto_rawDescGZIP(), []int{2}
+}
+
+type DnsRecordPurpose int32
+
+const (
+	DnsRecordPurpose_DNS_RECORD_PURPOSE_UNSPECIFIED               DnsRecordPurpose = 0
+	DnsRecordPurpose_DNS_RECORD_PURPOSE_OWNERSHIP_PROOF           DnsRecordPurpose = 1
+	DnsRecordPurpose_DNS_RECORD_PURPOSE_CERTIFICATE_AUTHORIZATION DnsRecordPurpose = 2
+	DnsRecordPurpose_DNS_RECORD_PURPOSE_TRAFFIC                   DnsRecordPurpose = 3
+	DnsRecordPurpose_DNS_RECORD_PURPOSE_SSH                       DnsRecordPurpose = 4
+)
+
+// Enum value maps for DnsRecordPurpose.
+var (
+	DnsRecordPurpose_name = map[int32]string{
+		0: "DNS_RECORD_PURPOSE_UNSPECIFIED",
+		1: "DNS_RECORD_PURPOSE_OWNERSHIP_PROOF",
+		2: "DNS_RECORD_PURPOSE_CERTIFICATE_AUTHORIZATION",
+		3: "DNS_RECORD_PURPOSE_TRAFFIC",
+		4: "DNS_RECORD_PURPOSE_SSH",
+	}
+	DnsRecordPurpose_value = map[string]int32{
+		"DNS_RECORD_PURPOSE_UNSPECIFIED":               0,
+		"DNS_RECORD_PURPOSE_OWNERSHIP_PROOF":           1,
+		"DNS_RECORD_PURPOSE_CERTIFICATE_AUTHORIZATION": 2,
+		"DNS_RECORD_PURPOSE_TRAFFIC":                   3,
+		"DNS_RECORD_PURPOSE_SSH":                       4,
+	}
+)
+
+func (x DnsRecordPurpose) Enum() *DnsRecordPurpose {
+	p := new(DnsRecordPurpose)
+	*p = x
+	return p
+}
+
+func (x DnsRecordPurpose) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (DnsRecordPurpose) Descriptor() protoreflect.EnumDescriptor {
+	return file_libops_v1_common_site_proto_enumTypes[3].Descriptor()
+}
+
+func (DnsRecordPurpose) Type() protoreflect.EnumType {
+	return &file_libops_v1_common_site_proto_enumTypes[3]
+}
+
+func (x DnsRecordPurpose) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use DnsRecordPurpose.Descriptor instead.
+func (DnsRecordPurpose) EnumDescriptor() ([]byte, []int) {
+	return file_libops_v1_common_site_proto_rawDescGZIP(), []int{3}
+}
+
+type DnsRecordInstruction struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Type          string                 `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty"`
+	Data          string                 `protobuf:"bytes,3,opt,name=data,proto3" json:"data,omitempty"`
+	Ttl           uint32                 `protobuf:"varint,4,opt,name=ttl,proto3" json:"ttl,omitempty"`
+	Purpose       DnsRecordPurpose       `protobuf:"varint,5,opt,name=purpose,proto3,enum=libops.v1.common.DnsRecordPurpose" json:"purpose,omitempty"`
+	Retain        bool                   `protobuf:"varint,6,opt,name=retain,proto3" json:"retain,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DnsRecordInstruction) Reset() {
+	*x = DnsRecordInstruction{}
+	mi := &file_libops_v1_common_site_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DnsRecordInstruction) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DnsRecordInstruction) ProtoMessage() {}
+
+func (x *DnsRecordInstruction) ProtoReflect() protoreflect.Message {
+	mi := &file_libops_v1_common_site_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DnsRecordInstruction.ProtoReflect.Descriptor instead.
+func (*DnsRecordInstruction) Descriptor() ([]byte, []int) {
+	return file_libops_v1_common_site_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *DnsRecordInstruction) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *DnsRecordInstruction) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *DnsRecordInstruction) GetData() string {
+	if x != nil {
+		return x.Data
+	}
+	return ""
+}
+
+func (x *DnsRecordInstruction) GetTtl() uint32 {
+	if x != nil {
+		return x.Ttl
+	}
+	return 0
+}
+
+func (x *DnsRecordInstruction) GetPurpose() DnsRecordPurpose {
+	if x != nil {
+		return x.Purpose
+	}
+	return DnsRecordPurpose_DNS_RECORD_PURPOSE_UNSPECIFIED
+}
+
+func (x *DnsRecordInstruction) GetRetain() bool {
+	if x != nil {
+		return x.Retain
+	}
+	return false
+}
+
 type DomainConfig struct {
-	state                protoimpl.MessageState `protogen:"open.v1"`
-	Domain               string                 `protobuf:"bytes,1,opt,name=domain,proto3" json:"domain,omitempty"`
-	SiteId               string                 `protobuf:"bytes,2,opt,name=site_id,json=siteId,proto3" json:"site_id,omitempty"`
-	CloudRunHostname     string                 `protobuf:"bytes,3,opt,name=cloud_run_hostname,json=cloudRunHostname,proto3" json:"cloud_run_hostname,omitempty"`
-	Tier                 string                 `protobuf:"bytes,4,opt,name=tier,proto3" json:"tier,omitempty"`
-	Status               Status                 `protobuf:"varint,5,opt,name=status,proto3,enum=libops.v1.common.Status" json:"status,omitempty"`
-	EdgeAction           DomainEdgeAction       `protobuf:"varint,6,opt,name=edge_action,json=edgeAction,proto3,enum=libops.v1.common.DomainEdgeAction" json:"edge_action,omitempty"`
-	SuccessLogSampleRate float64                `protobuf:"fixed64,7,opt,name=success_log_sample_rate,json=successLogSampleRate,proto3" json:"success_log_sample_rate,omitempty"`
-	unknownFields        protoimpl.UnknownFields
-	sizeCache            protoimpl.SizeCache
+	state             protoimpl.MessageState  `protogen:"open.v1"`
+	DomainId          string                  `protobuf:"bytes,1,opt,name=domain_id,json=domainId,proto3" json:"domain_id,omitempty"`
+	SiteId            string                  `protobuf:"bytes,2,opt,name=site_id,json=siteId,proto3" json:"site_id,omitempty"`
+	Hostname          string                  `protobuf:"bytes,3,opt,name=hostname,proto3" json:"hostname,omitempty"`
+	Kind              DomainKind              `protobuf:"varint,4,opt,name=kind,proto3,enum=libops.v1.common.DomainKind" json:"kind,omitempty"`
+	ProvisioningState DomainProvisioningState `protobuf:"varint,5,opt,name=provisioning_state,json=provisioningState,proto3,enum=libops.v1.common.DomainProvisioningState" json:"provisioning_state,omitempty"`
+	RouteState        DomainRouteState        `protobuf:"varint,6,opt,name=route_state,json=routeState,proto3,enum=libops.v1.common.DomainRouteState" json:"route_state,omitempty"`
+	DnsInstructions   []*DnsRecordInstruction `protobuf:"bytes,7,rep,name=dns_instructions,json=dnsInstructions,proto3" json:"dns_instructions,omitempty"`
+	ManagedHostname   string                  `protobuf:"bytes,8,opt,name=managed_hostname,json=managedHostname,proto3" json:"managed_hostname,omitempty"`
+	SshHostname       string                  `protobuf:"bytes,9,opt,name=ssh_hostname,json=sshHostname,proto3" json:"ssh_hostname,omitempty"`
+	RouteReady        bool                    `protobuf:"varint,10,opt,name=route_ready,json=routeReady,proto3" json:"route_ready,omitempty"`
+	FailureReason     string                  `protobuf:"bytes,11,opt,name=failure_reason,json=failureReason,proto3" json:"failure_reason,omitempty"`
+	FailureMessage    string                  `protobuf:"bytes,12,opt,name=failure_message,json=failureMessage,proto3" json:"failure_message,omitempty"`
+	Retryable         bool                    `protobuf:"varint,13,opt,name=retryable,proto3" json:"retryable,omitempty"`
+	CreatedAt         *timestamppb.Timestamp  `protobuf:"bytes,14,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	UpdatedAt         *timestamppb.Timestamp  `protobuf:"bytes,15,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	VerifiedAt        *timestamppb.Timestamp  `protobuf:"bytes,16,opt,name=verified_at,json=verifiedAt,proto3" json:"verified_at,omitempty"`
+	RouteReadyAt      *timestamppb.Timestamp  `protobuf:"bytes,17,opt,name=route_ready_at,json=routeReadyAt,proto3" json:"route_ready_at,omitempty"`
+	ActivatedAt       *timestamppb.Timestamp  `protobuf:"bytes,18,opt,name=activated_at,json=activatedAt,proto3" json:"activated_at,omitempty"`
+	DeleteRequestedAt *timestamppb.Timestamp  `protobuf:"bytes,19,opt,name=delete_requested_at,json=deleteRequestedAt,proto3" json:"delete_requested_at,omitempty"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
 }
 
 func (x *DomainConfig) Reset() {
 	*x = DomainConfig{}
-	mi := &file_libops_v1_common_site_proto_msgTypes[0]
+	mi := &file_libops_v1_common_site_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -101,7 +387,7 @@ func (x *DomainConfig) String() string {
 func (*DomainConfig) ProtoMessage() {}
 
 func (x *DomainConfig) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_common_site_proto_msgTypes[0]
+	mi := &file_libops_v1_common_site_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -114,12 +400,12 @@ func (x *DomainConfig) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DomainConfig.ProtoReflect.Descriptor instead.
 func (*DomainConfig) Descriptor() ([]byte, []int) {
-	return file_libops_v1_common_site_proto_rawDescGZIP(), []int{0}
+	return file_libops_v1_common_site_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *DomainConfig) GetDomain() string {
+func (x *DomainConfig) GetDomainId() string {
 	if x != nil {
-		return x.Domain
+		return x.DomainId
 	}
 	return ""
 }
@@ -131,39 +417,123 @@ func (x *DomainConfig) GetSiteId() string {
 	return ""
 }
 
-func (x *DomainConfig) GetCloudRunHostname() string {
+func (x *DomainConfig) GetHostname() string {
 	if x != nil {
-		return x.CloudRunHostname
+		return x.Hostname
 	}
 	return ""
 }
 
-func (x *DomainConfig) GetTier() string {
+func (x *DomainConfig) GetKind() DomainKind {
 	if x != nil {
-		return x.Tier
+		return x.Kind
+	}
+	return DomainKind_DOMAIN_KIND_UNSPECIFIED
+}
+
+func (x *DomainConfig) GetProvisioningState() DomainProvisioningState {
+	if x != nil {
+		return x.ProvisioningState
+	}
+	return DomainProvisioningState_DOMAIN_PROVISIONING_STATE_UNSPECIFIED
+}
+
+func (x *DomainConfig) GetRouteState() DomainRouteState {
+	if x != nil {
+		return x.RouteState
+	}
+	return DomainRouteState_DOMAIN_ROUTE_STATE_UNSPECIFIED
+}
+
+func (x *DomainConfig) GetDnsInstructions() []*DnsRecordInstruction {
+	if x != nil {
+		return x.DnsInstructions
+	}
+	return nil
+}
+
+func (x *DomainConfig) GetManagedHostname() string {
+	if x != nil {
+		return x.ManagedHostname
 	}
 	return ""
 }
 
-func (x *DomainConfig) GetStatus() Status {
+func (x *DomainConfig) GetSshHostname() string {
 	if x != nil {
-		return x.Status
+		return x.SshHostname
 	}
-	return Status_STATUS_UNSPECIFIED
+	return ""
 }
 
-func (x *DomainConfig) GetEdgeAction() DomainEdgeAction {
+func (x *DomainConfig) GetRouteReady() bool {
 	if x != nil {
-		return x.EdgeAction
+		return x.RouteReady
 	}
-	return DomainEdgeAction_DOMAIN_EDGE_ACTION_UNSPECIFIED
+	return false
 }
 
-func (x *DomainConfig) GetSuccessLogSampleRate() float64 {
+func (x *DomainConfig) GetFailureReason() string {
 	if x != nil {
-		return x.SuccessLogSampleRate
+		return x.FailureReason
 	}
-	return 0
+	return ""
+}
+
+func (x *DomainConfig) GetFailureMessage() string {
+	if x != nil {
+		return x.FailureMessage
+	}
+	return ""
+}
+
+func (x *DomainConfig) GetRetryable() bool {
+	if x != nil {
+		return x.Retryable
+	}
+	return false
+}
+
+func (x *DomainConfig) GetCreatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return nil
+}
+
+func (x *DomainConfig) GetUpdatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.UpdatedAt
+	}
+	return nil
+}
+
+func (x *DomainConfig) GetVerifiedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.VerifiedAt
+	}
+	return nil
+}
+
+func (x *DomainConfig) GetRouteReadyAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.RouteReadyAt
+	}
+	return nil
+}
+
+func (x *DomainConfig) GetActivatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.ActivatedAt
+	}
+	return nil
+}
+
+func (x *DomainConfig) GetDeleteRequestedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.DeleteRequestedAt
+	}
+	return nil
 }
 
 // SiteConfig is the organization-facing site configuration
@@ -204,7 +574,7 @@ type SiteConfig struct {
 
 func (x *SiteConfig) Reset() {
 	*x = SiteConfig{}
-	mi := &file_libops_v1_common_site_proto_msgTypes[1]
+	mi := &file_libops_v1_common_site_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -216,7 +586,7 @@ func (x *SiteConfig) String() string {
 func (*SiteConfig) ProtoMessage() {}
 
 func (x *SiteConfig) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_common_site_proto_msgTypes[1]
+	mi := &file_libops_v1_common_site_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -229,7 +599,7 @@ func (x *SiteConfig) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SiteConfig.ProtoReflect.Descriptor instead.
 func (*SiteConfig) Descriptor() ([]byte, []int) {
-	return file_libops_v1_common_site_proto_rawDescGZIP(), []int{1}
+	return file_libops_v1_common_site_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *SiteConfig) GetSiteId() string {
@@ -376,17 +746,42 @@ var File_libops_v1_common_site_proto protoreflect.FileDescriptor
 
 const file_libops_v1_common_site_proto_rawDesc = "" +
 	"\n" +
-	"\x1blibops/v1/common/site.proto\x12\x10libops.v1.common\x1a$gnostic/openapi/v3/annotations.proto\x1a\x1elibops/v1/common/project.proto\x1a\x1clibops/v1/common/types.proto\"\xbb\x02\n" +
-	"\fDomainConfig\x12\x16\n" +
-	"\x06domain\x18\x01 \x01(\tR\x06domain\x12#\n" +
+	"\x1blibops/v1/common/site.proto\x12\x10libops.v1.common\x1a$gnostic/openapi/v3/annotations.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1elibops/v1/common/project.proto\x1a\x1clibops/v1/common/types.proto\"\xba\x01\n" +
+	"\x14DnsRecordInstruction\x12\x12\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x12\x12\n" +
+	"\x04type\x18\x02 \x01(\tR\x04type\x12\x12\n" +
+	"\x04data\x18\x03 \x01(\tR\x04data\x12\x10\n" +
+	"\x03ttl\x18\x04 \x01(\rR\x03ttl\x12<\n" +
+	"\apurpose\x18\x05 \x01(\x0e2\".libops.v1.common.DnsRecordPurposeR\apurpose\x12\x16\n" +
+	"\x06retain\x18\x06 \x01(\bR\x06retain\"\xf9\a\n" +
+	"\fDomainConfig\x12'\n" +
+	"\tdomain_id\x18\x01 \x01(\tB\n" +
+	"\xbaG\a\x9a\x02\x04uuidR\bdomainId\x12#\n" +
 	"\asite_id\x18\x02 \x01(\tB\n" +
-	"\xbaG\a\x9a\x02\x04uuidR\x06siteId\x12,\n" +
-	"\x12cloud_run_hostname\x18\x03 \x01(\tR\x10cloudRunHostname\x12\x12\n" +
-	"\x04tier\x18\x04 \x01(\tR\x04tier\x120\n" +
-	"\x06status\x18\x05 \x01(\x0e2\x18.libops.v1.common.StatusR\x06status\x12C\n" +
-	"\vedge_action\x18\x06 \x01(\x0e2\".libops.v1.common.DomainEdgeActionR\n" +
-	"edgeAction\x125\n" +
-	"\x17success_log_sample_rate\x18\a \x01(\x01R\x14successLogSampleRate\"\xa6\x06\n" +
+	"\xbaG\a\x9a\x02\x04uuidR\x06siteId\x12\x1a\n" +
+	"\bhostname\x18\x03 \x01(\tR\bhostname\x120\n" +
+	"\x04kind\x18\x04 \x01(\x0e2\x1c.libops.v1.common.DomainKindR\x04kind\x12X\n" +
+	"\x12provisioning_state\x18\x05 \x01(\x0e2).libops.v1.common.DomainProvisioningStateR\x11provisioningState\x12C\n" +
+	"\vroute_state\x18\x06 \x01(\x0e2\".libops.v1.common.DomainRouteStateR\n" +
+	"routeState\x12Q\n" +
+	"\x10dns_instructions\x18\a \x03(\v2&.libops.v1.common.DnsRecordInstructionR\x0fdnsInstructions\x12)\n" +
+	"\x10managed_hostname\x18\b \x01(\tR\x0fmanagedHostname\x12!\n" +
+	"\fssh_hostname\x18\t \x01(\tR\vsshHostname\x12\x1f\n" +
+	"\vroute_ready\x18\n" +
+	" \x01(\bR\n" +
+	"routeReady\x12%\n" +
+	"\x0efailure_reason\x18\v \x01(\tR\rfailureReason\x12'\n" +
+	"\x0ffailure_message\x18\f \x01(\tR\x0efailureMessage\x12\x1c\n" +
+	"\tretryable\x18\r \x01(\bR\tretryable\x129\n" +
+	"\n" +
+	"created_at\x18\x0e \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
+	"\n" +
+	"updated_at\x18\x0f \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\x12;\n" +
+	"\vverified_at\x18\x10 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
+	"verifiedAt\x12@\n" +
+	"\x0eroute_ready_at\x18\x11 \x01(\v2\x1a.google.protobuf.TimestampR\frouteReadyAt\x12=\n" +
+	"\factivated_at\x18\x12 \x01(\v2\x1a.google.protobuf.TimestampR\vactivatedAt\x12J\n" +
+	"\x13delete_requested_at\x18\x13 \x01(\v2\x1a.google.protobuf.TimestampR\x11deleteRequestedAt\"\xa6\x06\n" +
 	"\n" +
 	"SiteConfig\x12#\n" +
 	"\asite_id\x18\x01 \x01(\tB\n" +
@@ -416,12 +811,40 @@ const file_libops_v1_common_site_proto_rawDesc = "" +
 	"\xbaG\a\x9a\x02\x04uuidR\x10projectRuntimeId\x120\n" +
 	"\x14project_runtime_name\x18\x13 \x01(\tR\x12projectRuntimeName\x12V\n" +
 	"\x14project_runtime_role\x18\x14 \x01(\x0e2$.libops.v1.common.ProjectRuntimeRoleR\x12projectRuntimeRole\x120\n" +
-	"\x06status\x18\v \x01(\x0e2\x18.libops.v1.common.StatusR\x06status*\x94\x01\n" +
-	"\x10DomainEdgeAction\x12\"\n" +
-	"\x1eDOMAIN_EDGE_ACTION_UNSPECIFIED\x10\x00\x12\x1c\n" +
-	"\x18DOMAIN_EDGE_ACTION_ALLOW\x10\x01\x12 \n" +
-	"\x1cDOMAIN_EDGE_ACTION_CHALLENGE\x10\x02\x12\x1c\n" +
-	"\x18DOMAIN_EDGE_ACTION_BLOCK\x10\x03B\xad\x01\n" +
+	"\x06status\x18\v \x01(\x0e2\x18.libops.v1.common.StatusR\x06status*Z\n" +
+	"\n" +
+	"DomainKind\x12\x1b\n" +
+	"\x17DOMAIN_KIND_UNSPECIFIED\x10\x00\x12\x17\n" +
+	"\x13DOMAIN_KIND_MANAGED\x10\x01\x12\x16\n" +
+	"\x12DOMAIN_KIND_VANITY\x10\x02*\xf8\x04\n" +
+	"\x17DomainProvisioningState\x12)\n" +
+	"%DOMAIN_PROVISIONING_STATE_UNSPECIFIED\x10\x00\x126\n" +
+	"2DOMAIN_PROVISIONING_STATE_AWAITING_OWNERSHIP_PROOF\x10\x01\x129\n" +
+	"5DOMAIN_PROVISIONING_STATE_PREPARING_DNS_AUTHORIZATION\x10\x02\x126\n" +
+	"2DOMAIN_PROVISIONING_STATE_AWAITING_CERTIFICATE_DNS\x10\x03\x126\n" +
+	"2DOMAIN_PROVISIONING_STATE_PROVISIONING_CERTIFICATE\x10\x04\x124\n" +
+	"0DOMAIN_PROVISIONING_STATE_PROVISIONING_MAP_ENTRY\x10\x05\x12/\n" +
+	"+DOMAIN_PROVISIONING_STATE_READY_FOR_TRAFFIC\x10\x06\x12$\n" +
+	" DOMAIN_PROVISIONING_STATE_ACTIVE\x10\a\x12&\n" +
+	"\"DOMAIN_PROVISIONING_STATE_DEGRADED\x10\b\x12$\n" +
+	" DOMAIN_PROVISIONING_STATE_FAILED\x10\t\x12&\n" +
+	"\"DOMAIN_PROVISIONING_STATE_DELETING\x10\n" +
+	"\x12%\n" +
+	"!DOMAIN_PROVISIONING_STATE_DELETED\x10\v\x12%\n" +
+	"!DOMAIN_PROVISIONING_STATE_EXPIRED\x10\f*\xd7\x01\n" +
+	"\x10DomainRouteState\x12\"\n" +
+	"\x1eDOMAIN_ROUTE_STATE_UNSPECIFIED\x10\x00\x12\x1e\n" +
+	"\x1aDOMAIN_ROUTE_STATE_PENDING\x10\x01\x12\x1e\n" +
+	"\x1aDOMAIN_ROUTE_STATE_ENABLED\x10\x02\x12\x1e\n" +
+	"\x1aDOMAIN_ROUTE_STATE_BLOCKED\x10\x03\x12\x1f\n" +
+	"\x1bDOMAIN_ROUTE_STATE_DELETING\x10\x04\x12\x1e\n" +
+	"\x1aDOMAIN_ROUTE_STATE_DELETED\x10\x05*\xcc\x01\n" +
+	"\x10DnsRecordPurpose\x12\"\n" +
+	"\x1eDNS_RECORD_PURPOSE_UNSPECIFIED\x10\x00\x12&\n" +
+	"\"DNS_RECORD_PURPOSE_OWNERSHIP_PROOF\x10\x01\x120\n" +
+	",DNS_RECORD_PURPOSE_CERTIFICATE_AUTHORIZATION\x10\x02\x12\x1e\n" +
+	"\x1aDNS_RECORD_PURPOSE_TRAFFIC\x10\x03\x12\x1a\n" +
+	"\x16DNS_RECORD_PURPOSE_SSH\x10\x04B\xad\x01\n" +
 	"\x14com.libops.v1.commonB\tSiteProtoP\x01Z(github.com/libops/proto/libops/v1/common\xa2\x02\x03LVC\xaa\x02\x10Libops.V1.Common\xca\x02\x10Libops\\V1\\Common\xe2\x02\x1cLibops\\V1\\Common\\GPBMetadata\xea\x02\x12Libops::V1::Commonb\x06proto3"
 
 var (
@@ -436,25 +859,39 @@ func file_libops_v1_common_site_proto_rawDescGZIP() []byte {
 	return file_libops_v1_common_site_proto_rawDescData
 }
 
-var file_libops_v1_common_site_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_libops_v1_common_site_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_libops_v1_common_site_proto_enumTypes = make([]protoimpl.EnumInfo, 4)
+var file_libops_v1_common_site_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_libops_v1_common_site_proto_goTypes = []any{
-	(DomainEdgeAction)(0),   // 0: libops.v1.common.DomainEdgeAction
-	(*DomainConfig)(nil),    // 1: libops.v1.common.DomainConfig
-	(*SiteConfig)(nil),      // 2: libops.v1.common.SiteConfig
-	(Status)(0),             // 3: libops.v1.common.Status
-	(ProjectRuntimeRole)(0), // 4: libops.v1.common.ProjectRuntimeRole
+	(DomainKind)(0),               // 0: libops.v1.common.DomainKind
+	(DomainProvisioningState)(0),  // 1: libops.v1.common.DomainProvisioningState
+	(DomainRouteState)(0),         // 2: libops.v1.common.DomainRouteState
+	(DnsRecordPurpose)(0),         // 3: libops.v1.common.DnsRecordPurpose
+	(*DnsRecordInstruction)(nil),  // 4: libops.v1.common.DnsRecordInstruction
+	(*DomainConfig)(nil),          // 5: libops.v1.common.DomainConfig
+	(*SiteConfig)(nil),            // 6: libops.v1.common.SiteConfig
+	(*timestamppb.Timestamp)(nil), // 7: google.protobuf.Timestamp
+	(ProjectRuntimeRole)(0),       // 8: libops.v1.common.ProjectRuntimeRole
+	(Status)(0),                   // 9: libops.v1.common.Status
 }
 var file_libops_v1_common_site_proto_depIdxs = []int32{
-	3, // 0: libops.v1.common.DomainConfig.status:type_name -> libops.v1.common.Status
-	0, // 1: libops.v1.common.DomainConfig.edge_action:type_name -> libops.v1.common.DomainEdgeAction
-	4, // 2: libops.v1.common.SiteConfig.project_runtime_role:type_name -> libops.v1.common.ProjectRuntimeRole
-	3, // 3: libops.v1.common.SiteConfig.status:type_name -> libops.v1.common.Status
-	4, // [4:4] is the sub-list for method output_type
-	4, // [4:4] is the sub-list for method input_type
-	4, // [4:4] is the sub-list for extension type_name
-	4, // [4:4] is the sub-list for extension extendee
-	0, // [0:4] is the sub-list for field type_name
+	3,  // 0: libops.v1.common.DnsRecordInstruction.purpose:type_name -> libops.v1.common.DnsRecordPurpose
+	0,  // 1: libops.v1.common.DomainConfig.kind:type_name -> libops.v1.common.DomainKind
+	1,  // 2: libops.v1.common.DomainConfig.provisioning_state:type_name -> libops.v1.common.DomainProvisioningState
+	2,  // 3: libops.v1.common.DomainConfig.route_state:type_name -> libops.v1.common.DomainRouteState
+	4,  // 4: libops.v1.common.DomainConfig.dns_instructions:type_name -> libops.v1.common.DnsRecordInstruction
+	7,  // 5: libops.v1.common.DomainConfig.created_at:type_name -> google.protobuf.Timestamp
+	7,  // 6: libops.v1.common.DomainConfig.updated_at:type_name -> google.protobuf.Timestamp
+	7,  // 7: libops.v1.common.DomainConfig.verified_at:type_name -> google.protobuf.Timestamp
+	7,  // 8: libops.v1.common.DomainConfig.route_ready_at:type_name -> google.protobuf.Timestamp
+	7,  // 9: libops.v1.common.DomainConfig.activated_at:type_name -> google.protobuf.Timestamp
+	7,  // 10: libops.v1.common.DomainConfig.delete_requested_at:type_name -> google.protobuf.Timestamp
+	8,  // 11: libops.v1.common.SiteConfig.project_runtime_role:type_name -> libops.v1.common.ProjectRuntimeRole
+	9,  // 12: libops.v1.common.SiteConfig.status:type_name -> libops.v1.common.Status
+	13, // [13:13] is the sub-list for method output_type
+	13, // [13:13] is the sub-list for method input_type
+	13, // [13:13] is the sub-list for extension type_name
+	13, // [13:13] is the sub-list for extension extendee
+	0,  // [0:13] is the sub-list for field type_name
 }
 
 func init() { file_libops_v1_common_site_proto_init() }
@@ -469,8 +906,8 @@ func file_libops_v1_common_site_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_libops_v1_common_site_proto_rawDesc), len(file_libops_v1_common_site_proto_rawDesc)),
-			NumEnums:      1,
-			NumMessages:   2,
+			NumEnums:      4,
+			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

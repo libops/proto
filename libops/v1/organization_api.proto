@@ -171,6 +171,36 @@ service DomainService {
       parent_resource: RESOURCE_TYPE_SITE};
   }
 
+  rpc GetSiteDomain(GetSiteDomainRequest) returns (GetSiteDomainResponse) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+    option (libops.v1.options.required_scope) = {
+      resource: RESOURCE_TYPE_SITE
+      level: ACCESS_LEVEL_READ
+      allow_parent_access: true
+      oauth_scopes: "read:site"
+      resource_id_field: "site_id"};
+  }
+
+  rpc CheckSiteDomain(CheckSiteDomainRequest) returns (CheckSiteDomainResponse) {
+    option idempotency_level = IDEMPOTENT;
+    option (libops.v1.options.required_scope) = {
+      resource: RESOURCE_TYPE_SITE
+      level: ACCESS_LEVEL_WRITE
+      allow_parent_access: true
+      oauth_scopes: "write:site"
+      resource_id_field: "site_id"};
+  }
+
+  rpc RetrySiteDomainProvisioning(RetrySiteDomainProvisioningRequest) returns (RetrySiteDomainProvisioningResponse) {
+    option idempotency_level = IDEMPOTENT;
+    option (libops.v1.options.required_scope) = {
+      resource: RESOURCE_TYPE_SITE
+      level: ACCESS_LEVEL_WRITE
+      allow_parent_access: true
+      oauth_scopes: "write:site"
+      resource_id_field: "site_id"};
+  }
+
   rpc DeleteSiteDomain(DeleteSiteDomainRequest) returns (google.protobuf.Empty) {
     option (libops.v1.options.required_scope) = {
       resource: RESOURCE_TYPE_SITE
@@ -559,16 +589,45 @@ message ListSiteDomainsResponse {
 
 message CreateSiteDomainRequest {
   string site_id = 1;
-  libops.v1.common.DomainConfig domain = 2;
+  string hostname = 2;
 }
 
 message CreateSiteDomainResponse {
   libops.v1.common.DomainConfig domain = 1;
+  libops.v1.common.DnsRecordInstruction ownership_proof = 2;
+}
+
+message GetSiteDomainRequest {
+  string site_id = 1;
+  string domain_id = 2;
+}
+
+message GetSiteDomainResponse {
+  libops.v1.common.DomainConfig domain = 1;
+}
+
+message CheckSiteDomainRequest {
+  string site_id = 1;
+  string domain_id = 2;
+}
+
+message CheckSiteDomainResponse {
+  libops.v1.common.DomainConfig domain = 1;
+}
+
+message RetrySiteDomainProvisioningRequest {
+  string site_id = 1;
+  string domain_id = 2;
+}
+
+message RetrySiteDomainProvisioningResponse {
+  libops.v1.common.DomainConfig domain = 1;
+  libops.v1.common.DnsRecordInstruction ownership_proof = 2;
 }
 
 message DeleteSiteDomainRequest {
   string site_id = 1;
-  string domain = 2;
+  string domain_id = 2;
 }
 
 // ==============================================================================

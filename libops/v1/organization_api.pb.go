@@ -2085,7 +2085,7 @@ func (x *ListSiteDomainsResponse) GetNextPageToken() string {
 type CreateSiteDomainRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	SiteId        string                 `protobuf:"bytes,1,opt,name=site_id,json=siteId,proto3" json:"site_id,omitempty"`
-	Domain        *common.DomainConfig   `protobuf:"bytes,2,opt,name=domain,proto3" json:"domain,omitempty"`
+	Hostname      string                 `protobuf:"bytes,2,opt,name=hostname,proto3" json:"hostname,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -2127,18 +2127,19 @@ func (x *CreateSiteDomainRequest) GetSiteId() string {
 	return ""
 }
 
-func (x *CreateSiteDomainRequest) GetDomain() *common.DomainConfig {
+func (x *CreateSiteDomainRequest) GetHostname() string {
 	if x != nil {
-		return x.Domain
+		return x.Hostname
 	}
-	return nil
+	return ""
 }
 
 type CreateSiteDomainResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Domain        *common.DomainConfig   `protobuf:"bytes,1,opt,name=domain,proto3" json:"domain,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state          protoimpl.MessageState       `protogen:"open.v1"`
+	Domain         *common.DomainConfig         `protobuf:"bytes,1,opt,name=domain,proto3" json:"domain,omitempty"`
+	OwnershipProof *common.DnsRecordInstruction `protobuf:"bytes,2,opt,name=ownership_proof,json=ownershipProof,proto3" json:"ownership_proof,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
 }
 
 func (x *CreateSiteDomainResponse) Reset() {
@@ -2178,17 +2179,320 @@ func (x *CreateSiteDomainResponse) GetDomain() *common.DomainConfig {
 	return nil
 }
 
+func (x *CreateSiteDomainResponse) GetOwnershipProof() *common.DnsRecordInstruction {
+	if x != nil {
+		return x.OwnershipProof
+	}
+	return nil
+}
+
+type GetSiteDomainRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	SiteId        string                 `protobuf:"bytes,1,opt,name=site_id,json=siteId,proto3" json:"site_id,omitempty"`
+	DomainId      string                 `protobuf:"bytes,2,opt,name=domain_id,json=domainId,proto3" json:"domain_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetSiteDomainRequest) Reset() {
+	*x = GetSiteDomainRequest{}
+	mi := &file_libops_v1_organization_api_proto_msgTypes[41]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetSiteDomainRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetSiteDomainRequest) ProtoMessage() {}
+
+func (x *GetSiteDomainRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_libops_v1_organization_api_proto_msgTypes[41]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetSiteDomainRequest.ProtoReflect.Descriptor instead.
+func (*GetSiteDomainRequest) Descriptor() ([]byte, []int) {
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{41}
+}
+
+func (x *GetSiteDomainRequest) GetSiteId() string {
+	if x != nil {
+		return x.SiteId
+	}
+	return ""
+}
+
+func (x *GetSiteDomainRequest) GetDomainId() string {
+	if x != nil {
+		return x.DomainId
+	}
+	return ""
+}
+
+type GetSiteDomainResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Domain        *common.DomainConfig   `protobuf:"bytes,1,opt,name=domain,proto3" json:"domain,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetSiteDomainResponse) Reset() {
+	*x = GetSiteDomainResponse{}
+	mi := &file_libops_v1_organization_api_proto_msgTypes[42]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetSiteDomainResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetSiteDomainResponse) ProtoMessage() {}
+
+func (x *GetSiteDomainResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_libops_v1_organization_api_proto_msgTypes[42]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetSiteDomainResponse.ProtoReflect.Descriptor instead.
+func (*GetSiteDomainResponse) Descriptor() ([]byte, []int) {
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{42}
+}
+
+func (x *GetSiteDomainResponse) GetDomain() *common.DomainConfig {
+	if x != nil {
+		return x.Domain
+	}
+	return nil
+}
+
+type CheckSiteDomainRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	SiteId        string                 `protobuf:"bytes,1,opt,name=site_id,json=siteId,proto3" json:"site_id,omitempty"`
+	DomainId      string                 `protobuf:"bytes,2,opt,name=domain_id,json=domainId,proto3" json:"domain_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CheckSiteDomainRequest) Reset() {
+	*x = CheckSiteDomainRequest{}
+	mi := &file_libops_v1_organization_api_proto_msgTypes[43]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CheckSiteDomainRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CheckSiteDomainRequest) ProtoMessage() {}
+
+func (x *CheckSiteDomainRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_libops_v1_organization_api_proto_msgTypes[43]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CheckSiteDomainRequest.ProtoReflect.Descriptor instead.
+func (*CheckSiteDomainRequest) Descriptor() ([]byte, []int) {
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{43}
+}
+
+func (x *CheckSiteDomainRequest) GetSiteId() string {
+	if x != nil {
+		return x.SiteId
+	}
+	return ""
+}
+
+func (x *CheckSiteDomainRequest) GetDomainId() string {
+	if x != nil {
+		return x.DomainId
+	}
+	return ""
+}
+
+type CheckSiteDomainResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Domain        *common.DomainConfig   `protobuf:"bytes,1,opt,name=domain,proto3" json:"domain,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CheckSiteDomainResponse) Reset() {
+	*x = CheckSiteDomainResponse{}
+	mi := &file_libops_v1_organization_api_proto_msgTypes[44]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CheckSiteDomainResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CheckSiteDomainResponse) ProtoMessage() {}
+
+func (x *CheckSiteDomainResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_libops_v1_organization_api_proto_msgTypes[44]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CheckSiteDomainResponse.ProtoReflect.Descriptor instead.
+func (*CheckSiteDomainResponse) Descriptor() ([]byte, []int) {
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{44}
+}
+
+func (x *CheckSiteDomainResponse) GetDomain() *common.DomainConfig {
+	if x != nil {
+		return x.Domain
+	}
+	return nil
+}
+
+type RetrySiteDomainProvisioningRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	SiteId        string                 `protobuf:"bytes,1,opt,name=site_id,json=siteId,proto3" json:"site_id,omitempty"`
+	DomainId      string                 `protobuf:"bytes,2,opt,name=domain_id,json=domainId,proto3" json:"domain_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RetrySiteDomainProvisioningRequest) Reset() {
+	*x = RetrySiteDomainProvisioningRequest{}
+	mi := &file_libops_v1_organization_api_proto_msgTypes[45]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RetrySiteDomainProvisioningRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RetrySiteDomainProvisioningRequest) ProtoMessage() {}
+
+func (x *RetrySiteDomainProvisioningRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_libops_v1_organization_api_proto_msgTypes[45]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RetrySiteDomainProvisioningRequest.ProtoReflect.Descriptor instead.
+func (*RetrySiteDomainProvisioningRequest) Descriptor() ([]byte, []int) {
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{45}
+}
+
+func (x *RetrySiteDomainProvisioningRequest) GetSiteId() string {
+	if x != nil {
+		return x.SiteId
+	}
+	return ""
+}
+
+func (x *RetrySiteDomainProvisioningRequest) GetDomainId() string {
+	if x != nil {
+		return x.DomainId
+	}
+	return ""
+}
+
+type RetrySiteDomainProvisioningResponse struct {
+	state          protoimpl.MessageState       `protogen:"open.v1"`
+	Domain         *common.DomainConfig         `protobuf:"bytes,1,opt,name=domain,proto3" json:"domain,omitempty"`
+	OwnershipProof *common.DnsRecordInstruction `protobuf:"bytes,2,opt,name=ownership_proof,json=ownershipProof,proto3" json:"ownership_proof,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *RetrySiteDomainProvisioningResponse) Reset() {
+	*x = RetrySiteDomainProvisioningResponse{}
+	mi := &file_libops_v1_organization_api_proto_msgTypes[46]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RetrySiteDomainProvisioningResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RetrySiteDomainProvisioningResponse) ProtoMessage() {}
+
+func (x *RetrySiteDomainProvisioningResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_libops_v1_organization_api_proto_msgTypes[46]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RetrySiteDomainProvisioningResponse.ProtoReflect.Descriptor instead.
+func (*RetrySiteDomainProvisioningResponse) Descriptor() ([]byte, []int) {
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{46}
+}
+
+func (x *RetrySiteDomainProvisioningResponse) GetDomain() *common.DomainConfig {
+	if x != nil {
+		return x.Domain
+	}
+	return nil
+}
+
+func (x *RetrySiteDomainProvisioningResponse) GetOwnershipProof() *common.DnsRecordInstruction {
+	if x != nil {
+		return x.OwnershipProof
+	}
+	return nil
+}
+
 type DeleteSiteDomainRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	SiteId        string                 `protobuf:"bytes,1,opt,name=site_id,json=siteId,proto3" json:"site_id,omitempty"`
-	Domain        string                 `protobuf:"bytes,2,opt,name=domain,proto3" json:"domain,omitempty"`
+	DomainId      string                 `protobuf:"bytes,2,opt,name=domain_id,json=domainId,proto3" json:"domain_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *DeleteSiteDomainRequest) Reset() {
 	*x = DeleteSiteDomainRequest{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[41]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[47]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2200,7 +2504,7 @@ func (x *DeleteSiteDomainRequest) String() string {
 func (*DeleteSiteDomainRequest) ProtoMessage() {}
 
 func (x *DeleteSiteDomainRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[41]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[47]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2213,7 +2517,7 @@ func (x *DeleteSiteDomainRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteSiteDomainRequest.ProtoReflect.Descriptor instead.
 func (*DeleteSiteDomainRequest) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{41}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{47}
 }
 
 func (x *DeleteSiteDomainRequest) GetSiteId() string {
@@ -2223,9 +2527,9 @@ func (x *DeleteSiteDomainRequest) GetSiteId() string {
 	return ""
 }
 
-func (x *DeleteSiteDomainRequest) GetDomain() string {
+func (x *DeleteSiteDomainRequest) GetDomainId() string {
 	if x != nil {
-		return x.Domain
+		return x.DomainId
 	}
 	return ""
 }
@@ -2244,7 +2548,7 @@ type OrganizationFirewallRule struct {
 
 func (x *OrganizationFirewallRule) Reset() {
 	*x = OrganizationFirewallRule{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[42]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[48]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2256,7 +2560,7 @@ func (x *OrganizationFirewallRule) String() string {
 func (*OrganizationFirewallRule) ProtoMessage() {}
 
 func (x *OrganizationFirewallRule) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[42]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[48]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2269,7 +2573,7 @@ func (x *OrganizationFirewallRule) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OrganizationFirewallRule.ProtoReflect.Descriptor instead.
 func (*OrganizationFirewallRule) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{42}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{48}
 }
 
 func (x *OrganizationFirewallRule) GetRuleId() string {
@@ -2328,7 +2632,7 @@ type ProjectFirewallRule struct {
 
 func (x *ProjectFirewallRule) Reset() {
 	*x = ProjectFirewallRule{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[43]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[49]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2340,7 +2644,7 @@ func (x *ProjectFirewallRule) String() string {
 func (*ProjectFirewallRule) ProtoMessage() {}
 
 func (x *ProjectFirewallRule) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[43]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[49]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2353,7 +2657,7 @@ func (x *ProjectFirewallRule) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ProjectFirewallRule.ProtoReflect.Descriptor instead.
 func (*ProjectFirewallRule) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{43}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{49}
 }
 
 func (x *ProjectFirewallRule) GetRuleId() string {
@@ -2412,7 +2716,7 @@ type SiteFirewallRule struct {
 
 func (x *SiteFirewallRule) Reset() {
 	*x = SiteFirewallRule{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[44]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[50]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2424,7 +2728,7 @@ func (x *SiteFirewallRule) String() string {
 func (*SiteFirewallRule) ProtoMessage() {}
 
 func (x *SiteFirewallRule) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[44]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[50]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2437,7 +2741,7 @@ func (x *SiteFirewallRule) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SiteFirewallRule.ProtoReflect.Descriptor instead.
 func (*SiteFirewallRule) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{44}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{50}
 }
 
 func (x *SiteFirewallRule) GetRuleId() string {
@@ -2497,7 +2801,7 @@ type MemberDetail struct {
 
 func (x *MemberDetail) Reset() {
 	*x = MemberDetail{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[45]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[51]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2509,7 +2813,7 @@ func (x *MemberDetail) String() string {
 func (*MemberDetail) ProtoMessage() {}
 
 func (x *MemberDetail) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[45]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[51]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2522,7 +2826,7 @@ func (x *MemberDetail) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MemberDetail.ProtoReflect.Descriptor instead.
 func (*MemberDetail) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{45}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{51}
 }
 
 func (x *MemberDetail) GetAccountId() string {
@@ -2587,7 +2891,7 @@ type SshKey struct {
 
 func (x *SshKey) Reset() {
 	*x = SshKey{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[46]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[52]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2599,7 +2903,7 @@ func (x *SshKey) String() string {
 func (*SshKey) ProtoMessage() {}
 
 func (x *SshKey) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[46]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[52]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2612,7 +2916,7 @@ func (x *SshKey) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SshKey.ProtoReflect.Descriptor instead.
 func (*SshKey) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{46}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{52}
 }
 
 func (x *SshKey) GetKeyId() string {
@@ -2662,7 +2966,7 @@ type SiteStatus struct {
 
 func (x *SiteStatus) Reset() {
 	*x = SiteStatus{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[47]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[53]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2674,7 +2978,7 @@ func (x *SiteStatus) String() string {
 func (*SiteStatus) ProtoMessage() {}
 
 func (x *SiteStatus) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[47]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[53]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2687,7 +2991,7 @@ func (x *SiteStatus) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SiteStatus.ProtoReflect.Descriptor instead.
 func (*SiteStatus) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{47}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{53}
 }
 
 func (x *SiteStatus) GetSiteId() string {
@@ -2729,7 +3033,7 @@ type ListOrganizationFirewallRulesRequest struct {
 
 func (x *ListOrganizationFirewallRulesRequest) Reset() {
 	*x = ListOrganizationFirewallRulesRequest{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[48]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[54]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2741,7 +3045,7 @@ func (x *ListOrganizationFirewallRulesRequest) String() string {
 func (*ListOrganizationFirewallRulesRequest) ProtoMessage() {}
 
 func (x *ListOrganizationFirewallRulesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[48]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[54]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2754,7 +3058,7 @@ func (x *ListOrganizationFirewallRulesRequest) ProtoReflect() protoreflect.Messa
 
 // Deprecated: Use ListOrganizationFirewallRulesRequest.ProtoReflect.Descriptor instead.
 func (*ListOrganizationFirewallRulesRequest) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{48}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{54}
 }
 
 func (x *ListOrganizationFirewallRulesRequest) GetOrganizationId() string {
@@ -2788,7 +3092,7 @@ type ListOrganizationFirewallRulesResponse struct {
 
 func (x *ListOrganizationFirewallRulesResponse) Reset() {
 	*x = ListOrganizationFirewallRulesResponse{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[49]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[55]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2800,7 +3104,7 @@ func (x *ListOrganizationFirewallRulesResponse) String() string {
 func (*ListOrganizationFirewallRulesResponse) ProtoMessage() {}
 
 func (x *ListOrganizationFirewallRulesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[49]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[55]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2813,7 +3117,7 @@ func (x *ListOrganizationFirewallRulesResponse) ProtoReflect() protoreflect.Mess
 
 // Deprecated: Use ListOrganizationFirewallRulesResponse.ProtoReflect.Descriptor instead.
 func (*ListOrganizationFirewallRulesResponse) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{49}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{55}
 }
 
 func (x *ListOrganizationFirewallRulesResponse) GetRules() []*OrganizationFirewallRule {
@@ -2842,7 +3146,7 @@ type CreateOrganizationFirewallRuleRequest struct {
 
 func (x *CreateOrganizationFirewallRuleRequest) Reset() {
 	*x = CreateOrganizationFirewallRuleRequest{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[50]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[56]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2854,7 +3158,7 @@ func (x *CreateOrganizationFirewallRuleRequest) String() string {
 func (*CreateOrganizationFirewallRuleRequest) ProtoMessage() {}
 
 func (x *CreateOrganizationFirewallRuleRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[50]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[56]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2867,7 +3171,7 @@ func (x *CreateOrganizationFirewallRuleRequest) ProtoReflect() protoreflect.Mess
 
 // Deprecated: Use CreateOrganizationFirewallRuleRequest.ProtoReflect.Descriptor instead.
 func (*CreateOrganizationFirewallRuleRequest) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{50}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{56}
 }
 
 func (x *CreateOrganizationFirewallRuleRequest) GetOrganizationId() string {
@@ -2907,7 +3211,7 @@ type CreateOrganizationFirewallRuleResponse struct {
 
 func (x *CreateOrganizationFirewallRuleResponse) Reset() {
 	*x = CreateOrganizationFirewallRuleResponse{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[51]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[57]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2919,7 +3223,7 @@ func (x *CreateOrganizationFirewallRuleResponse) String() string {
 func (*CreateOrganizationFirewallRuleResponse) ProtoMessage() {}
 
 func (x *CreateOrganizationFirewallRuleResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[51]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[57]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2932,7 +3236,7 @@ func (x *CreateOrganizationFirewallRuleResponse) ProtoReflect() protoreflect.Mes
 
 // Deprecated: Use CreateOrganizationFirewallRuleResponse.ProtoReflect.Descriptor instead.
 func (*CreateOrganizationFirewallRuleResponse) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{51}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{57}
 }
 
 func (x *CreateOrganizationFirewallRuleResponse) GetRule() *OrganizationFirewallRule {
@@ -2952,7 +3256,7 @@ type DeleteOrganizationFirewallRuleRequest struct {
 
 func (x *DeleteOrganizationFirewallRuleRequest) Reset() {
 	*x = DeleteOrganizationFirewallRuleRequest{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[52]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[58]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2964,7 +3268,7 @@ func (x *DeleteOrganizationFirewallRuleRequest) String() string {
 func (*DeleteOrganizationFirewallRuleRequest) ProtoMessage() {}
 
 func (x *DeleteOrganizationFirewallRuleRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[52]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[58]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2977,7 +3281,7 @@ func (x *DeleteOrganizationFirewallRuleRequest) ProtoReflect() protoreflect.Mess
 
 // Deprecated: Use DeleteOrganizationFirewallRuleRequest.ProtoReflect.Descriptor instead.
 func (*DeleteOrganizationFirewallRuleRequest) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{52}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{58}
 }
 
 func (x *DeleteOrganizationFirewallRuleRequest) GetOrganizationId() string {
@@ -3005,7 +3309,7 @@ type ListProjectFirewallRulesRequest struct {
 
 func (x *ListProjectFirewallRulesRequest) Reset() {
 	*x = ListProjectFirewallRulesRequest{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[53]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[59]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3017,7 +3321,7 @@ func (x *ListProjectFirewallRulesRequest) String() string {
 func (*ListProjectFirewallRulesRequest) ProtoMessage() {}
 
 func (x *ListProjectFirewallRulesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[53]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[59]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3030,7 +3334,7 @@ func (x *ListProjectFirewallRulesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListProjectFirewallRulesRequest.ProtoReflect.Descriptor instead.
 func (*ListProjectFirewallRulesRequest) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{53}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{59}
 }
 
 func (x *ListProjectFirewallRulesRequest) GetProjectId() string {
@@ -3064,7 +3368,7 @@ type ListProjectFirewallRulesResponse struct {
 
 func (x *ListProjectFirewallRulesResponse) Reset() {
 	*x = ListProjectFirewallRulesResponse{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[54]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[60]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3076,7 +3380,7 @@ func (x *ListProjectFirewallRulesResponse) String() string {
 func (*ListProjectFirewallRulesResponse) ProtoMessage() {}
 
 func (x *ListProjectFirewallRulesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[54]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[60]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3089,7 +3393,7 @@ func (x *ListProjectFirewallRulesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListProjectFirewallRulesResponse.ProtoReflect.Descriptor instead.
 func (*ListProjectFirewallRulesResponse) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{54}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{60}
 }
 
 func (x *ListProjectFirewallRulesResponse) GetRules() []*ProjectFirewallRule {
@@ -3118,7 +3422,7 @@ type CreateProjectFirewallRuleRequest struct {
 
 func (x *CreateProjectFirewallRuleRequest) Reset() {
 	*x = CreateProjectFirewallRuleRequest{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[55]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[61]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3130,7 +3434,7 @@ func (x *CreateProjectFirewallRuleRequest) String() string {
 func (*CreateProjectFirewallRuleRequest) ProtoMessage() {}
 
 func (x *CreateProjectFirewallRuleRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[55]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[61]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3143,7 +3447,7 @@ func (x *CreateProjectFirewallRuleRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateProjectFirewallRuleRequest.ProtoReflect.Descriptor instead.
 func (*CreateProjectFirewallRuleRequest) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{55}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{61}
 }
 
 func (x *CreateProjectFirewallRuleRequest) GetProjectId() string {
@@ -3183,7 +3487,7 @@ type CreateProjectFirewallRuleResponse struct {
 
 func (x *CreateProjectFirewallRuleResponse) Reset() {
 	*x = CreateProjectFirewallRuleResponse{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[56]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[62]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3195,7 +3499,7 @@ func (x *CreateProjectFirewallRuleResponse) String() string {
 func (*CreateProjectFirewallRuleResponse) ProtoMessage() {}
 
 func (x *CreateProjectFirewallRuleResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[56]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[62]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3208,7 +3512,7 @@ func (x *CreateProjectFirewallRuleResponse) ProtoReflect() protoreflect.Message 
 
 // Deprecated: Use CreateProjectFirewallRuleResponse.ProtoReflect.Descriptor instead.
 func (*CreateProjectFirewallRuleResponse) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{56}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{62}
 }
 
 func (x *CreateProjectFirewallRuleResponse) GetRule() *ProjectFirewallRule {
@@ -3228,7 +3532,7 @@ type DeleteProjectFirewallRuleRequest struct {
 
 func (x *DeleteProjectFirewallRuleRequest) Reset() {
 	*x = DeleteProjectFirewallRuleRequest{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[57]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[63]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3240,7 +3544,7 @@ func (x *DeleteProjectFirewallRuleRequest) String() string {
 func (*DeleteProjectFirewallRuleRequest) ProtoMessage() {}
 
 func (x *DeleteProjectFirewallRuleRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[57]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[63]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3253,7 +3557,7 @@ func (x *DeleteProjectFirewallRuleRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteProjectFirewallRuleRequest.ProtoReflect.Descriptor instead.
 func (*DeleteProjectFirewallRuleRequest) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{57}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{63}
 }
 
 func (x *DeleteProjectFirewallRuleRequest) GetProjectId() string {
@@ -3281,7 +3585,7 @@ type ListSiteFirewallRulesRequest struct {
 
 func (x *ListSiteFirewallRulesRequest) Reset() {
 	*x = ListSiteFirewallRulesRequest{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[58]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[64]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3293,7 +3597,7 @@ func (x *ListSiteFirewallRulesRequest) String() string {
 func (*ListSiteFirewallRulesRequest) ProtoMessage() {}
 
 func (x *ListSiteFirewallRulesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[58]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[64]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3306,7 +3610,7 @@ func (x *ListSiteFirewallRulesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListSiteFirewallRulesRequest.ProtoReflect.Descriptor instead.
 func (*ListSiteFirewallRulesRequest) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{58}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{64}
 }
 
 func (x *ListSiteFirewallRulesRequest) GetSiteId() string {
@@ -3340,7 +3644,7 @@ type ListSiteFirewallRulesResponse struct {
 
 func (x *ListSiteFirewallRulesResponse) Reset() {
 	*x = ListSiteFirewallRulesResponse{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[59]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[65]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3352,7 +3656,7 @@ func (x *ListSiteFirewallRulesResponse) String() string {
 func (*ListSiteFirewallRulesResponse) ProtoMessage() {}
 
 func (x *ListSiteFirewallRulesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[59]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[65]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3365,7 +3669,7 @@ func (x *ListSiteFirewallRulesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListSiteFirewallRulesResponse.ProtoReflect.Descriptor instead.
 func (*ListSiteFirewallRulesResponse) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{59}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{65}
 }
 
 func (x *ListSiteFirewallRulesResponse) GetRules() []*SiteFirewallRule {
@@ -3394,7 +3698,7 @@ type CreateSiteFirewallRuleRequest struct {
 
 func (x *CreateSiteFirewallRuleRequest) Reset() {
 	*x = CreateSiteFirewallRuleRequest{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[60]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[66]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3406,7 +3710,7 @@ func (x *CreateSiteFirewallRuleRequest) String() string {
 func (*CreateSiteFirewallRuleRequest) ProtoMessage() {}
 
 func (x *CreateSiteFirewallRuleRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[60]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[66]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3419,7 +3723,7 @@ func (x *CreateSiteFirewallRuleRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateSiteFirewallRuleRequest.ProtoReflect.Descriptor instead.
 func (*CreateSiteFirewallRuleRequest) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{60}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{66}
 }
 
 func (x *CreateSiteFirewallRuleRequest) GetSiteId() string {
@@ -3459,7 +3763,7 @@ type CreateSiteFirewallRuleResponse struct {
 
 func (x *CreateSiteFirewallRuleResponse) Reset() {
 	*x = CreateSiteFirewallRuleResponse{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[61]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[67]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3471,7 +3775,7 @@ func (x *CreateSiteFirewallRuleResponse) String() string {
 func (*CreateSiteFirewallRuleResponse) ProtoMessage() {}
 
 func (x *CreateSiteFirewallRuleResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[61]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[67]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3484,7 +3788,7 @@ func (x *CreateSiteFirewallRuleResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateSiteFirewallRuleResponse.ProtoReflect.Descriptor instead.
 func (*CreateSiteFirewallRuleResponse) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{61}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{67}
 }
 
 func (x *CreateSiteFirewallRuleResponse) GetRule() *SiteFirewallRule {
@@ -3504,7 +3808,7 @@ type DeleteSiteFirewallRuleRequest struct {
 
 func (x *DeleteSiteFirewallRuleRequest) Reset() {
 	*x = DeleteSiteFirewallRuleRequest{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[62]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[68]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3516,7 +3820,7 @@ func (x *DeleteSiteFirewallRuleRequest) String() string {
 func (*DeleteSiteFirewallRuleRequest) ProtoMessage() {}
 
 func (x *DeleteSiteFirewallRuleRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[62]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[68]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3529,7 +3833,7 @@ func (x *DeleteSiteFirewallRuleRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteSiteFirewallRuleRequest.ProtoReflect.Descriptor instead.
 func (*DeleteSiteFirewallRuleRequest) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{62}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{68}
 }
 
 func (x *DeleteSiteFirewallRuleRequest) GetSiteId() string {
@@ -3557,7 +3861,7 @@ type ListOrganizationMembersRequest struct {
 
 func (x *ListOrganizationMembersRequest) Reset() {
 	*x = ListOrganizationMembersRequest{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[63]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[69]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3569,7 +3873,7 @@ func (x *ListOrganizationMembersRequest) String() string {
 func (*ListOrganizationMembersRequest) ProtoMessage() {}
 
 func (x *ListOrganizationMembersRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[63]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[69]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3582,7 +3886,7 @@ func (x *ListOrganizationMembersRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListOrganizationMembersRequest.ProtoReflect.Descriptor instead.
 func (*ListOrganizationMembersRequest) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{63}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{69}
 }
 
 func (x *ListOrganizationMembersRequest) GetOrganizationId() string {
@@ -3616,7 +3920,7 @@ type ListOrganizationMembersResponse struct {
 
 func (x *ListOrganizationMembersResponse) Reset() {
 	*x = ListOrganizationMembersResponse{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[64]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[70]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3628,7 +3932,7 @@ func (x *ListOrganizationMembersResponse) String() string {
 func (*ListOrganizationMembersResponse) ProtoMessage() {}
 
 func (x *ListOrganizationMembersResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[64]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[70]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3641,7 +3945,7 @@ func (x *ListOrganizationMembersResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListOrganizationMembersResponse.ProtoReflect.Descriptor instead.
 func (*ListOrganizationMembersResponse) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{64}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{70}
 }
 
 func (x *ListOrganizationMembersResponse) GetMembers() []*MemberDetail {
@@ -3669,7 +3973,7 @@ type CreateOrganizationMemberRequest struct {
 
 func (x *CreateOrganizationMemberRequest) Reset() {
 	*x = CreateOrganizationMemberRequest{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[65]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[71]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3681,7 +3985,7 @@ func (x *CreateOrganizationMemberRequest) String() string {
 func (*CreateOrganizationMemberRequest) ProtoMessage() {}
 
 func (x *CreateOrganizationMemberRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[65]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[71]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3694,7 +3998,7 @@ func (x *CreateOrganizationMemberRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateOrganizationMemberRequest.ProtoReflect.Descriptor instead.
 func (*CreateOrganizationMemberRequest) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{65}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{71}
 }
 
 func (x *CreateOrganizationMemberRequest) GetOrganizationId() string {
@@ -3727,7 +4031,7 @@ type CreateOrganizationMemberResponse struct {
 
 func (x *CreateOrganizationMemberResponse) Reset() {
 	*x = CreateOrganizationMemberResponse{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[66]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[72]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3739,7 +4043,7 @@ func (x *CreateOrganizationMemberResponse) String() string {
 func (*CreateOrganizationMemberResponse) ProtoMessage() {}
 
 func (x *CreateOrganizationMemberResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[66]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[72]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3752,7 +4056,7 @@ func (x *CreateOrganizationMemberResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateOrganizationMemberResponse.ProtoReflect.Descriptor instead.
 func (*CreateOrganizationMemberResponse) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{66}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{72}
 }
 
 func (x *CreateOrganizationMemberResponse) GetMember() *MemberDetail {
@@ -3774,7 +4078,7 @@ type UpdateOrganizationMemberRequest struct {
 
 func (x *UpdateOrganizationMemberRequest) Reset() {
 	*x = UpdateOrganizationMemberRequest{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[67]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[73]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3786,7 +4090,7 @@ func (x *UpdateOrganizationMemberRequest) String() string {
 func (*UpdateOrganizationMemberRequest) ProtoMessage() {}
 
 func (x *UpdateOrganizationMemberRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[67]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[73]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3799,7 +4103,7 @@ func (x *UpdateOrganizationMemberRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateOrganizationMemberRequest.ProtoReflect.Descriptor instead.
 func (*UpdateOrganizationMemberRequest) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{67}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{73}
 }
 
 func (x *UpdateOrganizationMemberRequest) GetOrganizationId() string {
@@ -3839,7 +4143,7 @@ type UpdateOrganizationMemberResponse struct {
 
 func (x *UpdateOrganizationMemberResponse) Reset() {
 	*x = UpdateOrganizationMemberResponse{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[68]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[74]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3851,7 +4155,7 @@ func (x *UpdateOrganizationMemberResponse) String() string {
 func (*UpdateOrganizationMemberResponse) ProtoMessage() {}
 
 func (x *UpdateOrganizationMemberResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[68]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[74]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3864,7 +4168,7 @@ func (x *UpdateOrganizationMemberResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateOrganizationMemberResponse.ProtoReflect.Descriptor instead.
 func (*UpdateOrganizationMemberResponse) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{68}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{74}
 }
 
 func (x *UpdateOrganizationMemberResponse) GetMember() *MemberDetail {
@@ -3884,7 +4188,7 @@ type DeleteOrganizationMemberRequest struct {
 
 func (x *DeleteOrganizationMemberRequest) Reset() {
 	*x = DeleteOrganizationMemberRequest{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[69]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[75]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3896,7 +4200,7 @@ func (x *DeleteOrganizationMemberRequest) String() string {
 func (*DeleteOrganizationMemberRequest) ProtoMessage() {}
 
 func (x *DeleteOrganizationMemberRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[69]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[75]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3909,7 +4213,7 @@ func (x *DeleteOrganizationMemberRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteOrganizationMemberRequest.ProtoReflect.Descriptor instead.
 func (*DeleteOrganizationMemberRequest) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{69}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{75}
 }
 
 func (x *DeleteOrganizationMemberRequest) GetOrganizationId() string {
@@ -3937,7 +4241,7 @@ type ListProjectMembersRequest struct {
 
 func (x *ListProjectMembersRequest) Reset() {
 	*x = ListProjectMembersRequest{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[70]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[76]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3949,7 +4253,7 @@ func (x *ListProjectMembersRequest) String() string {
 func (*ListProjectMembersRequest) ProtoMessage() {}
 
 func (x *ListProjectMembersRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[70]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[76]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3962,7 +4266,7 @@ func (x *ListProjectMembersRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListProjectMembersRequest.ProtoReflect.Descriptor instead.
 func (*ListProjectMembersRequest) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{70}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{76}
 }
 
 func (x *ListProjectMembersRequest) GetProjectId() string {
@@ -3996,7 +4300,7 @@ type ListProjectMembersResponse struct {
 
 func (x *ListProjectMembersResponse) Reset() {
 	*x = ListProjectMembersResponse{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[71]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[77]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4008,7 +4312,7 @@ func (x *ListProjectMembersResponse) String() string {
 func (*ListProjectMembersResponse) ProtoMessage() {}
 
 func (x *ListProjectMembersResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[71]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[77]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4021,7 +4325,7 @@ func (x *ListProjectMembersResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListProjectMembersResponse.ProtoReflect.Descriptor instead.
 func (*ListProjectMembersResponse) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{71}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{77}
 }
 
 func (x *ListProjectMembersResponse) GetMembers() []*MemberDetail {
@@ -4049,7 +4353,7 @@ type CreateProjectMemberRequest struct {
 
 func (x *CreateProjectMemberRequest) Reset() {
 	*x = CreateProjectMemberRequest{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[72]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[78]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4061,7 +4365,7 @@ func (x *CreateProjectMemberRequest) String() string {
 func (*CreateProjectMemberRequest) ProtoMessage() {}
 
 func (x *CreateProjectMemberRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[72]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[78]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4074,7 +4378,7 @@ func (x *CreateProjectMemberRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateProjectMemberRequest.ProtoReflect.Descriptor instead.
 func (*CreateProjectMemberRequest) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{72}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{78}
 }
 
 func (x *CreateProjectMemberRequest) GetProjectId() string {
@@ -4107,7 +4411,7 @@ type CreateProjectMemberResponse struct {
 
 func (x *CreateProjectMemberResponse) Reset() {
 	*x = CreateProjectMemberResponse{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[73]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[79]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4119,7 +4423,7 @@ func (x *CreateProjectMemberResponse) String() string {
 func (*CreateProjectMemberResponse) ProtoMessage() {}
 
 func (x *CreateProjectMemberResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[73]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[79]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4132,7 +4436,7 @@ func (x *CreateProjectMemberResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateProjectMemberResponse.ProtoReflect.Descriptor instead.
 func (*CreateProjectMemberResponse) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{73}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{79}
 }
 
 func (x *CreateProjectMemberResponse) GetMember() *MemberDetail {
@@ -4154,7 +4458,7 @@ type UpdateProjectMemberRequest struct {
 
 func (x *UpdateProjectMemberRequest) Reset() {
 	*x = UpdateProjectMemberRequest{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[74]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[80]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4166,7 +4470,7 @@ func (x *UpdateProjectMemberRequest) String() string {
 func (*UpdateProjectMemberRequest) ProtoMessage() {}
 
 func (x *UpdateProjectMemberRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[74]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[80]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4179,7 +4483,7 @@ func (x *UpdateProjectMemberRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateProjectMemberRequest.ProtoReflect.Descriptor instead.
 func (*UpdateProjectMemberRequest) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{74}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{80}
 }
 
 func (x *UpdateProjectMemberRequest) GetProjectId() string {
@@ -4219,7 +4523,7 @@ type UpdateProjectMemberResponse struct {
 
 func (x *UpdateProjectMemberResponse) Reset() {
 	*x = UpdateProjectMemberResponse{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[75]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[81]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4231,7 +4535,7 @@ func (x *UpdateProjectMemberResponse) String() string {
 func (*UpdateProjectMemberResponse) ProtoMessage() {}
 
 func (x *UpdateProjectMemberResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[75]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[81]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4244,7 +4548,7 @@ func (x *UpdateProjectMemberResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateProjectMemberResponse.ProtoReflect.Descriptor instead.
 func (*UpdateProjectMemberResponse) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{75}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{81}
 }
 
 func (x *UpdateProjectMemberResponse) GetMember() *MemberDetail {
@@ -4264,7 +4568,7 @@ type DeleteProjectMemberRequest struct {
 
 func (x *DeleteProjectMemberRequest) Reset() {
 	*x = DeleteProjectMemberRequest{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[76]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[82]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4276,7 +4580,7 @@ func (x *DeleteProjectMemberRequest) String() string {
 func (*DeleteProjectMemberRequest) ProtoMessage() {}
 
 func (x *DeleteProjectMemberRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[76]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[82]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4289,7 +4593,7 @@ func (x *DeleteProjectMemberRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteProjectMemberRequest.ProtoReflect.Descriptor instead.
 func (*DeleteProjectMemberRequest) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{76}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{82}
 }
 
 func (x *DeleteProjectMemberRequest) GetProjectId() string {
@@ -4317,7 +4621,7 @@ type ListSiteMembersRequest struct {
 
 func (x *ListSiteMembersRequest) Reset() {
 	*x = ListSiteMembersRequest{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[77]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[83]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4329,7 +4633,7 @@ func (x *ListSiteMembersRequest) String() string {
 func (*ListSiteMembersRequest) ProtoMessage() {}
 
 func (x *ListSiteMembersRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[77]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[83]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4342,7 +4646,7 @@ func (x *ListSiteMembersRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListSiteMembersRequest.ProtoReflect.Descriptor instead.
 func (*ListSiteMembersRequest) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{77}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{83}
 }
 
 func (x *ListSiteMembersRequest) GetSiteId() string {
@@ -4376,7 +4680,7 @@ type ListSiteMembersResponse struct {
 
 func (x *ListSiteMembersResponse) Reset() {
 	*x = ListSiteMembersResponse{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[78]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[84]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4388,7 +4692,7 @@ func (x *ListSiteMembersResponse) String() string {
 func (*ListSiteMembersResponse) ProtoMessage() {}
 
 func (x *ListSiteMembersResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[78]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[84]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4401,7 +4705,7 @@ func (x *ListSiteMembersResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListSiteMembersResponse.ProtoReflect.Descriptor instead.
 func (*ListSiteMembersResponse) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{78}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{84}
 }
 
 func (x *ListSiteMembersResponse) GetMembers() []*MemberDetail {
@@ -4429,7 +4733,7 @@ type CreateSiteMemberRequest struct {
 
 func (x *CreateSiteMemberRequest) Reset() {
 	*x = CreateSiteMemberRequest{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[79]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[85]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4441,7 +4745,7 @@ func (x *CreateSiteMemberRequest) String() string {
 func (*CreateSiteMemberRequest) ProtoMessage() {}
 
 func (x *CreateSiteMemberRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[79]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[85]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4454,7 +4758,7 @@ func (x *CreateSiteMemberRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateSiteMemberRequest.ProtoReflect.Descriptor instead.
 func (*CreateSiteMemberRequest) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{79}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{85}
 }
 
 func (x *CreateSiteMemberRequest) GetSiteId() string {
@@ -4487,7 +4791,7 @@ type CreateSiteMemberResponse struct {
 
 func (x *CreateSiteMemberResponse) Reset() {
 	*x = CreateSiteMemberResponse{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[80]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[86]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4499,7 +4803,7 @@ func (x *CreateSiteMemberResponse) String() string {
 func (*CreateSiteMemberResponse) ProtoMessage() {}
 
 func (x *CreateSiteMemberResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[80]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[86]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4512,7 +4816,7 @@ func (x *CreateSiteMemberResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateSiteMemberResponse.ProtoReflect.Descriptor instead.
 func (*CreateSiteMemberResponse) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{80}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{86}
 }
 
 func (x *CreateSiteMemberResponse) GetMember() *MemberDetail {
@@ -4534,7 +4838,7 @@ type UpdateSiteMemberRequest struct {
 
 func (x *UpdateSiteMemberRequest) Reset() {
 	*x = UpdateSiteMemberRequest{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[81]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[87]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4546,7 +4850,7 @@ func (x *UpdateSiteMemberRequest) String() string {
 func (*UpdateSiteMemberRequest) ProtoMessage() {}
 
 func (x *UpdateSiteMemberRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[81]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[87]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4559,7 +4863,7 @@ func (x *UpdateSiteMemberRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateSiteMemberRequest.ProtoReflect.Descriptor instead.
 func (*UpdateSiteMemberRequest) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{81}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{87}
 }
 
 func (x *UpdateSiteMemberRequest) GetSiteId() string {
@@ -4599,7 +4903,7 @@ type UpdateSiteMemberResponse struct {
 
 func (x *UpdateSiteMemberResponse) Reset() {
 	*x = UpdateSiteMemberResponse{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[82]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[88]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4611,7 +4915,7 @@ func (x *UpdateSiteMemberResponse) String() string {
 func (*UpdateSiteMemberResponse) ProtoMessage() {}
 
 func (x *UpdateSiteMemberResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[82]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[88]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4624,7 +4928,7 @@ func (x *UpdateSiteMemberResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateSiteMemberResponse.ProtoReflect.Descriptor instead.
 func (*UpdateSiteMemberResponse) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{82}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{88}
 }
 
 func (x *UpdateSiteMemberResponse) GetMember() *MemberDetail {
@@ -4644,7 +4948,7 @@ type DeleteSiteMemberRequest struct {
 
 func (x *DeleteSiteMemberRequest) Reset() {
 	*x = DeleteSiteMemberRequest{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[83]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[89]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4656,7 +4960,7 @@ func (x *DeleteSiteMemberRequest) String() string {
 func (*DeleteSiteMemberRequest) ProtoMessage() {}
 
 func (x *DeleteSiteMemberRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[83]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[89]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4669,7 +4973,7 @@ func (x *DeleteSiteMemberRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteSiteMemberRequest.ProtoReflect.Descriptor instead.
 func (*DeleteSiteMemberRequest) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{83}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{89}
 }
 
 func (x *DeleteSiteMemberRequest) GetSiteId() string {
@@ -4697,7 +5001,7 @@ type ListSshKeysRequest struct {
 
 func (x *ListSshKeysRequest) Reset() {
 	*x = ListSshKeysRequest{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[84]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[90]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4709,7 +5013,7 @@ func (x *ListSshKeysRequest) String() string {
 func (*ListSshKeysRequest) ProtoMessage() {}
 
 func (x *ListSshKeysRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[84]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[90]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4722,7 +5026,7 @@ func (x *ListSshKeysRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListSshKeysRequest.ProtoReflect.Descriptor instead.
 func (*ListSshKeysRequest) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{84}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{90}
 }
 
 func (x *ListSshKeysRequest) GetAccountId() string {
@@ -4756,7 +5060,7 @@ type ListSshKeysResponse struct {
 
 func (x *ListSshKeysResponse) Reset() {
 	*x = ListSshKeysResponse{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[85]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[91]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4768,7 +5072,7 @@ func (x *ListSshKeysResponse) String() string {
 func (*ListSshKeysResponse) ProtoMessage() {}
 
 func (x *ListSshKeysResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[85]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[91]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4781,7 +5085,7 @@ func (x *ListSshKeysResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListSshKeysResponse.ProtoReflect.Descriptor instead.
 func (*ListSshKeysResponse) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{85}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{91}
 }
 
 func (x *ListSshKeysResponse) GetSshKeys() []*SshKey {
@@ -4809,7 +5113,7 @@ type CreateSshKeyRequest struct {
 
 func (x *CreateSshKeyRequest) Reset() {
 	*x = CreateSshKeyRequest{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[86]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[92]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4821,7 +5125,7 @@ func (x *CreateSshKeyRequest) String() string {
 func (*CreateSshKeyRequest) ProtoMessage() {}
 
 func (x *CreateSshKeyRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[86]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[92]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4834,7 +5138,7 @@ func (x *CreateSshKeyRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateSshKeyRequest.ProtoReflect.Descriptor instead.
 func (*CreateSshKeyRequest) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{86}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{92}
 }
 
 func (x *CreateSshKeyRequest) GetAccountId() string {
@@ -4867,7 +5171,7 @@ type CreateSshKeyResponse struct {
 
 func (x *CreateSshKeyResponse) Reset() {
 	*x = CreateSshKeyResponse{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[87]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[93]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4879,7 +5183,7 @@ func (x *CreateSshKeyResponse) String() string {
 func (*CreateSshKeyResponse) ProtoMessage() {}
 
 func (x *CreateSshKeyResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[87]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[93]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4892,7 +5196,7 @@ func (x *CreateSshKeyResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateSshKeyResponse.ProtoReflect.Descriptor instead.
 func (*CreateSshKeyResponse) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{87}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{93}
 }
 
 func (x *CreateSshKeyResponse) GetSshKey() *SshKey {
@@ -4912,7 +5216,7 @@ type DeleteSshKeyRequest struct {
 
 func (x *DeleteSshKeyRequest) Reset() {
 	*x = DeleteSshKeyRequest{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[88]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[94]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4924,7 +5228,7 @@ func (x *DeleteSshKeyRequest) String() string {
 func (*DeleteSshKeyRequest) ProtoMessage() {}
 
 func (x *DeleteSshKeyRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[88]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[94]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4937,7 +5241,7 @@ func (x *DeleteSshKeyRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteSshKeyRequest.ProtoReflect.Descriptor instead.
 func (*DeleteSshKeyRequest) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{88}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{94}
 }
 
 func (x *DeleteSshKeyRequest) GetAccountId() string {
@@ -4963,7 +5267,7 @@ type GetSiteStatusRequest struct {
 
 func (x *GetSiteStatusRequest) Reset() {
 	*x = GetSiteStatusRequest{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[89]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[95]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4975,7 +5279,7 @@ func (x *GetSiteStatusRequest) String() string {
 func (*GetSiteStatusRequest) ProtoMessage() {}
 
 func (x *GetSiteStatusRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[89]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[95]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4988,7 +5292,7 @@ func (x *GetSiteStatusRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetSiteStatusRequest.ProtoReflect.Descriptor instead.
 func (*GetSiteStatusRequest) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{89}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{95}
 }
 
 func (x *GetSiteStatusRequest) GetSiteId() string {
@@ -5007,7 +5311,7 @@ type GetSiteStatusResponse struct {
 
 func (x *GetSiteStatusResponse) Reset() {
 	*x = GetSiteStatusResponse{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[90]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[96]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5019,7 +5323,7 @@ func (x *GetSiteStatusResponse) String() string {
 func (*GetSiteStatusResponse) ProtoMessage() {}
 
 func (x *GetSiteStatusResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[90]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[96]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5032,7 +5336,7 @@ func (x *GetSiteStatusResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetSiteStatusResponse.ProtoReflect.Descriptor instead.
 func (*GetSiteStatusResponse) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{90}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{96}
 }
 
 func (x *GetSiteStatusResponse) GetStatus() *SiteStatus {
@@ -5052,7 +5356,7 @@ type DeploySiteRequest struct {
 
 func (x *DeploySiteRequest) Reset() {
 	*x = DeploySiteRequest{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[91]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[97]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5064,7 +5368,7 @@ func (x *DeploySiteRequest) String() string {
 func (*DeploySiteRequest) ProtoMessage() {}
 
 func (x *DeploySiteRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[91]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[97]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5077,7 +5381,7 @@ func (x *DeploySiteRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeploySiteRequest.ProtoReflect.Descriptor instead.
 func (*DeploySiteRequest) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{91}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{97}
 }
 
 func (x *DeploySiteRequest) GetSiteId() string {
@@ -5104,7 +5408,7 @@ type DeploySiteResponse struct {
 
 func (x *DeploySiteResponse) Reset() {
 	*x = DeploySiteResponse{}
-	mi := &file_libops_v1_organization_api_proto_msgTypes[92]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[98]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5116,7 +5420,7 @@ func (x *DeploySiteResponse) String() string {
 func (*DeploySiteResponse) ProtoMessage() {}
 
 func (x *DeploySiteResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_libops_v1_organization_api_proto_msgTypes[92]
+	mi := &file_libops_v1_organization_api_proto_msgTypes[98]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5129,7 +5433,7 @@ func (x *DeploySiteResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeploySiteResponse.ProtoReflect.Descriptor instead.
 func (*DeploySiteResponse) Descriptor() ([]byte, []int) {
-	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{92}
+	return file_libops_v1_organization_api_proto_rawDescGZIP(), []int{98}
 }
 
 func (x *DeploySiteResponse) GetDeploymentId() string {
@@ -5289,15 +5593,32 @@ const file_libops_v1_organization_api_proto_rawDesc = "" +
 	"page_token\x18\x03 \x01(\tR\tpageToken\"{\n" +
 	"\x17ListSiteDomainsResponse\x128\n" +
 	"\adomains\x18\x01 \x03(\v2\x1e.libops.v1.common.DomainConfigR\adomains\x12&\n" +
-	"\x0fnext_page_token\x18\x02 \x01(\tR\rnextPageToken\"j\n" +
+	"\x0fnext_page_token\x18\x02 \x01(\tR\rnextPageToken\"N\n" +
 	"\x17CreateSiteDomainRequest\x12\x17\n" +
-	"\asite_id\x18\x01 \x01(\tR\x06siteId\x126\n" +
-	"\x06domain\x18\x02 \x01(\v2\x1e.libops.v1.common.DomainConfigR\x06domain\"R\n" +
+	"\asite_id\x18\x01 \x01(\tR\x06siteId\x12\x1a\n" +
+	"\bhostname\x18\x02 \x01(\tR\bhostname\"\xa3\x01\n" +
 	"\x18CreateSiteDomainResponse\x126\n" +
-	"\x06domain\x18\x01 \x01(\v2\x1e.libops.v1.common.DomainConfigR\x06domain\"J\n" +
+	"\x06domain\x18\x01 \x01(\v2\x1e.libops.v1.common.DomainConfigR\x06domain\x12O\n" +
+	"\x0fownership_proof\x18\x02 \x01(\v2&.libops.v1.common.DnsRecordInstructionR\x0eownershipProof\"L\n" +
+	"\x14GetSiteDomainRequest\x12\x17\n" +
+	"\asite_id\x18\x01 \x01(\tR\x06siteId\x12\x1b\n" +
+	"\tdomain_id\x18\x02 \x01(\tR\bdomainId\"O\n" +
+	"\x15GetSiteDomainResponse\x126\n" +
+	"\x06domain\x18\x01 \x01(\v2\x1e.libops.v1.common.DomainConfigR\x06domain\"N\n" +
+	"\x16CheckSiteDomainRequest\x12\x17\n" +
+	"\asite_id\x18\x01 \x01(\tR\x06siteId\x12\x1b\n" +
+	"\tdomain_id\x18\x02 \x01(\tR\bdomainId\"Q\n" +
+	"\x17CheckSiteDomainResponse\x126\n" +
+	"\x06domain\x18\x01 \x01(\v2\x1e.libops.v1.common.DomainConfigR\x06domain\"Z\n" +
+	"\"RetrySiteDomainProvisioningRequest\x12\x17\n" +
+	"\asite_id\x18\x01 \x01(\tR\x06siteId\x12\x1b\n" +
+	"\tdomain_id\x18\x02 \x01(\tR\bdomainId\"\xae\x01\n" +
+	"#RetrySiteDomainProvisioningResponse\x126\n" +
+	"\x06domain\x18\x01 \x01(\v2\x1e.libops.v1.common.DomainConfigR\x06domain\x12O\n" +
+	"\x0fownership_proof\x18\x02 \x01(\v2&.libops.v1.common.DnsRecordInstructionR\x0eownershipProof\"O\n" +
 	"\x17DeleteSiteDomainRequest\x12\x17\n" +
-	"\asite_id\x18\x01 \x01(\tR\x06siteId\x12\x16\n" +
-	"\x06domain\x18\x02 \x01(\tR\x06domain\"\xf0\x01\n" +
+	"\asite_id\x18\x01 \x01(\tR\x06siteId\x12\x1b\n" +
+	"\tdomain_id\x18\x02 \x01(\tR\bdomainId\"\xf0\x01\n" +
 	"\x18OrganizationFirewallRule\x12\x17\n" +
 	"\arule_id\x18\x01 \x01(\tR\x06ruleId\x12'\n" +
 	"\x0forganization_id\x18\x02 \x01(\tR\x0eorganizationId\x128\n" +
@@ -5548,11 +5869,16 @@ const file_libops_v1_organization_api_proto_rawDesc = "" +
 	"UpdateSite\x12\x1c.libops.v1.UpdateSiteRequest\x1a\x1d.libops.v1.UpdateSiteResponse\"#\x92\xb5\x18\x1b\b\x05\x10\x02\x18\x01\"\n" +
 	"write:site*\asite_id\x98\xb5\x18\x01\x12h\n" +
 	"\n" +
-	"DeleteSite\x12\x1c.libops.v1.DeleteSiteRequest\x1a\x16.google.protobuf.Empty\"$\x92\xb5\x18\x1c\b\x05\x10\x03\x18\x01\"\vdelete:site*\asite_id\x98\xb5\x18\x012\xfd\x02\n" +
+	"DeleteSite\x12\x1c.libops.v1.DeleteSiteRequest\x1a\x16.google.protobuf.Empty\"$\x92\xb5\x18\x1c\b\x05\x10\x03\x18\x01\"\vdelete:site*\asite_id\x98\xb5\x18\x012\x95\x06\n" +
 	"\rDomainService\x12{\n" +
 	"\x0fListSiteDomains\x12!.libops.v1.ListSiteDomainsRequest\x1a\".libops.v1.ListSiteDomainsResponse\"!\x92\xb5\x18\x1a\b\x05\x10\x01\x18\x01\"\tread:site*\asite_id\x90\x02\x01\x12~\n" +
 	"\x10CreateSiteDomain\x12\".libops.v1.CreateSiteDomainRequest\x1a#.libops.v1.CreateSiteDomainResponse\"!\x92\xb5\x18\x1d\b\x05\x10\x02\x18\x01\"\n" +
-	"write:site2\asite_id8\x05\x12o\n" +
+	"write:site2\asite_id8\x05\x12u\n" +
+	"\rGetSiteDomain\x12\x1f.libops.v1.GetSiteDomainRequest\x1a .libops.v1.GetSiteDomainResponse\"!\x92\xb5\x18\x1a\b\x05\x10\x01\x18\x01\"\tread:site*\asite_id\x90\x02\x01\x12|\n" +
+	"\x0fCheckSiteDomain\x12!.libops.v1.CheckSiteDomainRequest\x1a\".libops.v1.CheckSiteDomainResponse\"\"\x92\xb5\x18\x1b\b\x05\x10\x02\x18\x01\"\n" +
+	"write:site*\asite_id\x90\x02\x02\x12\xa0\x01\n" +
+	"\x1bRetrySiteDomainProvisioning\x12-.libops.v1.RetrySiteDomainProvisioningRequest\x1a..libops.v1.RetrySiteDomainProvisioningResponse\"\"\x92\xb5\x18\x1b\b\x05\x10\x02\x18\x01\"\n" +
+	"write:site*\asite_id\x90\x02\x02\x12o\n" +
 	"\x10DeleteSiteDomain\x12\".libops.v1.DeleteSiteDomainRequest\x1a\x16.google.protobuf.Empty\"\x1f\x92\xb5\x18\x1b\b\x05\x10\x02\x18\x01\"\n" +
 	"write:site*\asite_id2\xac\t\n" +
 	"\x0eProjectService\x12r\n" +
@@ -5634,7 +5960,7 @@ func file_libops_v1_organization_api_proto_rawDescGZIP() []byte {
 }
 
 var file_libops_v1_organization_api_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_libops_v1_organization_api_proto_msgTypes = make([]protoimpl.MessageInfo, 93)
+var file_libops_v1_organization_api_proto_msgTypes = make([]protoimpl.MessageInfo, 99)
 var file_libops_v1_organization_api_proto_goTypes = []any{
 	(FirewallRuleType)(0),                          // 0: libops.v1.FirewallRuleType
 	(*GetProjectRequest)(nil),                      // 1: libops.v1.GetProjectRequest
@@ -5678,231 +6004,248 @@ var file_libops_v1_organization_api_proto_goTypes = []any{
 	(*ListSiteDomainsResponse)(nil),                // 39: libops.v1.ListSiteDomainsResponse
 	(*CreateSiteDomainRequest)(nil),                // 40: libops.v1.CreateSiteDomainRequest
 	(*CreateSiteDomainResponse)(nil),               // 41: libops.v1.CreateSiteDomainResponse
-	(*DeleteSiteDomainRequest)(nil),                // 42: libops.v1.DeleteSiteDomainRequest
-	(*OrganizationFirewallRule)(nil),               // 43: libops.v1.OrganizationFirewallRule
-	(*ProjectFirewallRule)(nil),                    // 44: libops.v1.ProjectFirewallRule
-	(*SiteFirewallRule)(nil),                       // 45: libops.v1.SiteFirewallRule
-	(*MemberDetail)(nil),                           // 46: libops.v1.MemberDetail
-	(*SshKey)(nil),                                 // 47: libops.v1.SshKey
-	(*SiteStatus)(nil),                             // 48: libops.v1.SiteStatus
-	(*ListOrganizationFirewallRulesRequest)(nil),   // 49: libops.v1.ListOrganizationFirewallRulesRequest
-	(*ListOrganizationFirewallRulesResponse)(nil),  // 50: libops.v1.ListOrganizationFirewallRulesResponse
-	(*CreateOrganizationFirewallRuleRequest)(nil),  // 51: libops.v1.CreateOrganizationFirewallRuleRequest
-	(*CreateOrganizationFirewallRuleResponse)(nil), // 52: libops.v1.CreateOrganizationFirewallRuleResponse
-	(*DeleteOrganizationFirewallRuleRequest)(nil),  // 53: libops.v1.DeleteOrganizationFirewallRuleRequest
-	(*ListProjectFirewallRulesRequest)(nil),        // 54: libops.v1.ListProjectFirewallRulesRequest
-	(*ListProjectFirewallRulesResponse)(nil),       // 55: libops.v1.ListProjectFirewallRulesResponse
-	(*CreateProjectFirewallRuleRequest)(nil),       // 56: libops.v1.CreateProjectFirewallRuleRequest
-	(*CreateProjectFirewallRuleResponse)(nil),      // 57: libops.v1.CreateProjectFirewallRuleResponse
-	(*DeleteProjectFirewallRuleRequest)(nil),       // 58: libops.v1.DeleteProjectFirewallRuleRequest
-	(*ListSiteFirewallRulesRequest)(nil),           // 59: libops.v1.ListSiteFirewallRulesRequest
-	(*ListSiteFirewallRulesResponse)(nil),          // 60: libops.v1.ListSiteFirewallRulesResponse
-	(*CreateSiteFirewallRuleRequest)(nil),          // 61: libops.v1.CreateSiteFirewallRuleRequest
-	(*CreateSiteFirewallRuleResponse)(nil),         // 62: libops.v1.CreateSiteFirewallRuleResponse
-	(*DeleteSiteFirewallRuleRequest)(nil),          // 63: libops.v1.DeleteSiteFirewallRuleRequest
-	(*ListOrganizationMembersRequest)(nil),         // 64: libops.v1.ListOrganizationMembersRequest
-	(*ListOrganizationMembersResponse)(nil),        // 65: libops.v1.ListOrganizationMembersResponse
-	(*CreateOrganizationMemberRequest)(nil),        // 66: libops.v1.CreateOrganizationMemberRequest
-	(*CreateOrganizationMemberResponse)(nil),       // 67: libops.v1.CreateOrganizationMemberResponse
-	(*UpdateOrganizationMemberRequest)(nil),        // 68: libops.v1.UpdateOrganizationMemberRequest
-	(*UpdateOrganizationMemberResponse)(nil),       // 69: libops.v1.UpdateOrganizationMemberResponse
-	(*DeleteOrganizationMemberRequest)(nil),        // 70: libops.v1.DeleteOrganizationMemberRequest
-	(*ListProjectMembersRequest)(nil),              // 71: libops.v1.ListProjectMembersRequest
-	(*ListProjectMembersResponse)(nil),             // 72: libops.v1.ListProjectMembersResponse
-	(*CreateProjectMemberRequest)(nil),             // 73: libops.v1.CreateProjectMemberRequest
-	(*CreateProjectMemberResponse)(nil),            // 74: libops.v1.CreateProjectMemberResponse
-	(*UpdateProjectMemberRequest)(nil),             // 75: libops.v1.UpdateProjectMemberRequest
-	(*UpdateProjectMemberResponse)(nil),            // 76: libops.v1.UpdateProjectMemberResponse
-	(*DeleteProjectMemberRequest)(nil),             // 77: libops.v1.DeleteProjectMemberRequest
-	(*ListSiteMembersRequest)(nil),                 // 78: libops.v1.ListSiteMembersRequest
-	(*ListSiteMembersResponse)(nil),                // 79: libops.v1.ListSiteMembersResponse
-	(*CreateSiteMemberRequest)(nil),                // 80: libops.v1.CreateSiteMemberRequest
-	(*CreateSiteMemberResponse)(nil),               // 81: libops.v1.CreateSiteMemberResponse
-	(*UpdateSiteMemberRequest)(nil),                // 82: libops.v1.UpdateSiteMemberRequest
-	(*UpdateSiteMemberResponse)(nil),               // 83: libops.v1.UpdateSiteMemberResponse
-	(*DeleteSiteMemberRequest)(nil),                // 84: libops.v1.DeleteSiteMemberRequest
-	(*ListSshKeysRequest)(nil),                     // 85: libops.v1.ListSshKeysRequest
-	(*ListSshKeysResponse)(nil),                    // 86: libops.v1.ListSshKeysResponse
-	(*CreateSshKeyRequest)(nil),                    // 87: libops.v1.CreateSshKeyRequest
-	(*CreateSshKeyResponse)(nil),                   // 88: libops.v1.CreateSshKeyResponse
-	(*DeleteSshKeyRequest)(nil),                    // 89: libops.v1.DeleteSshKeyRequest
-	(*GetSiteStatusRequest)(nil),                   // 90: libops.v1.GetSiteStatusRequest
-	(*GetSiteStatusResponse)(nil),                  // 91: libops.v1.GetSiteStatusResponse
-	(*DeploySiteRequest)(nil),                      // 92: libops.v1.DeploySiteRequest
-	(*DeploySiteResponse)(nil),                     // 93: libops.v1.DeploySiteResponse
-	(*common.ProjectConfig)(nil),                   // 94: libops.v1.common.ProjectConfig
-	(*fieldmaskpb.FieldMask)(nil),                  // 95: google.protobuf.FieldMask
-	(*common.ProjectRuntimeConfig)(nil),            // 96: libops.v1.common.ProjectRuntimeConfig
-	(*common.FolderConfig)(nil),                    // 97: libops.v1.common.FolderConfig
-	(*common.SiteConfig)(nil),                      // 98: libops.v1.common.SiteConfig
-	(*common.DomainConfig)(nil),                    // 99: libops.v1.common.DomainConfig
-	(common.Status)(0),                             // 100: libops.v1.common.Status
-	(*emptypb.Empty)(nil),                          // 101: google.protobuf.Empty
+	(*GetSiteDomainRequest)(nil),                   // 42: libops.v1.GetSiteDomainRequest
+	(*GetSiteDomainResponse)(nil),                  // 43: libops.v1.GetSiteDomainResponse
+	(*CheckSiteDomainRequest)(nil),                 // 44: libops.v1.CheckSiteDomainRequest
+	(*CheckSiteDomainResponse)(nil),                // 45: libops.v1.CheckSiteDomainResponse
+	(*RetrySiteDomainProvisioningRequest)(nil),     // 46: libops.v1.RetrySiteDomainProvisioningRequest
+	(*RetrySiteDomainProvisioningResponse)(nil),    // 47: libops.v1.RetrySiteDomainProvisioningResponse
+	(*DeleteSiteDomainRequest)(nil),                // 48: libops.v1.DeleteSiteDomainRequest
+	(*OrganizationFirewallRule)(nil),               // 49: libops.v1.OrganizationFirewallRule
+	(*ProjectFirewallRule)(nil),                    // 50: libops.v1.ProjectFirewallRule
+	(*SiteFirewallRule)(nil),                       // 51: libops.v1.SiteFirewallRule
+	(*MemberDetail)(nil),                           // 52: libops.v1.MemberDetail
+	(*SshKey)(nil),                                 // 53: libops.v1.SshKey
+	(*SiteStatus)(nil),                             // 54: libops.v1.SiteStatus
+	(*ListOrganizationFirewallRulesRequest)(nil),   // 55: libops.v1.ListOrganizationFirewallRulesRequest
+	(*ListOrganizationFirewallRulesResponse)(nil),  // 56: libops.v1.ListOrganizationFirewallRulesResponse
+	(*CreateOrganizationFirewallRuleRequest)(nil),  // 57: libops.v1.CreateOrganizationFirewallRuleRequest
+	(*CreateOrganizationFirewallRuleResponse)(nil), // 58: libops.v1.CreateOrganizationFirewallRuleResponse
+	(*DeleteOrganizationFirewallRuleRequest)(nil),  // 59: libops.v1.DeleteOrganizationFirewallRuleRequest
+	(*ListProjectFirewallRulesRequest)(nil),        // 60: libops.v1.ListProjectFirewallRulesRequest
+	(*ListProjectFirewallRulesResponse)(nil),       // 61: libops.v1.ListProjectFirewallRulesResponse
+	(*CreateProjectFirewallRuleRequest)(nil),       // 62: libops.v1.CreateProjectFirewallRuleRequest
+	(*CreateProjectFirewallRuleResponse)(nil),      // 63: libops.v1.CreateProjectFirewallRuleResponse
+	(*DeleteProjectFirewallRuleRequest)(nil),       // 64: libops.v1.DeleteProjectFirewallRuleRequest
+	(*ListSiteFirewallRulesRequest)(nil),           // 65: libops.v1.ListSiteFirewallRulesRequest
+	(*ListSiteFirewallRulesResponse)(nil),          // 66: libops.v1.ListSiteFirewallRulesResponse
+	(*CreateSiteFirewallRuleRequest)(nil),          // 67: libops.v1.CreateSiteFirewallRuleRequest
+	(*CreateSiteFirewallRuleResponse)(nil),         // 68: libops.v1.CreateSiteFirewallRuleResponse
+	(*DeleteSiteFirewallRuleRequest)(nil),          // 69: libops.v1.DeleteSiteFirewallRuleRequest
+	(*ListOrganizationMembersRequest)(nil),         // 70: libops.v1.ListOrganizationMembersRequest
+	(*ListOrganizationMembersResponse)(nil),        // 71: libops.v1.ListOrganizationMembersResponse
+	(*CreateOrganizationMemberRequest)(nil),        // 72: libops.v1.CreateOrganizationMemberRequest
+	(*CreateOrganizationMemberResponse)(nil),       // 73: libops.v1.CreateOrganizationMemberResponse
+	(*UpdateOrganizationMemberRequest)(nil),        // 74: libops.v1.UpdateOrganizationMemberRequest
+	(*UpdateOrganizationMemberResponse)(nil),       // 75: libops.v1.UpdateOrganizationMemberResponse
+	(*DeleteOrganizationMemberRequest)(nil),        // 76: libops.v1.DeleteOrganizationMemberRequest
+	(*ListProjectMembersRequest)(nil),              // 77: libops.v1.ListProjectMembersRequest
+	(*ListProjectMembersResponse)(nil),             // 78: libops.v1.ListProjectMembersResponse
+	(*CreateProjectMemberRequest)(nil),             // 79: libops.v1.CreateProjectMemberRequest
+	(*CreateProjectMemberResponse)(nil),            // 80: libops.v1.CreateProjectMemberResponse
+	(*UpdateProjectMemberRequest)(nil),             // 81: libops.v1.UpdateProjectMemberRequest
+	(*UpdateProjectMemberResponse)(nil),            // 82: libops.v1.UpdateProjectMemberResponse
+	(*DeleteProjectMemberRequest)(nil),             // 83: libops.v1.DeleteProjectMemberRequest
+	(*ListSiteMembersRequest)(nil),                 // 84: libops.v1.ListSiteMembersRequest
+	(*ListSiteMembersResponse)(nil),                // 85: libops.v1.ListSiteMembersResponse
+	(*CreateSiteMemberRequest)(nil),                // 86: libops.v1.CreateSiteMemberRequest
+	(*CreateSiteMemberResponse)(nil),               // 87: libops.v1.CreateSiteMemberResponse
+	(*UpdateSiteMemberRequest)(nil),                // 88: libops.v1.UpdateSiteMemberRequest
+	(*UpdateSiteMemberResponse)(nil),               // 89: libops.v1.UpdateSiteMemberResponse
+	(*DeleteSiteMemberRequest)(nil),                // 90: libops.v1.DeleteSiteMemberRequest
+	(*ListSshKeysRequest)(nil),                     // 91: libops.v1.ListSshKeysRequest
+	(*ListSshKeysResponse)(nil),                    // 92: libops.v1.ListSshKeysResponse
+	(*CreateSshKeyRequest)(nil),                    // 93: libops.v1.CreateSshKeyRequest
+	(*CreateSshKeyResponse)(nil),                   // 94: libops.v1.CreateSshKeyResponse
+	(*DeleteSshKeyRequest)(nil),                    // 95: libops.v1.DeleteSshKeyRequest
+	(*GetSiteStatusRequest)(nil),                   // 96: libops.v1.GetSiteStatusRequest
+	(*GetSiteStatusResponse)(nil),                  // 97: libops.v1.GetSiteStatusResponse
+	(*DeploySiteRequest)(nil),                      // 98: libops.v1.DeploySiteRequest
+	(*DeploySiteResponse)(nil),                     // 99: libops.v1.DeploySiteResponse
+	(*common.ProjectConfig)(nil),                   // 100: libops.v1.common.ProjectConfig
+	(*fieldmaskpb.FieldMask)(nil),                  // 101: google.protobuf.FieldMask
+	(*common.ProjectRuntimeConfig)(nil),            // 102: libops.v1.common.ProjectRuntimeConfig
+	(*common.FolderConfig)(nil),                    // 103: libops.v1.common.FolderConfig
+	(*common.SiteConfig)(nil),                      // 104: libops.v1.common.SiteConfig
+	(*common.DomainConfig)(nil),                    // 105: libops.v1.common.DomainConfig
+	(*common.DnsRecordInstruction)(nil),            // 106: libops.v1.common.DnsRecordInstruction
+	(common.Status)(0),                             // 107: libops.v1.common.Status
+	(*emptypb.Empty)(nil),                          // 108: google.protobuf.Empty
 }
 var file_libops_v1_organization_api_proto_depIdxs = []int32{
-	94,  // 0: libops.v1.GetProjectResponse.project:type_name -> libops.v1.common.ProjectConfig
-	94,  // 1: libops.v1.CreateProjectRequest.project:type_name -> libops.v1.common.ProjectConfig
-	94,  // 2: libops.v1.CreateProjectResponse.project:type_name -> libops.v1.common.ProjectConfig
-	94,  // 3: libops.v1.UpdateProjectRequest.project:type_name -> libops.v1.common.ProjectConfig
-	95,  // 4: libops.v1.UpdateProjectRequest.update_mask:type_name -> google.protobuf.FieldMask
-	94,  // 5: libops.v1.UpdateProjectResponse.project:type_name -> libops.v1.common.ProjectConfig
-	94,  // 6: libops.v1.ListProjectsResponse.projects:type_name -> libops.v1.common.ProjectConfig
-	96,  // 7: libops.v1.ListProjectRuntimesResponse.runtimes:type_name -> libops.v1.common.ProjectRuntimeConfig
-	96,  // 8: libops.v1.GetProjectRuntimeResponse.runtime:type_name -> libops.v1.common.ProjectRuntimeConfig
-	96,  // 9: libops.v1.CreateProjectRuntimeRequest.runtime:type_name -> libops.v1.common.ProjectRuntimeConfig
-	96,  // 10: libops.v1.CreateProjectRuntimeResponse.runtime:type_name -> libops.v1.common.ProjectRuntimeConfig
-	97,  // 11: libops.v1.GetOrganizationResponse.folder:type_name -> libops.v1.common.FolderConfig
-	97,  // 12: libops.v1.CreateOrganizationRequest.folder:type_name -> libops.v1.common.FolderConfig
-	97,  // 13: libops.v1.CreateOrganizationResponse.folder:type_name -> libops.v1.common.FolderConfig
-	97,  // 14: libops.v1.UpdateOrganizationRequest.folder:type_name -> libops.v1.common.FolderConfig
-	95,  // 15: libops.v1.UpdateOrganizationRequest.update_mask:type_name -> google.protobuf.FieldMask
-	97,  // 16: libops.v1.UpdateOrganizationResponse.folder:type_name -> libops.v1.common.FolderConfig
-	97,  // 17: libops.v1.ListOrganizationsResponse.organizations:type_name -> libops.v1.common.FolderConfig
-	98,  // 18: libops.v1.GetSiteResponse.site:type_name -> libops.v1.common.SiteConfig
-	98,  // 19: libops.v1.CreateSiteRequest.site:type_name -> libops.v1.common.SiteConfig
-	98,  // 20: libops.v1.CreateSiteResponse.site:type_name -> libops.v1.common.SiteConfig
-	98,  // 21: libops.v1.UpdateSiteRequest.site:type_name -> libops.v1.common.SiteConfig
-	95,  // 22: libops.v1.UpdateSiteRequest.update_mask:type_name -> google.protobuf.FieldMask
-	98,  // 23: libops.v1.UpdateSiteResponse.site:type_name -> libops.v1.common.SiteConfig
-	98,  // 24: libops.v1.ListSitesResponse.sites:type_name -> libops.v1.common.SiteConfig
-	99,  // 25: libops.v1.ListSiteDomainsResponse.domains:type_name -> libops.v1.common.DomainConfig
-	99,  // 26: libops.v1.CreateSiteDomainRequest.domain:type_name -> libops.v1.common.DomainConfig
-	99,  // 27: libops.v1.CreateSiteDomainResponse.domain:type_name -> libops.v1.common.DomainConfig
-	0,   // 28: libops.v1.OrganizationFirewallRule.rule_type:type_name -> libops.v1.FirewallRuleType
-	100, // 29: libops.v1.OrganizationFirewallRule.status:type_name -> libops.v1.common.Status
-	0,   // 30: libops.v1.ProjectFirewallRule.rule_type:type_name -> libops.v1.FirewallRuleType
-	100, // 31: libops.v1.ProjectFirewallRule.status:type_name -> libops.v1.common.Status
-	0,   // 32: libops.v1.SiteFirewallRule.rule_type:type_name -> libops.v1.FirewallRuleType
-	100, // 33: libops.v1.SiteFirewallRule.status:type_name -> libops.v1.common.Status
-	100, // 34: libops.v1.MemberDetail.status:type_name -> libops.v1.common.Status
-	43,  // 35: libops.v1.ListOrganizationFirewallRulesResponse.rules:type_name -> libops.v1.OrganizationFirewallRule
-	0,   // 36: libops.v1.CreateOrganizationFirewallRuleRequest.rule_type:type_name -> libops.v1.FirewallRuleType
-	43,  // 37: libops.v1.CreateOrganizationFirewallRuleResponse.rule:type_name -> libops.v1.OrganizationFirewallRule
-	44,  // 38: libops.v1.ListProjectFirewallRulesResponse.rules:type_name -> libops.v1.ProjectFirewallRule
-	0,   // 39: libops.v1.CreateProjectFirewallRuleRequest.rule_type:type_name -> libops.v1.FirewallRuleType
-	44,  // 40: libops.v1.CreateProjectFirewallRuleResponse.rule:type_name -> libops.v1.ProjectFirewallRule
-	45,  // 41: libops.v1.ListSiteFirewallRulesResponse.rules:type_name -> libops.v1.SiteFirewallRule
-	0,   // 42: libops.v1.CreateSiteFirewallRuleRequest.rule_type:type_name -> libops.v1.FirewallRuleType
-	45,  // 43: libops.v1.CreateSiteFirewallRuleResponse.rule:type_name -> libops.v1.SiteFirewallRule
-	46,  // 44: libops.v1.ListOrganizationMembersResponse.members:type_name -> libops.v1.MemberDetail
-	46,  // 45: libops.v1.CreateOrganizationMemberResponse.member:type_name -> libops.v1.MemberDetail
-	95,  // 46: libops.v1.UpdateOrganizationMemberRequest.update_mask:type_name -> google.protobuf.FieldMask
-	46,  // 47: libops.v1.UpdateOrganizationMemberResponse.member:type_name -> libops.v1.MemberDetail
-	46,  // 48: libops.v1.ListProjectMembersResponse.members:type_name -> libops.v1.MemberDetail
-	46,  // 49: libops.v1.CreateProjectMemberResponse.member:type_name -> libops.v1.MemberDetail
-	95,  // 50: libops.v1.UpdateProjectMemberRequest.update_mask:type_name -> google.protobuf.FieldMask
-	46,  // 51: libops.v1.UpdateProjectMemberResponse.member:type_name -> libops.v1.MemberDetail
-	46,  // 52: libops.v1.ListSiteMembersResponse.members:type_name -> libops.v1.MemberDetail
-	46,  // 53: libops.v1.CreateSiteMemberResponse.member:type_name -> libops.v1.MemberDetail
-	95,  // 54: libops.v1.UpdateSiteMemberRequest.update_mask:type_name -> google.protobuf.FieldMask
-	46,  // 55: libops.v1.UpdateSiteMemberResponse.member:type_name -> libops.v1.MemberDetail
-	47,  // 56: libops.v1.ListSshKeysResponse.ssh_keys:type_name -> libops.v1.SshKey
-	47,  // 57: libops.v1.CreateSshKeyResponse.ssh_key:type_name -> libops.v1.SshKey
-	48,  // 58: libops.v1.GetSiteStatusResponse.status:type_name -> libops.v1.SiteStatus
-	48,  // 59: libops.v1.DeploySiteResponse.status:type_name -> libops.v1.SiteStatus
-	18,  // 60: libops.v1.OrganizationService.GetOrganization:input_type -> libops.v1.GetOrganizationRequest
-	20,  // 61: libops.v1.OrganizationService.CreateOrganization:input_type -> libops.v1.CreateOrganizationRequest
-	22,  // 62: libops.v1.OrganizationService.UpdateOrganization:input_type -> libops.v1.UpdateOrganizationRequest
-	24,  // 63: libops.v1.OrganizationService.DeleteOrganization:input_type -> libops.v1.DeleteOrganizationRequest
-	25,  // 64: libops.v1.OrganizationService.ListOrganizations:input_type -> libops.v1.ListOrganizationsRequest
-	27,  // 65: libops.v1.OrganizationService.ListOrganizationProjects:input_type -> libops.v1.ListOrganizationProjectsRequest
-	36,  // 66: libops.v1.SiteService.ListSites:input_type -> libops.v1.ListSitesRequest
-	29,  // 67: libops.v1.SiteService.GetSite:input_type -> libops.v1.GetSiteRequest
-	31,  // 68: libops.v1.SiteService.CreateSite:input_type -> libops.v1.CreateSiteRequest
-	33,  // 69: libops.v1.SiteService.UpdateSite:input_type -> libops.v1.UpdateSiteRequest
-	35,  // 70: libops.v1.SiteService.DeleteSite:input_type -> libops.v1.DeleteSiteRequest
-	38,  // 71: libops.v1.DomainService.ListSiteDomains:input_type -> libops.v1.ListSiteDomainsRequest
-	40,  // 72: libops.v1.DomainService.CreateSiteDomain:input_type -> libops.v1.CreateSiteDomainRequest
-	42,  // 73: libops.v1.DomainService.DeleteSiteDomain:input_type -> libops.v1.DeleteSiteDomainRequest
-	1,   // 74: libops.v1.ProjectService.GetProject:input_type -> libops.v1.GetProjectRequest
-	3,   // 75: libops.v1.ProjectService.CreateProject:input_type -> libops.v1.CreateProjectRequest
-	5,   // 76: libops.v1.ProjectService.UpdateProject:input_type -> libops.v1.UpdateProjectRequest
-	7,   // 77: libops.v1.ProjectService.DeleteProject:input_type -> libops.v1.DeleteProjectRequest
-	8,   // 78: libops.v1.ProjectService.ListProjects:input_type -> libops.v1.ListProjectsRequest
-	10,  // 79: libops.v1.ProjectService.ListProjectSites:input_type -> libops.v1.ListProjectSitesRequest
-	12,  // 80: libops.v1.ProjectService.ListProjectRuntimes:input_type -> libops.v1.ListProjectRuntimesRequest
-	14,  // 81: libops.v1.ProjectService.GetProjectRuntime:input_type -> libops.v1.GetProjectRuntimeRequest
-	16,  // 82: libops.v1.ProjectService.CreateProjectRuntime:input_type -> libops.v1.CreateProjectRuntimeRequest
-	49,  // 83: libops.v1.FirewallService.ListOrganizationFirewallRules:input_type -> libops.v1.ListOrganizationFirewallRulesRequest
-	51,  // 84: libops.v1.FirewallService.CreateOrganizationFirewallRule:input_type -> libops.v1.CreateOrganizationFirewallRuleRequest
-	53,  // 85: libops.v1.FirewallService.DeleteOrganizationFirewallRule:input_type -> libops.v1.DeleteOrganizationFirewallRuleRequest
-	54,  // 86: libops.v1.ProjectFirewallService.ListProjectFirewallRules:input_type -> libops.v1.ListProjectFirewallRulesRequest
-	56,  // 87: libops.v1.ProjectFirewallService.CreateProjectFirewallRule:input_type -> libops.v1.CreateProjectFirewallRuleRequest
-	58,  // 88: libops.v1.ProjectFirewallService.DeleteProjectFirewallRule:input_type -> libops.v1.DeleteProjectFirewallRuleRequest
-	59,  // 89: libops.v1.SiteFirewallService.ListSiteFirewallRules:input_type -> libops.v1.ListSiteFirewallRulesRequest
-	61,  // 90: libops.v1.SiteFirewallService.CreateSiteFirewallRule:input_type -> libops.v1.CreateSiteFirewallRuleRequest
-	63,  // 91: libops.v1.SiteFirewallService.DeleteSiteFirewallRule:input_type -> libops.v1.DeleteSiteFirewallRuleRequest
-	64,  // 92: libops.v1.MemberService.ListOrganizationMembers:input_type -> libops.v1.ListOrganizationMembersRequest
-	66,  // 93: libops.v1.MemberService.CreateOrganizationMember:input_type -> libops.v1.CreateOrganizationMemberRequest
-	68,  // 94: libops.v1.MemberService.UpdateOrganizationMember:input_type -> libops.v1.UpdateOrganizationMemberRequest
-	70,  // 95: libops.v1.MemberService.DeleteOrganizationMember:input_type -> libops.v1.DeleteOrganizationMemberRequest
-	71,  // 96: libops.v1.ProjectMemberService.ListProjectMembers:input_type -> libops.v1.ListProjectMembersRequest
-	73,  // 97: libops.v1.ProjectMemberService.CreateProjectMember:input_type -> libops.v1.CreateProjectMemberRequest
-	75,  // 98: libops.v1.ProjectMemberService.UpdateProjectMember:input_type -> libops.v1.UpdateProjectMemberRequest
-	77,  // 99: libops.v1.ProjectMemberService.DeleteProjectMember:input_type -> libops.v1.DeleteProjectMemberRequest
-	78,  // 100: libops.v1.SiteMemberService.ListSiteMembers:input_type -> libops.v1.ListSiteMembersRequest
-	80,  // 101: libops.v1.SiteMemberService.CreateSiteMember:input_type -> libops.v1.CreateSiteMemberRequest
-	82,  // 102: libops.v1.SiteMemberService.UpdateSiteMember:input_type -> libops.v1.UpdateSiteMemberRequest
-	84,  // 103: libops.v1.SiteMemberService.DeleteSiteMember:input_type -> libops.v1.DeleteSiteMemberRequest
-	85,  // 104: libops.v1.SshKeyService.ListSshKeys:input_type -> libops.v1.ListSshKeysRequest
-	87,  // 105: libops.v1.SshKeyService.CreateSshKey:input_type -> libops.v1.CreateSshKeyRequest
-	89,  // 106: libops.v1.SshKeyService.DeleteSshKey:input_type -> libops.v1.DeleteSshKeyRequest
-	90,  // 107: libops.v1.SiteOperationsService.GetSiteStatus:input_type -> libops.v1.GetSiteStatusRequest
-	92,  // 108: libops.v1.SiteOperationsService.DeploySite:input_type -> libops.v1.DeploySiteRequest
-	19,  // 109: libops.v1.OrganizationService.GetOrganization:output_type -> libops.v1.GetOrganizationResponse
-	21,  // 110: libops.v1.OrganizationService.CreateOrganization:output_type -> libops.v1.CreateOrganizationResponse
-	23,  // 111: libops.v1.OrganizationService.UpdateOrganization:output_type -> libops.v1.UpdateOrganizationResponse
-	101, // 112: libops.v1.OrganizationService.DeleteOrganization:output_type -> google.protobuf.Empty
-	26,  // 113: libops.v1.OrganizationService.ListOrganizations:output_type -> libops.v1.ListOrganizationsResponse
-	28,  // 114: libops.v1.OrganizationService.ListOrganizationProjects:output_type -> libops.v1.ListOrganizationProjectsResponse
-	37,  // 115: libops.v1.SiteService.ListSites:output_type -> libops.v1.ListSitesResponse
-	30,  // 116: libops.v1.SiteService.GetSite:output_type -> libops.v1.GetSiteResponse
-	32,  // 117: libops.v1.SiteService.CreateSite:output_type -> libops.v1.CreateSiteResponse
-	34,  // 118: libops.v1.SiteService.UpdateSite:output_type -> libops.v1.UpdateSiteResponse
-	101, // 119: libops.v1.SiteService.DeleteSite:output_type -> google.protobuf.Empty
-	39,  // 120: libops.v1.DomainService.ListSiteDomains:output_type -> libops.v1.ListSiteDomainsResponse
-	41,  // 121: libops.v1.DomainService.CreateSiteDomain:output_type -> libops.v1.CreateSiteDomainResponse
-	101, // 122: libops.v1.DomainService.DeleteSiteDomain:output_type -> google.protobuf.Empty
-	2,   // 123: libops.v1.ProjectService.GetProject:output_type -> libops.v1.GetProjectResponse
-	4,   // 124: libops.v1.ProjectService.CreateProject:output_type -> libops.v1.CreateProjectResponse
-	6,   // 125: libops.v1.ProjectService.UpdateProject:output_type -> libops.v1.UpdateProjectResponse
-	101, // 126: libops.v1.ProjectService.DeleteProject:output_type -> google.protobuf.Empty
-	9,   // 127: libops.v1.ProjectService.ListProjects:output_type -> libops.v1.ListProjectsResponse
-	11,  // 128: libops.v1.ProjectService.ListProjectSites:output_type -> libops.v1.ListProjectSitesResponse
-	13,  // 129: libops.v1.ProjectService.ListProjectRuntimes:output_type -> libops.v1.ListProjectRuntimesResponse
-	15,  // 130: libops.v1.ProjectService.GetProjectRuntime:output_type -> libops.v1.GetProjectRuntimeResponse
-	17,  // 131: libops.v1.ProjectService.CreateProjectRuntime:output_type -> libops.v1.CreateProjectRuntimeResponse
-	50,  // 132: libops.v1.FirewallService.ListOrganizationFirewallRules:output_type -> libops.v1.ListOrganizationFirewallRulesResponse
-	52,  // 133: libops.v1.FirewallService.CreateOrganizationFirewallRule:output_type -> libops.v1.CreateOrganizationFirewallRuleResponse
-	101, // 134: libops.v1.FirewallService.DeleteOrganizationFirewallRule:output_type -> google.protobuf.Empty
-	55,  // 135: libops.v1.ProjectFirewallService.ListProjectFirewallRules:output_type -> libops.v1.ListProjectFirewallRulesResponse
-	57,  // 136: libops.v1.ProjectFirewallService.CreateProjectFirewallRule:output_type -> libops.v1.CreateProjectFirewallRuleResponse
-	101, // 137: libops.v1.ProjectFirewallService.DeleteProjectFirewallRule:output_type -> google.protobuf.Empty
-	60,  // 138: libops.v1.SiteFirewallService.ListSiteFirewallRules:output_type -> libops.v1.ListSiteFirewallRulesResponse
-	62,  // 139: libops.v1.SiteFirewallService.CreateSiteFirewallRule:output_type -> libops.v1.CreateSiteFirewallRuleResponse
-	101, // 140: libops.v1.SiteFirewallService.DeleteSiteFirewallRule:output_type -> google.protobuf.Empty
-	65,  // 141: libops.v1.MemberService.ListOrganizationMembers:output_type -> libops.v1.ListOrganizationMembersResponse
-	67,  // 142: libops.v1.MemberService.CreateOrganizationMember:output_type -> libops.v1.CreateOrganizationMemberResponse
-	69,  // 143: libops.v1.MemberService.UpdateOrganizationMember:output_type -> libops.v1.UpdateOrganizationMemberResponse
-	101, // 144: libops.v1.MemberService.DeleteOrganizationMember:output_type -> google.protobuf.Empty
-	72,  // 145: libops.v1.ProjectMemberService.ListProjectMembers:output_type -> libops.v1.ListProjectMembersResponse
-	74,  // 146: libops.v1.ProjectMemberService.CreateProjectMember:output_type -> libops.v1.CreateProjectMemberResponse
-	76,  // 147: libops.v1.ProjectMemberService.UpdateProjectMember:output_type -> libops.v1.UpdateProjectMemberResponse
-	101, // 148: libops.v1.ProjectMemberService.DeleteProjectMember:output_type -> google.protobuf.Empty
-	79,  // 149: libops.v1.SiteMemberService.ListSiteMembers:output_type -> libops.v1.ListSiteMembersResponse
-	81,  // 150: libops.v1.SiteMemberService.CreateSiteMember:output_type -> libops.v1.CreateSiteMemberResponse
-	83,  // 151: libops.v1.SiteMemberService.UpdateSiteMember:output_type -> libops.v1.UpdateSiteMemberResponse
-	101, // 152: libops.v1.SiteMemberService.DeleteSiteMember:output_type -> google.protobuf.Empty
-	86,  // 153: libops.v1.SshKeyService.ListSshKeys:output_type -> libops.v1.ListSshKeysResponse
-	88,  // 154: libops.v1.SshKeyService.CreateSshKey:output_type -> libops.v1.CreateSshKeyResponse
-	101, // 155: libops.v1.SshKeyService.DeleteSshKey:output_type -> google.protobuf.Empty
-	91,  // 156: libops.v1.SiteOperationsService.GetSiteStatus:output_type -> libops.v1.GetSiteStatusResponse
-	93,  // 157: libops.v1.SiteOperationsService.DeploySite:output_type -> libops.v1.DeploySiteResponse
-	109, // [109:158] is the sub-list for method output_type
-	60,  // [60:109] is the sub-list for method input_type
-	60,  // [60:60] is the sub-list for extension type_name
-	60,  // [60:60] is the sub-list for extension extendee
-	0,   // [0:60] is the sub-list for field type_name
+	100, // 0: libops.v1.GetProjectResponse.project:type_name -> libops.v1.common.ProjectConfig
+	100, // 1: libops.v1.CreateProjectRequest.project:type_name -> libops.v1.common.ProjectConfig
+	100, // 2: libops.v1.CreateProjectResponse.project:type_name -> libops.v1.common.ProjectConfig
+	100, // 3: libops.v1.UpdateProjectRequest.project:type_name -> libops.v1.common.ProjectConfig
+	101, // 4: libops.v1.UpdateProjectRequest.update_mask:type_name -> google.protobuf.FieldMask
+	100, // 5: libops.v1.UpdateProjectResponse.project:type_name -> libops.v1.common.ProjectConfig
+	100, // 6: libops.v1.ListProjectsResponse.projects:type_name -> libops.v1.common.ProjectConfig
+	102, // 7: libops.v1.ListProjectRuntimesResponse.runtimes:type_name -> libops.v1.common.ProjectRuntimeConfig
+	102, // 8: libops.v1.GetProjectRuntimeResponse.runtime:type_name -> libops.v1.common.ProjectRuntimeConfig
+	102, // 9: libops.v1.CreateProjectRuntimeRequest.runtime:type_name -> libops.v1.common.ProjectRuntimeConfig
+	102, // 10: libops.v1.CreateProjectRuntimeResponse.runtime:type_name -> libops.v1.common.ProjectRuntimeConfig
+	103, // 11: libops.v1.GetOrganizationResponse.folder:type_name -> libops.v1.common.FolderConfig
+	103, // 12: libops.v1.CreateOrganizationRequest.folder:type_name -> libops.v1.common.FolderConfig
+	103, // 13: libops.v1.CreateOrganizationResponse.folder:type_name -> libops.v1.common.FolderConfig
+	103, // 14: libops.v1.UpdateOrganizationRequest.folder:type_name -> libops.v1.common.FolderConfig
+	101, // 15: libops.v1.UpdateOrganizationRequest.update_mask:type_name -> google.protobuf.FieldMask
+	103, // 16: libops.v1.UpdateOrganizationResponse.folder:type_name -> libops.v1.common.FolderConfig
+	103, // 17: libops.v1.ListOrganizationsResponse.organizations:type_name -> libops.v1.common.FolderConfig
+	104, // 18: libops.v1.GetSiteResponse.site:type_name -> libops.v1.common.SiteConfig
+	104, // 19: libops.v1.CreateSiteRequest.site:type_name -> libops.v1.common.SiteConfig
+	104, // 20: libops.v1.CreateSiteResponse.site:type_name -> libops.v1.common.SiteConfig
+	104, // 21: libops.v1.UpdateSiteRequest.site:type_name -> libops.v1.common.SiteConfig
+	101, // 22: libops.v1.UpdateSiteRequest.update_mask:type_name -> google.protobuf.FieldMask
+	104, // 23: libops.v1.UpdateSiteResponse.site:type_name -> libops.v1.common.SiteConfig
+	104, // 24: libops.v1.ListSitesResponse.sites:type_name -> libops.v1.common.SiteConfig
+	105, // 25: libops.v1.ListSiteDomainsResponse.domains:type_name -> libops.v1.common.DomainConfig
+	105, // 26: libops.v1.CreateSiteDomainResponse.domain:type_name -> libops.v1.common.DomainConfig
+	106, // 27: libops.v1.CreateSiteDomainResponse.ownership_proof:type_name -> libops.v1.common.DnsRecordInstruction
+	105, // 28: libops.v1.GetSiteDomainResponse.domain:type_name -> libops.v1.common.DomainConfig
+	105, // 29: libops.v1.CheckSiteDomainResponse.domain:type_name -> libops.v1.common.DomainConfig
+	105, // 30: libops.v1.RetrySiteDomainProvisioningResponse.domain:type_name -> libops.v1.common.DomainConfig
+	106, // 31: libops.v1.RetrySiteDomainProvisioningResponse.ownership_proof:type_name -> libops.v1.common.DnsRecordInstruction
+	0,   // 32: libops.v1.OrganizationFirewallRule.rule_type:type_name -> libops.v1.FirewallRuleType
+	107, // 33: libops.v1.OrganizationFirewallRule.status:type_name -> libops.v1.common.Status
+	0,   // 34: libops.v1.ProjectFirewallRule.rule_type:type_name -> libops.v1.FirewallRuleType
+	107, // 35: libops.v1.ProjectFirewallRule.status:type_name -> libops.v1.common.Status
+	0,   // 36: libops.v1.SiteFirewallRule.rule_type:type_name -> libops.v1.FirewallRuleType
+	107, // 37: libops.v1.SiteFirewallRule.status:type_name -> libops.v1.common.Status
+	107, // 38: libops.v1.MemberDetail.status:type_name -> libops.v1.common.Status
+	49,  // 39: libops.v1.ListOrganizationFirewallRulesResponse.rules:type_name -> libops.v1.OrganizationFirewallRule
+	0,   // 40: libops.v1.CreateOrganizationFirewallRuleRequest.rule_type:type_name -> libops.v1.FirewallRuleType
+	49,  // 41: libops.v1.CreateOrganizationFirewallRuleResponse.rule:type_name -> libops.v1.OrganizationFirewallRule
+	50,  // 42: libops.v1.ListProjectFirewallRulesResponse.rules:type_name -> libops.v1.ProjectFirewallRule
+	0,   // 43: libops.v1.CreateProjectFirewallRuleRequest.rule_type:type_name -> libops.v1.FirewallRuleType
+	50,  // 44: libops.v1.CreateProjectFirewallRuleResponse.rule:type_name -> libops.v1.ProjectFirewallRule
+	51,  // 45: libops.v1.ListSiteFirewallRulesResponse.rules:type_name -> libops.v1.SiteFirewallRule
+	0,   // 46: libops.v1.CreateSiteFirewallRuleRequest.rule_type:type_name -> libops.v1.FirewallRuleType
+	51,  // 47: libops.v1.CreateSiteFirewallRuleResponse.rule:type_name -> libops.v1.SiteFirewallRule
+	52,  // 48: libops.v1.ListOrganizationMembersResponse.members:type_name -> libops.v1.MemberDetail
+	52,  // 49: libops.v1.CreateOrganizationMemberResponse.member:type_name -> libops.v1.MemberDetail
+	101, // 50: libops.v1.UpdateOrganizationMemberRequest.update_mask:type_name -> google.protobuf.FieldMask
+	52,  // 51: libops.v1.UpdateOrganizationMemberResponse.member:type_name -> libops.v1.MemberDetail
+	52,  // 52: libops.v1.ListProjectMembersResponse.members:type_name -> libops.v1.MemberDetail
+	52,  // 53: libops.v1.CreateProjectMemberResponse.member:type_name -> libops.v1.MemberDetail
+	101, // 54: libops.v1.UpdateProjectMemberRequest.update_mask:type_name -> google.protobuf.FieldMask
+	52,  // 55: libops.v1.UpdateProjectMemberResponse.member:type_name -> libops.v1.MemberDetail
+	52,  // 56: libops.v1.ListSiteMembersResponse.members:type_name -> libops.v1.MemberDetail
+	52,  // 57: libops.v1.CreateSiteMemberResponse.member:type_name -> libops.v1.MemberDetail
+	101, // 58: libops.v1.UpdateSiteMemberRequest.update_mask:type_name -> google.protobuf.FieldMask
+	52,  // 59: libops.v1.UpdateSiteMemberResponse.member:type_name -> libops.v1.MemberDetail
+	53,  // 60: libops.v1.ListSshKeysResponse.ssh_keys:type_name -> libops.v1.SshKey
+	53,  // 61: libops.v1.CreateSshKeyResponse.ssh_key:type_name -> libops.v1.SshKey
+	54,  // 62: libops.v1.GetSiteStatusResponse.status:type_name -> libops.v1.SiteStatus
+	54,  // 63: libops.v1.DeploySiteResponse.status:type_name -> libops.v1.SiteStatus
+	18,  // 64: libops.v1.OrganizationService.GetOrganization:input_type -> libops.v1.GetOrganizationRequest
+	20,  // 65: libops.v1.OrganizationService.CreateOrganization:input_type -> libops.v1.CreateOrganizationRequest
+	22,  // 66: libops.v1.OrganizationService.UpdateOrganization:input_type -> libops.v1.UpdateOrganizationRequest
+	24,  // 67: libops.v1.OrganizationService.DeleteOrganization:input_type -> libops.v1.DeleteOrganizationRequest
+	25,  // 68: libops.v1.OrganizationService.ListOrganizations:input_type -> libops.v1.ListOrganizationsRequest
+	27,  // 69: libops.v1.OrganizationService.ListOrganizationProjects:input_type -> libops.v1.ListOrganizationProjectsRequest
+	36,  // 70: libops.v1.SiteService.ListSites:input_type -> libops.v1.ListSitesRequest
+	29,  // 71: libops.v1.SiteService.GetSite:input_type -> libops.v1.GetSiteRequest
+	31,  // 72: libops.v1.SiteService.CreateSite:input_type -> libops.v1.CreateSiteRequest
+	33,  // 73: libops.v1.SiteService.UpdateSite:input_type -> libops.v1.UpdateSiteRequest
+	35,  // 74: libops.v1.SiteService.DeleteSite:input_type -> libops.v1.DeleteSiteRequest
+	38,  // 75: libops.v1.DomainService.ListSiteDomains:input_type -> libops.v1.ListSiteDomainsRequest
+	40,  // 76: libops.v1.DomainService.CreateSiteDomain:input_type -> libops.v1.CreateSiteDomainRequest
+	42,  // 77: libops.v1.DomainService.GetSiteDomain:input_type -> libops.v1.GetSiteDomainRequest
+	44,  // 78: libops.v1.DomainService.CheckSiteDomain:input_type -> libops.v1.CheckSiteDomainRequest
+	46,  // 79: libops.v1.DomainService.RetrySiteDomainProvisioning:input_type -> libops.v1.RetrySiteDomainProvisioningRequest
+	48,  // 80: libops.v1.DomainService.DeleteSiteDomain:input_type -> libops.v1.DeleteSiteDomainRequest
+	1,   // 81: libops.v1.ProjectService.GetProject:input_type -> libops.v1.GetProjectRequest
+	3,   // 82: libops.v1.ProjectService.CreateProject:input_type -> libops.v1.CreateProjectRequest
+	5,   // 83: libops.v1.ProjectService.UpdateProject:input_type -> libops.v1.UpdateProjectRequest
+	7,   // 84: libops.v1.ProjectService.DeleteProject:input_type -> libops.v1.DeleteProjectRequest
+	8,   // 85: libops.v1.ProjectService.ListProjects:input_type -> libops.v1.ListProjectsRequest
+	10,  // 86: libops.v1.ProjectService.ListProjectSites:input_type -> libops.v1.ListProjectSitesRequest
+	12,  // 87: libops.v1.ProjectService.ListProjectRuntimes:input_type -> libops.v1.ListProjectRuntimesRequest
+	14,  // 88: libops.v1.ProjectService.GetProjectRuntime:input_type -> libops.v1.GetProjectRuntimeRequest
+	16,  // 89: libops.v1.ProjectService.CreateProjectRuntime:input_type -> libops.v1.CreateProjectRuntimeRequest
+	55,  // 90: libops.v1.FirewallService.ListOrganizationFirewallRules:input_type -> libops.v1.ListOrganizationFirewallRulesRequest
+	57,  // 91: libops.v1.FirewallService.CreateOrganizationFirewallRule:input_type -> libops.v1.CreateOrganizationFirewallRuleRequest
+	59,  // 92: libops.v1.FirewallService.DeleteOrganizationFirewallRule:input_type -> libops.v1.DeleteOrganizationFirewallRuleRequest
+	60,  // 93: libops.v1.ProjectFirewallService.ListProjectFirewallRules:input_type -> libops.v1.ListProjectFirewallRulesRequest
+	62,  // 94: libops.v1.ProjectFirewallService.CreateProjectFirewallRule:input_type -> libops.v1.CreateProjectFirewallRuleRequest
+	64,  // 95: libops.v1.ProjectFirewallService.DeleteProjectFirewallRule:input_type -> libops.v1.DeleteProjectFirewallRuleRequest
+	65,  // 96: libops.v1.SiteFirewallService.ListSiteFirewallRules:input_type -> libops.v1.ListSiteFirewallRulesRequest
+	67,  // 97: libops.v1.SiteFirewallService.CreateSiteFirewallRule:input_type -> libops.v1.CreateSiteFirewallRuleRequest
+	69,  // 98: libops.v1.SiteFirewallService.DeleteSiteFirewallRule:input_type -> libops.v1.DeleteSiteFirewallRuleRequest
+	70,  // 99: libops.v1.MemberService.ListOrganizationMembers:input_type -> libops.v1.ListOrganizationMembersRequest
+	72,  // 100: libops.v1.MemberService.CreateOrganizationMember:input_type -> libops.v1.CreateOrganizationMemberRequest
+	74,  // 101: libops.v1.MemberService.UpdateOrganizationMember:input_type -> libops.v1.UpdateOrganizationMemberRequest
+	76,  // 102: libops.v1.MemberService.DeleteOrganizationMember:input_type -> libops.v1.DeleteOrganizationMemberRequest
+	77,  // 103: libops.v1.ProjectMemberService.ListProjectMembers:input_type -> libops.v1.ListProjectMembersRequest
+	79,  // 104: libops.v1.ProjectMemberService.CreateProjectMember:input_type -> libops.v1.CreateProjectMemberRequest
+	81,  // 105: libops.v1.ProjectMemberService.UpdateProjectMember:input_type -> libops.v1.UpdateProjectMemberRequest
+	83,  // 106: libops.v1.ProjectMemberService.DeleteProjectMember:input_type -> libops.v1.DeleteProjectMemberRequest
+	84,  // 107: libops.v1.SiteMemberService.ListSiteMembers:input_type -> libops.v1.ListSiteMembersRequest
+	86,  // 108: libops.v1.SiteMemberService.CreateSiteMember:input_type -> libops.v1.CreateSiteMemberRequest
+	88,  // 109: libops.v1.SiteMemberService.UpdateSiteMember:input_type -> libops.v1.UpdateSiteMemberRequest
+	90,  // 110: libops.v1.SiteMemberService.DeleteSiteMember:input_type -> libops.v1.DeleteSiteMemberRequest
+	91,  // 111: libops.v1.SshKeyService.ListSshKeys:input_type -> libops.v1.ListSshKeysRequest
+	93,  // 112: libops.v1.SshKeyService.CreateSshKey:input_type -> libops.v1.CreateSshKeyRequest
+	95,  // 113: libops.v1.SshKeyService.DeleteSshKey:input_type -> libops.v1.DeleteSshKeyRequest
+	96,  // 114: libops.v1.SiteOperationsService.GetSiteStatus:input_type -> libops.v1.GetSiteStatusRequest
+	98,  // 115: libops.v1.SiteOperationsService.DeploySite:input_type -> libops.v1.DeploySiteRequest
+	19,  // 116: libops.v1.OrganizationService.GetOrganization:output_type -> libops.v1.GetOrganizationResponse
+	21,  // 117: libops.v1.OrganizationService.CreateOrganization:output_type -> libops.v1.CreateOrganizationResponse
+	23,  // 118: libops.v1.OrganizationService.UpdateOrganization:output_type -> libops.v1.UpdateOrganizationResponse
+	108, // 119: libops.v1.OrganizationService.DeleteOrganization:output_type -> google.protobuf.Empty
+	26,  // 120: libops.v1.OrganizationService.ListOrganizations:output_type -> libops.v1.ListOrganizationsResponse
+	28,  // 121: libops.v1.OrganizationService.ListOrganizationProjects:output_type -> libops.v1.ListOrganizationProjectsResponse
+	37,  // 122: libops.v1.SiteService.ListSites:output_type -> libops.v1.ListSitesResponse
+	30,  // 123: libops.v1.SiteService.GetSite:output_type -> libops.v1.GetSiteResponse
+	32,  // 124: libops.v1.SiteService.CreateSite:output_type -> libops.v1.CreateSiteResponse
+	34,  // 125: libops.v1.SiteService.UpdateSite:output_type -> libops.v1.UpdateSiteResponse
+	108, // 126: libops.v1.SiteService.DeleteSite:output_type -> google.protobuf.Empty
+	39,  // 127: libops.v1.DomainService.ListSiteDomains:output_type -> libops.v1.ListSiteDomainsResponse
+	41,  // 128: libops.v1.DomainService.CreateSiteDomain:output_type -> libops.v1.CreateSiteDomainResponse
+	43,  // 129: libops.v1.DomainService.GetSiteDomain:output_type -> libops.v1.GetSiteDomainResponse
+	45,  // 130: libops.v1.DomainService.CheckSiteDomain:output_type -> libops.v1.CheckSiteDomainResponse
+	47,  // 131: libops.v1.DomainService.RetrySiteDomainProvisioning:output_type -> libops.v1.RetrySiteDomainProvisioningResponse
+	108, // 132: libops.v1.DomainService.DeleteSiteDomain:output_type -> google.protobuf.Empty
+	2,   // 133: libops.v1.ProjectService.GetProject:output_type -> libops.v1.GetProjectResponse
+	4,   // 134: libops.v1.ProjectService.CreateProject:output_type -> libops.v1.CreateProjectResponse
+	6,   // 135: libops.v1.ProjectService.UpdateProject:output_type -> libops.v1.UpdateProjectResponse
+	108, // 136: libops.v1.ProjectService.DeleteProject:output_type -> google.protobuf.Empty
+	9,   // 137: libops.v1.ProjectService.ListProjects:output_type -> libops.v1.ListProjectsResponse
+	11,  // 138: libops.v1.ProjectService.ListProjectSites:output_type -> libops.v1.ListProjectSitesResponse
+	13,  // 139: libops.v1.ProjectService.ListProjectRuntimes:output_type -> libops.v1.ListProjectRuntimesResponse
+	15,  // 140: libops.v1.ProjectService.GetProjectRuntime:output_type -> libops.v1.GetProjectRuntimeResponse
+	17,  // 141: libops.v1.ProjectService.CreateProjectRuntime:output_type -> libops.v1.CreateProjectRuntimeResponse
+	56,  // 142: libops.v1.FirewallService.ListOrganizationFirewallRules:output_type -> libops.v1.ListOrganizationFirewallRulesResponse
+	58,  // 143: libops.v1.FirewallService.CreateOrganizationFirewallRule:output_type -> libops.v1.CreateOrganizationFirewallRuleResponse
+	108, // 144: libops.v1.FirewallService.DeleteOrganizationFirewallRule:output_type -> google.protobuf.Empty
+	61,  // 145: libops.v1.ProjectFirewallService.ListProjectFirewallRules:output_type -> libops.v1.ListProjectFirewallRulesResponse
+	63,  // 146: libops.v1.ProjectFirewallService.CreateProjectFirewallRule:output_type -> libops.v1.CreateProjectFirewallRuleResponse
+	108, // 147: libops.v1.ProjectFirewallService.DeleteProjectFirewallRule:output_type -> google.protobuf.Empty
+	66,  // 148: libops.v1.SiteFirewallService.ListSiteFirewallRules:output_type -> libops.v1.ListSiteFirewallRulesResponse
+	68,  // 149: libops.v1.SiteFirewallService.CreateSiteFirewallRule:output_type -> libops.v1.CreateSiteFirewallRuleResponse
+	108, // 150: libops.v1.SiteFirewallService.DeleteSiteFirewallRule:output_type -> google.protobuf.Empty
+	71,  // 151: libops.v1.MemberService.ListOrganizationMembers:output_type -> libops.v1.ListOrganizationMembersResponse
+	73,  // 152: libops.v1.MemberService.CreateOrganizationMember:output_type -> libops.v1.CreateOrganizationMemberResponse
+	75,  // 153: libops.v1.MemberService.UpdateOrganizationMember:output_type -> libops.v1.UpdateOrganizationMemberResponse
+	108, // 154: libops.v1.MemberService.DeleteOrganizationMember:output_type -> google.protobuf.Empty
+	78,  // 155: libops.v1.ProjectMemberService.ListProjectMembers:output_type -> libops.v1.ListProjectMembersResponse
+	80,  // 156: libops.v1.ProjectMemberService.CreateProjectMember:output_type -> libops.v1.CreateProjectMemberResponse
+	82,  // 157: libops.v1.ProjectMemberService.UpdateProjectMember:output_type -> libops.v1.UpdateProjectMemberResponse
+	108, // 158: libops.v1.ProjectMemberService.DeleteProjectMember:output_type -> google.protobuf.Empty
+	85,  // 159: libops.v1.SiteMemberService.ListSiteMembers:output_type -> libops.v1.ListSiteMembersResponse
+	87,  // 160: libops.v1.SiteMemberService.CreateSiteMember:output_type -> libops.v1.CreateSiteMemberResponse
+	89,  // 161: libops.v1.SiteMemberService.UpdateSiteMember:output_type -> libops.v1.UpdateSiteMemberResponse
+	108, // 162: libops.v1.SiteMemberService.DeleteSiteMember:output_type -> google.protobuf.Empty
+	92,  // 163: libops.v1.SshKeyService.ListSshKeys:output_type -> libops.v1.ListSshKeysResponse
+	94,  // 164: libops.v1.SshKeyService.CreateSshKey:output_type -> libops.v1.CreateSshKeyResponse
+	108, // 165: libops.v1.SshKeyService.DeleteSshKey:output_type -> google.protobuf.Empty
+	97,  // 166: libops.v1.SiteOperationsService.GetSiteStatus:output_type -> libops.v1.GetSiteStatusResponse
+	99,  // 167: libops.v1.SiteOperationsService.DeploySite:output_type -> libops.v1.DeploySiteResponse
+	116, // [116:168] is the sub-list for method output_type
+	64,  // [64:116] is the sub-list for method input_type
+	64,  // [64:64] is the sub-list for extension type_name
+	64,  // [64:64] is the sub-list for extension extendee
+	0,   // [0:64] is the sub-list for field type_name
 }
 
 func init() { file_libops_v1_organization_api_proto_init() }
@@ -5912,18 +6255,18 @@ func file_libops_v1_organization_api_proto_init() {
 	}
 	file_libops_v1_organization_api_proto_msgTypes[7].OneofWrappers = []any{}
 	file_libops_v1_organization_api_proto_msgTypes[35].OneofWrappers = []any{}
-	file_libops_v1_organization_api_proto_msgTypes[45].OneofWrappers = []any{}
-	file_libops_v1_organization_api_proto_msgTypes[46].OneofWrappers = []any{}
-	file_libops_v1_organization_api_proto_msgTypes[47].OneofWrappers = []any{}
-	file_libops_v1_organization_api_proto_msgTypes[86].OneofWrappers = []any{}
-	file_libops_v1_organization_api_proto_msgTypes[91].OneofWrappers = []any{}
+	file_libops_v1_organization_api_proto_msgTypes[51].OneofWrappers = []any{}
+	file_libops_v1_organization_api_proto_msgTypes[52].OneofWrappers = []any{}
+	file_libops_v1_organization_api_proto_msgTypes[53].OneofWrappers = []any{}
+	file_libops_v1_organization_api_proto_msgTypes[92].OneofWrappers = []any{}
+	file_libops_v1_organization_api_proto_msgTypes[97].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_libops_v1_organization_api_proto_rawDesc), len(file_libops_v1_organization_api_proto_rawDesc)),
 			NumEnums:      1,
-			NumMessages:   93,
+			NumMessages:   99,
 			NumExtensions: 0,
 			NumServices:   12,
 		},

@@ -3,26 +3,80 @@ syntax = "proto3";
 package libops.v1.common;
 
 import "gnostic/openapi/v3/annotations.proto";
+import "google/protobuf/timestamp.proto";
 import "libops/v1/common/project.proto";
 import "libops/v1/common/types.proto";
 
 option go_package = "github.com/libops/proto/libops/v1/common;commonv1";
 
-enum DomainEdgeAction {
-  DOMAIN_EDGE_ACTION_UNSPECIFIED = 0;
-  DOMAIN_EDGE_ACTION_ALLOW = 1;
-  DOMAIN_EDGE_ACTION_CHALLENGE = 2;
-  DOMAIN_EDGE_ACTION_BLOCK = 3;
+enum DomainKind {
+  DOMAIN_KIND_UNSPECIFIED = 0;
+  DOMAIN_KIND_MANAGED = 1;
+  DOMAIN_KIND_VANITY = 2;
+}
+
+enum DomainProvisioningState {
+  DOMAIN_PROVISIONING_STATE_UNSPECIFIED = 0;
+  DOMAIN_PROVISIONING_STATE_AWAITING_OWNERSHIP_PROOF = 1;
+  DOMAIN_PROVISIONING_STATE_PREPARING_DNS_AUTHORIZATION = 2;
+  DOMAIN_PROVISIONING_STATE_AWAITING_CERTIFICATE_DNS = 3;
+  DOMAIN_PROVISIONING_STATE_PROVISIONING_CERTIFICATE = 4;
+  DOMAIN_PROVISIONING_STATE_PROVISIONING_MAP_ENTRY = 5;
+  DOMAIN_PROVISIONING_STATE_READY_FOR_TRAFFIC = 6;
+  DOMAIN_PROVISIONING_STATE_ACTIVE = 7;
+  DOMAIN_PROVISIONING_STATE_DEGRADED = 8;
+  DOMAIN_PROVISIONING_STATE_FAILED = 9;
+  DOMAIN_PROVISIONING_STATE_DELETING = 10;
+  DOMAIN_PROVISIONING_STATE_DELETED = 11;
+  DOMAIN_PROVISIONING_STATE_EXPIRED = 12;
+}
+
+enum DomainRouteState {
+  DOMAIN_ROUTE_STATE_UNSPECIFIED = 0;
+  DOMAIN_ROUTE_STATE_PENDING = 1;
+  DOMAIN_ROUTE_STATE_ENABLED = 2;
+  DOMAIN_ROUTE_STATE_BLOCKED = 3;
+  DOMAIN_ROUTE_STATE_DELETING = 4;
+  DOMAIN_ROUTE_STATE_DELETED = 5;
+}
+
+enum DnsRecordPurpose {
+  DNS_RECORD_PURPOSE_UNSPECIFIED = 0;
+  DNS_RECORD_PURPOSE_OWNERSHIP_PROOF = 1;
+  DNS_RECORD_PURPOSE_CERTIFICATE_AUTHORIZATION = 2;
+  DNS_RECORD_PURPOSE_TRAFFIC = 3;
+  DNS_RECORD_PURPOSE_SSH = 4;
+}
+
+message DnsRecordInstruction {
+  string name = 1;
+  string type = 2;
+  string data = 3;
+  uint32 ttl = 4;
+  DnsRecordPurpose purpose = 5;
+  bool retain = 6;
 }
 
 message DomainConfig {
-  string domain = 1;
+  string domain_id = 1 [(gnostic.openapi.v3.property) = {format: "uuid"}];
   string site_id = 2 [(gnostic.openapi.v3.property) = {format: "uuid"}];
-  string cloud_run_hostname = 3;
-  string tier = 4;
-  Status status = 5;
-  DomainEdgeAction edge_action = 6;
-  double success_log_sample_rate = 7;
+  string hostname = 3;
+  DomainKind kind = 4;
+  DomainProvisioningState provisioning_state = 5;
+  DomainRouteState route_state = 6;
+  repeated DnsRecordInstruction dns_instructions = 7;
+  string managed_hostname = 8;
+  string ssh_hostname = 9;
+  bool route_ready = 10;
+  string failure_reason = 11;
+  string failure_message = 12;
+  bool retryable = 13;
+  google.protobuf.Timestamp created_at = 14;
+  google.protobuf.Timestamp updated_at = 15;
+  google.protobuf.Timestamp verified_at = 16;
+  google.protobuf.Timestamp route_ready_at = 17;
+  google.protobuf.Timestamp activated_at = 18;
+  google.protobuf.Timestamp delete_requested_at = 19;
 }
 
 // SiteConfig is the organization-facing site configuration

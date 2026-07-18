@@ -90,6 +90,15 @@ const (
 	// DomainServiceCreateSiteDomainProcedure is the fully-qualified name of the DomainService's
 	// CreateSiteDomain RPC.
 	DomainServiceCreateSiteDomainProcedure = "/libops.v1.DomainService/CreateSiteDomain"
+	// DomainServiceGetSiteDomainProcedure is the fully-qualified name of the DomainService's
+	// GetSiteDomain RPC.
+	DomainServiceGetSiteDomainProcedure = "/libops.v1.DomainService/GetSiteDomain"
+	// DomainServiceCheckSiteDomainProcedure is the fully-qualified name of the DomainService's
+	// CheckSiteDomain RPC.
+	DomainServiceCheckSiteDomainProcedure = "/libops.v1.DomainService/CheckSiteDomain"
+	// DomainServiceRetrySiteDomainProvisioningProcedure is the fully-qualified name of the
+	// DomainService's RetrySiteDomainProvisioning RPC.
+	DomainServiceRetrySiteDomainProvisioningProcedure = "/libops.v1.DomainService/RetrySiteDomainProvisioning"
 	// DomainServiceDeleteSiteDomainProcedure is the fully-qualified name of the DomainService's
 	// DeleteSiteDomain RPC.
 	DomainServiceDeleteSiteDomainProcedure = "/libops.v1.DomainService/DeleteSiteDomain"
@@ -610,6 +619,9 @@ func (UnimplementedSiteServiceHandler) DeleteSite(context.Context, *connect.Requ
 type DomainServiceClient interface {
 	ListSiteDomains(context.Context, *connect.Request[v1.ListSiteDomainsRequest]) (*connect.Response[v1.ListSiteDomainsResponse], error)
 	CreateSiteDomain(context.Context, *connect.Request[v1.CreateSiteDomainRequest]) (*connect.Response[v1.CreateSiteDomainResponse], error)
+	GetSiteDomain(context.Context, *connect.Request[v1.GetSiteDomainRequest]) (*connect.Response[v1.GetSiteDomainResponse], error)
+	CheckSiteDomain(context.Context, *connect.Request[v1.CheckSiteDomainRequest]) (*connect.Response[v1.CheckSiteDomainResponse], error)
+	RetrySiteDomainProvisioning(context.Context, *connect.Request[v1.RetrySiteDomainProvisioningRequest]) (*connect.Response[v1.RetrySiteDomainProvisioningResponse], error)
 	DeleteSiteDomain(context.Context, *connect.Request[v1.DeleteSiteDomainRequest]) (*connect.Response[emptypb.Empty], error)
 }
 
@@ -637,6 +649,27 @@ func NewDomainServiceClient(httpClient connect.HTTPClient, baseURL string, opts 
 			connect.WithSchema(domainServiceMethods.ByName("CreateSiteDomain")),
 			connect.WithClientOptions(opts...),
 		),
+		getSiteDomain: connect.NewClient[v1.GetSiteDomainRequest, v1.GetSiteDomainResponse](
+			httpClient,
+			baseURL+DomainServiceGetSiteDomainProcedure,
+			connect.WithSchema(domainServiceMethods.ByName("GetSiteDomain")),
+			connect.WithIdempotency(connect.IdempotencyNoSideEffects),
+			connect.WithClientOptions(opts...),
+		),
+		checkSiteDomain: connect.NewClient[v1.CheckSiteDomainRequest, v1.CheckSiteDomainResponse](
+			httpClient,
+			baseURL+DomainServiceCheckSiteDomainProcedure,
+			connect.WithSchema(domainServiceMethods.ByName("CheckSiteDomain")),
+			connect.WithIdempotency(connect.IdempotencyIdempotent),
+			connect.WithClientOptions(opts...),
+		),
+		retrySiteDomainProvisioning: connect.NewClient[v1.RetrySiteDomainProvisioningRequest, v1.RetrySiteDomainProvisioningResponse](
+			httpClient,
+			baseURL+DomainServiceRetrySiteDomainProvisioningProcedure,
+			connect.WithSchema(domainServiceMethods.ByName("RetrySiteDomainProvisioning")),
+			connect.WithIdempotency(connect.IdempotencyIdempotent),
+			connect.WithClientOptions(opts...),
+		),
 		deleteSiteDomain: connect.NewClient[v1.DeleteSiteDomainRequest, emptypb.Empty](
 			httpClient,
 			baseURL+DomainServiceDeleteSiteDomainProcedure,
@@ -648,9 +681,12 @@ func NewDomainServiceClient(httpClient connect.HTTPClient, baseURL string, opts 
 
 // domainServiceClient implements DomainServiceClient.
 type domainServiceClient struct {
-	listSiteDomains  *connect.Client[v1.ListSiteDomainsRequest, v1.ListSiteDomainsResponse]
-	createSiteDomain *connect.Client[v1.CreateSiteDomainRequest, v1.CreateSiteDomainResponse]
-	deleteSiteDomain *connect.Client[v1.DeleteSiteDomainRequest, emptypb.Empty]
+	listSiteDomains             *connect.Client[v1.ListSiteDomainsRequest, v1.ListSiteDomainsResponse]
+	createSiteDomain            *connect.Client[v1.CreateSiteDomainRequest, v1.CreateSiteDomainResponse]
+	getSiteDomain               *connect.Client[v1.GetSiteDomainRequest, v1.GetSiteDomainResponse]
+	checkSiteDomain             *connect.Client[v1.CheckSiteDomainRequest, v1.CheckSiteDomainResponse]
+	retrySiteDomainProvisioning *connect.Client[v1.RetrySiteDomainProvisioningRequest, v1.RetrySiteDomainProvisioningResponse]
+	deleteSiteDomain            *connect.Client[v1.DeleteSiteDomainRequest, emptypb.Empty]
 }
 
 // ListSiteDomains calls libops.v1.DomainService.ListSiteDomains.
@@ -663,6 +699,21 @@ func (c *domainServiceClient) CreateSiteDomain(ctx context.Context, req *connect
 	return c.createSiteDomain.CallUnary(ctx, req)
 }
 
+// GetSiteDomain calls libops.v1.DomainService.GetSiteDomain.
+func (c *domainServiceClient) GetSiteDomain(ctx context.Context, req *connect.Request[v1.GetSiteDomainRequest]) (*connect.Response[v1.GetSiteDomainResponse], error) {
+	return c.getSiteDomain.CallUnary(ctx, req)
+}
+
+// CheckSiteDomain calls libops.v1.DomainService.CheckSiteDomain.
+func (c *domainServiceClient) CheckSiteDomain(ctx context.Context, req *connect.Request[v1.CheckSiteDomainRequest]) (*connect.Response[v1.CheckSiteDomainResponse], error) {
+	return c.checkSiteDomain.CallUnary(ctx, req)
+}
+
+// RetrySiteDomainProvisioning calls libops.v1.DomainService.RetrySiteDomainProvisioning.
+func (c *domainServiceClient) RetrySiteDomainProvisioning(ctx context.Context, req *connect.Request[v1.RetrySiteDomainProvisioningRequest]) (*connect.Response[v1.RetrySiteDomainProvisioningResponse], error) {
+	return c.retrySiteDomainProvisioning.CallUnary(ctx, req)
+}
+
 // DeleteSiteDomain calls libops.v1.DomainService.DeleteSiteDomain.
 func (c *domainServiceClient) DeleteSiteDomain(ctx context.Context, req *connect.Request[v1.DeleteSiteDomainRequest]) (*connect.Response[emptypb.Empty], error) {
 	return c.deleteSiteDomain.CallUnary(ctx, req)
@@ -672,6 +723,9 @@ func (c *domainServiceClient) DeleteSiteDomain(ctx context.Context, req *connect
 type DomainServiceHandler interface {
 	ListSiteDomains(context.Context, *connect.Request[v1.ListSiteDomainsRequest]) (*connect.Response[v1.ListSiteDomainsResponse], error)
 	CreateSiteDomain(context.Context, *connect.Request[v1.CreateSiteDomainRequest]) (*connect.Response[v1.CreateSiteDomainResponse], error)
+	GetSiteDomain(context.Context, *connect.Request[v1.GetSiteDomainRequest]) (*connect.Response[v1.GetSiteDomainResponse], error)
+	CheckSiteDomain(context.Context, *connect.Request[v1.CheckSiteDomainRequest]) (*connect.Response[v1.CheckSiteDomainResponse], error)
+	RetrySiteDomainProvisioning(context.Context, *connect.Request[v1.RetrySiteDomainProvisioningRequest]) (*connect.Response[v1.RetrySiteDomainProvisioningResponse], error)
 	DeleteSiteDomain(context.Context, *connect.Request[v1.DeleteSiteDomainRequest]) (*connect.Response[emptypb.Empty], error)
 }
 
@@ -695,6 +749,27 @@ func NewDomainServiceHandler(svc DomainServiceHandler, opts ...connect.HandlerOp
 		connect.WithSchema(domainServiceMethods.ByName("CreateSiteDomain")),
 		connect.WithHandlerOptions(opts...),
 	)
+	domainServiceGetSiteDomainHandler := connect.NewUnaryHandler(
+		DomainServiceGetSiteDomainProcedure,
+		svc.GetSiteDomain,
+		connect.WithSchema(domainServiceMethods.ByName("GetSiteDomain")),
+		connect.WithIdempotency(connect.IdempotencyNoSideEffects),
+		connect.WithHandlerOptions(opts...),
+	)
+	domainServiceCheckSiteDomainHandler := connect.NewUnaryHandler(
+		DomainServiceCheckSiteDomainProcedure,
+		svc.CheckSiteDomain,
+		connect.WithSchema(domainServiceMethods.ByName("CheckSiteDomain")),
+		connect.WithIdempotency(connect.IdempotencyIdempotent),
+		connect.WithHandlerOptions(opts...),
+	)
+	domainServiceRetrySiteDomainProvisioningHandler := connect.NewUnaryHandler(
+		DomainServiceRetrySiteDomainProvisioningProcedure,
+		svc.RetrySiteDomainProvisioning,
+		connect.WithSchema(domainServiceMethods.ByName("RetrySiteDomainProvisioning")),
+		connect.WithIdempotency(connect.IdempotencyIdempotent),
+		connect.WithHandlerOptions(opts...),
+	)
 	domainServiceDeleteSiteDomainHandler := connect.NewUnaryHandler(
 		DomainServiceDeleteSiteDomainProcedure,
 		svc.DeleteSiteDomain,
@@ -707,6 +782,12 @@ func NewDomainServiceHandler(svc DomainServiceHandler, opts ...connect.HandlerOp
 			domainServiceListSiteDomainsHandler.ServeHTTP(w, r)
 		case DomainServiceCreateSiteDomainProcedure:
 			domainServiceCreateSiteDomainHandler.ServeHTTP(w, r)
+		case DomainServiceGetSiteDomainProcedure:
+			domainServiceGetSiteDomainHandler.ServeHTTP(w, r)
+		case DomainServiceCheckSiteDomainProcedure:
+			domainServiceCheckSiteDomainHandler.ServeHTTP(w, r)
+		case DomainServiceRetrySiteDomainProvisioningProcedure:
+			domainServiceRetrySiteDomainProvisioningHandler.ServeHTTP(w, r)
 		case DomainServiceDeleteSiteDomainProcedure:
 			domainServiceDeleteSiteDomainHandler.ServeHTTP(w, r)
 		default:
@@ -724,6 +805,18 @@ func (UnimplementedDomainServiceHandler) ListSiteDomains(context.Context, *conne
 
 func (UnimplementedDomainServiceHandler) CreateSiteDomain(context.Context, *connect.Request[v1.CreateSiteDomainRequest]) (*connect.Response[v1.CreateSiteDomainResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("libops.v1.DomainService.CreateSiteDomain is not implemented"))
+}
+
+func (UnimplementedDomainServiceHandler) GetSiteDomain(context.Context, *connect.Request[v1.GetSiteDomainRequest]) (*connect.Response[v1.GetSiteDomainResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("libops.v1.DomainService.GetSiteDomain is not implemented"))
+}
+
+func (UnimplementedDomainServiceHandler) CheckSiteDomain(context.Context, *connect.Request[v1.CheckSiteDomainRequest]) (*connect.Response[v1.CheckSiteDomainResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("libops.v1.DomainService.CheckSiteDomain is not implemented"))
+}
+
+func (UnimplementedDomainServiceHandler) RetrySiteDomainProvisioning(context.Context, *connect.Request[v1.RetrySiteDomainProvisioningRequest]) (*connect.Response[v1.RetrySiteDomainProvisioningResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("libops.v1.DomainService.RetrySiteDomainProvisioning is not implemented"))
 }
 
 func (UnimplementedDomainServiceHandler) DeleteSiteDomain(context.Context, *connect.Request[v1.DeleteSiteDomainRequest]) (*connect.Response[emptypb.Empty], error) {
