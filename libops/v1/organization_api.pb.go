@@ -11,7 +11,6 @@ import (
 	_ "github.com/libops/proto/libops/v1/options"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	_ "google.golang.org/protobuf/types/descriptorpb"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
 	fieldmaskpb "google.golang.org/protobuf/types/known/fieldmaskpb"
 	reflect "reflect"
@@ -5454,7 +5453,7 @@ var File_libops_v1_organization_api_proto protoreflect.FileDescriptor
 
 const file_libops_v1_organization_api_proto_rawDesc = "" +
 	"\n" +
-	" libops/v1/organization_api.proto\x12\tlibops.v1\x1a google/protobuf/descriptor.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a google/protobuf/field_mask.proto\x1a\x1elibops/v1/common/project.proto\x1a#libops/v1/common/organization.proto\x1a\x1blibops/v1/common/site.proto\x1a\x1clibops/v1/common/types.proto\x1a!libops/v1/options/assistant.proto\x1a\x1dlibops/v1/options/scope.proto\"[\n" +
+	" libops/v1/organization_api.proto\x12\tlibops.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a google/protobuf/field_mask.proto\x1a\x1elibops/v1/common/project.proto\x1a#libops/v1/common/organization.proto\x1a\x1blibops/v1/common/site.proto\x1a\x1clibops/v1/common/types.proto\x1a!libops/v1/options/assistant.proto\x1a\x1dlibops/v1/options/scope.proto\x1a\"libops/v1/options/visibility.proto\"[\n" +
 	"\x11GetProjectRequest\x12'\n" +
 	"\x0forganization_id\x18\x01 \x01(\tR\x0eorganizationId\x12\x1d\n" +
 	"\n" +
@@ -5851,14 +5850,14 @@ const file_libops_v1_organization_api_proto_rawDesc = "" +
 	"\x1eFIREWALL_RULE_TYPE_UNSPECIFIED\x10\x00\x12$\n" +
 	" FIREWALL_RULE_TYPE_HTTPS_ALLOWED\x10\x01\x12\"\n" +
 	"\x1eFIREWALL_RULE_TYPE_SSH_ALLOWED\x10\x02\x12\x1e\n" +
-	"\x1aFIREWALL_RULE_TYPE_BLOCKED\x10\x032\xea\x06\n" +
+	"\x1aFIREWALL_RULE_TYPE_BLOCKED\x10\x032\xf0\x06\n" +
 	"\x13OrganizationService\x12\x8b\x01\n" +
 	"\x0fGetOrganization\x12!.libops.v1.GetOrganizationRequest\x1a\".libops.v1.GetOrganizationResponse\"1\x92\xb5\x18*\b\x03\x10\x01\x18\x01\"\x11read:organization*\x0forganization_id\x90\x02\x01\x12\x81\x01\n" +
 	"\x12CreateOrganization\x12$.libops.v1.CreateOrganizationRequest\x1a%.libops.v1.CreateOrganizationResponse\"\x1e\x92\xb5\x18\x1a\b\x02\x10\x02\x18\x01\"\x12write:organization\x12\x92\x01\n" +
 	"\x12UpdateOrganization\x12$.libops.v1.UpdateOrganizationRequest\x1a%.libops.v1.UpdateOrganizationResponse\"/\x92\xb5\x18+\b\x03\x10\x02\x18\x01\"\x12write:organization*\x0forganization_id\x12\x84\x01\n" +
 	"\x12DeleteOrganization\x12$.libops.v1.DeleteOrganizationRequest\x1a\x16.google.protobuf.Empty\"0\x92\xb5\x18,\b\x03\x10\x03\x18\x01\"\x13delete:organization*\x0forganization_id\x12\x80\x01\n" +
 	"\x11ListOrganizations\x12#.libops.v1.ListOrganizationsRequest\x1a$.libops.v1.ListOrganizationsResponse\" \x92\xb5\x18\x19\b\x02\x10\x01\x18\x01\"\x11read:organization\x90\x02\x01\x12\xa1\x01\n" +
-	"\x18ListOrganizationProjects\x12*.libops.v1.ListOrganizationProjectsRequest\x1a+.libops.v1.ListOrganizationProjectsResponse\",\x92\xb5\x18%\b\x03\x10\x01\x18\x01\"\fread:project*\x0forganization_id\x90\x02\x012\xa6\x04\n" +
+	"\x18ListOrganizationProjects\x12*.libops.v1.ListOrganizationProjectsRequest\x1a+.libops.v1.ListOrganizationProjectsResponse\",\x92\xb5\x18%\b\x03\x10\x01\x18\x01\"\fread:project*\x0forganization_id\x90\x02\x01\x1a\x04\xa0\xb5\x18\x012\xac\x04\n" +
 	"\vSiteService\x12`\n" +
 	"\tListSites\x12\x1b.libops.v1.ListSitesRequest\x1a\x1c.libops.v1.ListSitesResponse\"\x18\x92\xb5\x18\x11\b\x02\x10\x01\x18\x01\"\tread:site\x90\x02\x01\x12c\n" +
 	"\aGetSite\x12\x19.libops.v1.GetSiteRequest\x1a\x1a.libops.v1.GetSiteResponse\"!\x92\xb5\x18\x1a\b\x05\x10\x01\x18\x01\"\tread:site*\asite_id\x90\x02\x01\x12v\n" +
@@ -5869,7 +5868,7 @@ const file_libops_v1_organization_api_proto_rawDesc = "" +
 	"UpdateSite\x12\x1c.libops.v1.UpdateSiteRequest\x1a\x1d.libops.v1.UpdateSiteResponse\"#\x92\xb5\x18\x1b\b\x05\x10\x02\x18\x01\"\n" +
 	"write:site*\asite_id\x98\xb5\x18\x01\x12h\n" +
 	"\n" +
-	"DeleteSite\x12\x1c.libops.v1.DeleteSiteRequest\x1a\x16.google.protobuf.Empty\"$\x92\xb5\x18\x1c\b\x05\x10\x03\x18\x01\"\vdelete:site*\asite_id\x98\xb5\x18\x012\x95\x06\n" +
+	"DeleteSite\x12\x1c.libops.v1.DeleteSiteRequest\x1a\x16.google.protobuf.Empty\"$\x92\xb5\x18\x1c\b\x05\x10\x03\x18\x01\"\vdelete:site*\asite_id\x98\xb5\x18\x01\x1a\x04\xa0\xb5\x18\x012\x9b\x06\n" +
 	"\rDomainService\x12{\n" +
 	"\x0fListSiteDomains\x12!.libops.v1.ListSiteDomainsRequest\x1a\".libops.v1.ListSiteDomainsResponse\"!\x92\xb5\x18\x1a\b\x05\x10\x01\x18\x01\"\tread:site*\asite_id\x90\x02\x01\x12~\n" +
 	"\x10CreateSiteDomain\x12\".libops.v1.CreateSiteDomainRequest\x1a#.libops.v1.CreateSiteDomainResponse\"!\x92\xb5\x18\x1d\b\x05\x10\x02\x18\x01\"\n" +
@@ -5880,7 +5879,7 @@ const file_libops_v1_organization_api_proto_rawDesc = "" +
 	"\x1bRetrySiteDomainProvisioning\x12-.libops.v1.RetrySiteDomainProvisioningRequest\x1a..libops.v1.RetrySiteDomainProvisioningResponse\"\"\x92\xb5\x18\x1b\b\x05\x10\x02\x18\x01\"\n" +
 	"write:site*\asite_id\x90\x02\x02\x12o\n" +
 	"\x10DeleteSiteDomain\x12\".libops.v1.DeleteSiteDomainRequest\x1a\x16.google.protobuf.Empty\"\x1f\x92\xb5\x18\x1b\b\x05\x10\x02\x18\x01\"\n" +
-	"write:site*\asite_id2\xac\t\n" +
+	"write:site*\asite_id\x1a\x04\xa0\xb5\x18\x012\xb2\t\n" +
 	"\x0eProjectService\x12r\n" +
 	"\n" +
 	"GetProject\x12\x1c.libops.v1.GetProjectRequest\x1a\x1d.libops.v1.GetProjectResponse\"'\x92\xb5\x18 \b\x04\x10\x01\x18\x01\"\fread:project*\n" +
@@ -5898,27 +5897,27 @@ const file_libops_v1_organization_api_proto_rawDesc = "" +
 	"\x11GetProjectRuntime\x12#.libops.v1.GetProjectRuntimeRequest\x1a$.libops.v1.GetProjectRuntimeResponse\"'\x92\xb5\x18 \b\x04\x10\x01\x18\x01\"\fread:project*\n" +
 	"project_id\x90\x02\x01\x12\x90\x01\n" +
 	"\x14CreateProjectRuntime\x12&.libops.v1.CreateProjectRuntimeRequest\x1a'.libops.v1.CreateProjectRuntimeResponse\"'\x92\xb5\x18#\b\x04\x10\x02\x18\x01\"\rwrite:project2\n" +
-	"project_id8\x042\x9f\x04\n" +
+	"project_id8\x04\x1a\x04\xa0\xb5\x18\x012\xa5\x04\n" +
 	"\x0fFirewallService\x12\xb1\x01\n" +
 	"\x1dListOrganizationFirewallRules\x12/.libops.v1.ListOrganizationFirewallRulesRequest\x1a0.libops.v1.ListOrganizationFirewallRulesResponse\"-\x92\xb5\x18&\b\x03\x10\x01\x18\x01\"\rread:firewall*\x0forganization_id\x90\x02\x01\x12\xb8\x01\n" +
 	"\x1eCreateOrganizationFirewallRule\x120.libops.v1.CreateOrganizationFirewallRuleRequest\x1a1.libops.v1.CreateOrganizationFirewallRuleResponse\"1\x92\xb5\x18)\b\x03\x10\x02\x18\x01\"\x0ewrite:firewall2\x0forganization_id8\x03\x98\xb5\x18\x01\x12\x9c\x01\n" +
-	"\x1eDeleteOrganizationFirewallRule\x120.libops.v1.DeleteOrganizationFirewallRuleRequest\x1a\x16.google.protobuf.Empty\"0\x92\xb5\x18(\b\x03\x10\x02\x18\x01\"\x0fdelete:firewall*\x0forganization_id\x98\xb5\x18\x012\xef\x03\n" +
+	"\x1eDeleteOrganizationFirewallRule\x120.libops.v1.DeleteOrganizationFirewallRuleRequest\x1a\x16.google.protobuf.Empty\"0\x92\xb5\x18(\b\x03\x10\x02\x18\x01\"\x0fdelete:firewall*\x0forganization_id\x98\xb5\x18\x01\x1a\x04\xa0\xb5\x18\x012\xf5\x03\n" +
 	"\x16ProjectFirewallService\x12\x9d\x01\n" +
 	"\x18ListProjectFirewallRules\x12*.libops.v1.ListProjectFirewallRulesRequest\x1a+.libops.v1.ListProjectFirewallRulesResponse\"(\x92\xb5\x18!\b\x04\x10\x01\x18\x01\"\rread:firewall*\n" +
 	"project_id\x90\x02\x01\x12\xa4\x01\n" +
 	"\x19CreateProjectFirewallRule\x12+.libops.v1.CreateProjectFirewallRuleRequest\x1a,.libops.v1.CreateProjectFirewallRuleResponse\",\x92\xb5\x18$\b\x04\x10\x02\x18\x01\"\x0ewrite:firewall2\n" +
 	"project_id8\x04\x98\xb5\x18\x01\x12\x8d\x01\n" +
 	"\x19DeleteProjectFirewallRule\x12+.libops.v1.DeleteProjectFirewallRuleRequest\x1a\x16.google.protobuf.Empty\"+\x92\xb5\x18#\b\x04\x10\x02\x18\x01\"\x0fdelete:firewall*\n" +
-	"project_id\x98\xb5\x18\x012\xcb\x03\n" +
+	"project_id\x98\xb5\x18\x01\x1a\x04\xa0\xb5\x18\x012\xd1\x03\n" +
 	"\x13SiteFirewallService\x12\x91\x01\n" +
 	"\x15ListSiteFirewallRules\x12'.libops.v1.ListSiteFirewallRulesRequest\x1a(.libops.v1.ListSiteFirewallRulesResponse\"%\x92\xb5\x18\x1e\b\x05\x10\x01\x18\x01\"\rread:firewall*\asite_id\x90\x02\x01\x12\x98\x01\n" +
 	"\x16CreateSiteFirewallRule\x12(.libops.v1.CreateSiteFirewallRuleRequest\x1a).libops.v1.CreateSiteFirewallRuleResponse\")\x92\xb5\x18!\b\x05\x10\x02\x18\x01\"\x0ewrite:firewall2\asite_id8\x05\x98\xb5\x18\x01\x12\x84\x01\n" +
-	"\x16DeleteSiteFirewallRule\x12(.libops.v1.DeleteSiteFirewallRuleRequest\x1a\x16.google.protobuf.Empty\"(\x92\xb5\x18 \b\x05\x10\x02\x18\x01\"\x0fdelete:firewall*\asite_id\x98\xb5\x18\x012\x90\x05\n" +
+	"\x16DeleteSiteFirewallRule\x12(.libops.v1.DeleteSiteFirewallRuleRequest\x1a\x16.google.protobuf.Empty\"(\x92\xb5\x18 \b\x05\x10\x02\x18\x01\"\x0fdelete:firewall*\asite_id\x98\xb5\x18\x01\x1a\x04\xa0\xb5\x18\x012\x96\x05\n" +
 	"\rMemberService\x12\x9e\x01\n" +
 	"\x17ListOrganizationMembers\x12).libops.v1.ListOrganizationMembersRequest\x1a*.libops.v1.ListOrganizationMembersResponse\",\x92\xb5\x18%\b\x03\x10\x01\x18\x01\"\fread:members*\x0forganization_id\x90\x02\x01\x12\xa5\x01\n" +
 	"\x18CreateOrganizationMember\x12*.libops.v1.CreateOrganizationMemberRequest\x1a+.libops.v1.CreateOrganizationMemberResponse\"0\x92\xb5\x18(\b\x03\x10\x03\x18\x01\"\rwrite:members2\x0forganization_id8\x03\x98\xb5\x18\x01\x12\xa3\x01\n" +
 	"\x18UpdateOrganizationMember\x12*.libops.v1.UpdateOrganizationMemberRequest\x1a+.libops.v1.UpdateOrganizationMemberResponse\".\x92\xb5\x18&\b\x03\x10\x03\x18\x01\"\rwrite:members*\x0forganization_id\x98\xb5\x18\x01\x12\x8f\x01\n" +
-	"\x18DeleteOrganizationMember\x12*.libops.v1.DeleteOrganizationMemberRequest\x1a\x16.google.protobuf.Empty\"/\x92\xb5\x18'\b\x03\x10\x03\x18\x01\"\x0edelete:members*\x0forganization_id\x98\xb5\x18\x012\xcc\x04\n" +
+	"\x18DeleteOrganizationMember\x12*.libops.v1.DeleteOrganizationMemberRequest\x1a\x16.google.protobuf.Empty\"/\x92\xb5\x18'\b\x03\x10\x03\x18\x01\"\x0edelete:members*\x0forganization_id\x98\xb5\x18\x01\x1a\x04\xa0\xb5\x18\x012\xd2\x04\n" +
 	"\x14ProjectMemberService\x12\x8a\x01\n" +
 	"\x12ListProjectMembers\x12$.libops.v1.ListProjectMembersRequest\x1a%.libops.v1.ListProjectMembersResponse\"'\x92\xb5\x18 \b\x04\x10\x01\x18\x01\"\fread:members*\n" +
 	"project_id\x90\x02\x01\x12\x91\x01\n" +
@@ -5927,23 +5926,23 @@ const file_libops_v1_organization_api_proto_rawDesc = "" +
 	"\x13UpdateProjectMember\x12%.libops.v1.UpdateProjectMemberRequest\x1a&.libops.v1.UpdateProjectMemberResponse\")\x92\xb5\x18!\b\x04\x10\x03\x18\x01\"\rwrite:members*\n" +
 	"project_id\x98\xb5\x18\x01\x12\x80\x01\n" +
 	"\x13DeleteProjectMember\x12%.libops.v1.DeleteProjectMemberRequest\x1a\x16.google.protobuf.Empty\"*\x92\xb5\x18\"\b\x04\x10\x03\x18\x01\"\x0edelete:members*\n" +
-	"project_id\x98\xb5\x18\x012\x9a\x04\n" +
+	"project_id\x98\xb5\x18\x01\x1a\x04\xa0\xb5\x18\x012\xa0\x04\n" +
 	"\x11SiteMemberService\x12~\n" +
 	"\x0fListSiteMembers\x12!.libops.v1.ListSiteMembersRequest\x1a\".libops.v1.ListSiteMembersResponse\"$\x92\xb5\x18\x1d\b\x05\x10\x01\x18\x01\"\fread:members*\asite_id\x90\x02\x01\x12\x85\x01\n" +
 	"\x10CreateSiteMember\x12\".libops.v1.CreateSiteMemberRequest\x1a#.libops.v1.CreateSiteMemberResponse\"(\x92\xb5\x18 \b\x05\x10\x03\x18\x01\"\rwrite:members2\asite_id8\x05\x98\xb5\x18\x01\x12\x83\x01\n" +
 	"\x10UpdateSiteMember\x12\".libops.v1.UpdateSiteMemberRequest\x1a#.libops.v1.UpdateSiteMemberResponse\"&\x92\xb5\x18\x1e\b\x05\x10\x03\x18\x01\"\rwrite:members*\asite_id\x98\xb5\x18\x01\x12w\n" +
-	"\x10DeleteSiteMember\x12\".libops.v1.DeleteSiteMemberRequest\x1a\x16.google.protobuf.Empty\"'\x92\xb5\x18\x1f\b\x05\x10\x03\x18\x01\"\x0edelete:members*\asite_id\x98\xb5\x18\x012\xc0\x02\n" +
+	"\x10DeleteSiteMember\x12\".libops.v1.DeleteSiteMemberRequest\x1a\x16.google.protobuf.Empty\"'\x92\xb5\x18\x1f\b\x05\x10\x03\x18\x01\"\x0edelete:members*\asite_id\x98\xb5\x18\x01\x1a\x04\xa0\xb5\x18\x012\xc6\x02\n" +
 	"\rSshKeyService\x12f\n" +
 	"\vListSshKeys\x12\x1d.libops.v1.ListSshKeysRequest\x1a\x1e.libops.v1.ListSshKeysResponse\"\x18\x92\xb5\x18\x11\b\x02\x10\x01\x18\x01\"\tread:user\x90\x02\x01\x12g\n" +
 	"\fCreateSshKey\x12\x1e.libops.v1.CreateSshKeyRequest\x1a\x1f.libops.v1.CreateSshKeyResponse\"\x16\x92\xb5\x18\x12\b\x02\x10\x02\x18\x01\"\n" +
 	"write:user\x12^\n" +
 	"\fDeleteSshKey\x12\x1e.libops.v1.DeleteSshKeyRequest\x1a\x16.google.protobuf.Empty\"\x16\x92\xb5\x18\x12\b\x02\x10\x02\x18\x01\"\n" +
-	"write:user2\xfe\x01\n" +
+	"write:user\x1a\x04\xa0\xb5\x18\x012\x84\x02\n" +
 	"\x15SiteOperationsService\x12u\n" +
 	"\rGetSiteStatus\x12\x1f.libops.v1.GetSiteStatusRequest\x1a .libops.v1.GetSiteStatusResponse\"!\x92\xb5\x18\x1a\b\x05\x10\x01\x18\x01\"\tread:site*\asite_id\x90\x02\x01\x12n\n" +
 	"\n" +
 	"DeploySite\x12\x1c.libops.v1.DeploySiteRequest\x1a\x1d.libops.v1.DeploySiteResponse\"#\x92\xb5\x18\x1b\b\x05\x10\x02\x18\x01\"\n" +
-	"write:site*\asite_id\x98\xb5\x18\x01B\x96\x01\n" +
+	"write:site*\asite_id\x98\xb5\x18\x01\x1a\x04\xa0\xb5\x18\x01B\x96\x01\n" +
 	"\rcom.libops.v1B\x14OrganizationApiProtoP\x01Z*github.com/libops/proto/libops/v1;libopsv1\xa2\x02\x03LXX\xaa\x02\tLibops.V1\xca\x02\tLibops\\V1\xe2\x02\x15Libops\\V1\\GPBMetadata\xea\x02\n" +
 	"Libops::V1b\x06proto3"
 

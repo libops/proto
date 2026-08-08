@@ -2,7 +2,6 @@ syntax = "proto3";
 
 package libops.v1;
 
-import "google/protobuf/descriptor.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";
 import "libops/v1/common/project.proto";
@@ -11,11 +10,14 @@ import "libops/v1/common/site.proto";
 import "libops/v1/common/types.proto";
 import "libops/v1/options/assistant.proto";
 import "libops/v1/options/scope.proto";
+import "libops/v1/options/visibility.proto";
 
 option go_package = "github.com/libops/proto/libops/v1;libopsv1";
 
 // OrganizationService manages organization-facing organization/folder operations
 service OrganizationService {
+  option (libops.v1.options.service_api_visibility) = API_VISIBILITY_PUBLIC;
+
   // Get organization configuration (organization view)
   rpc GetOrganization(GetOrganizationRequest) returns (GetOrganizationResponse) {
     option idempotency_level = NO_SIDE_EFFECTS;
@@ -87,6 +89,8 @@ service OrganizationService {
 
 // SiteService manages organization-facing site operations
 service SiteService {
+  option (libops.v1.options.service_api_visibility) = API_VISIBILITY_PUBLIC;
+
   // List sites for a organization
   rpc ListSites(ListSitesRequest) returns (ListSitesResponse) {
     option idempotency_level = NO_SIDE_EFFECTS;
@@ -151,6 +155,8 @@ service SiteService {
 
 // DomainService manages custom domains for sites.
 service DomainService {
+  option (libops.v1.options.service_api_visibility) = API_VISIBILITY_PUBLIC;
+
   rpc ListSiteDomains(ListSiteDomainsRequest) returns (ListSiteDomainsResponse) {
     option idempotency_level = NO_SIDE_EFFECTS;
     option (libops.v1.options.required_scope) = {
@@ -213,6 +219,8 @@ service DomainService {
 
 // ProjectService manages organization-facing project operations
 service ProjectService {
+  option (libops.v1.options.service_api_visibility) = API_VISIBILITY_PUBLIC;
+
   // Get project configuration (organization view)
   rpc GetProject(GetProjectRequest) returns (GetProjectResponse) {
     option idempotency_level = NO_SIDE_EFFECTS;
@@ -636,6 +644,8 @@ message DeleteSiteDomainRequest {
 
 // FirewallService manages firewall operations for all sites for a organization
 service FirewallService {
+  option (libops.v1.options.service_api_visibility) = API_VISIBILITY_PUBLIC;
+
   // List firewall rules applied to all sites for a organization
   rpc ListOrganizationFirewallRules(ListOrganizationFirewallRulesRequest) returns (ListOrganizationFirewallRulesResponse) {
     option idempotency_level = NO_SIDE_EFFECTS;
@@ -673,6 +683,8 @@ service FirewallService {
 
 // ProjectFirewallService manages firewall operations for all sites in a project
 service ProjectFirewallService {
+  option (libops.v1.options.service_api_visibility) = API_VISIBILITY_PUBLIC;
+
   // List firewall rules applied to all sites in a project
   rpc ListProjectFirewallRules(ListProjectFirewallRulesRequest) returns (ListProjectFirewallRulesResponse) {
     option idempotency_level = NO_SIDE_EFFECTS;
@@ -710,6 +722,8 @@ service ProjectFirewallService {
 
 // SiteFirewallService manages firewall operations for a specific site
 service SiteFirewallService {
+  option (libops.v1.options.service_api_visibility) = API_VISIBILITY_PUBLIC;
+
   // List firewall rules applied to a specific site
   rpc ListSiteFirewallRules(ListSiteFirewallRulesRequest) returns (ListSiteFirewallRulesResponse) {
     option idempotency_level = NO_SIDE_EFFECTS;
@@ -751,6 +765,8 @@ service SiteFirewallService {
 
 // MemberService manages organization membership operations
 service MemberService {
+  option (libops.v1.options.service_api_visibility) = API_VISIBILITY_PUBLIC;
+
   // List members of a organization
   rpc ListOrganizationMembers(ListOrganizationMembersRequest) returns (ListOrganizationMembersResponse) {
     option idempotency_level = NO_SIDE_EFFECTS;
@@ -799,6 +815,8 @@ service MemberService {
 
 // ProjectMemberService manages project membership operations
 service ProjectMemberService {
+  option (libops.v1.options.service_api_visibility) = API_VISIBILITY_PUBLIC;
+
   // List members of a project
   rpc ListProjectMembers(ListProjectMembersRequest) returns (ListProjectMembersResponse) {
     option idempotency_level = NO_SIDE_EFFECTS;
@@ -847,6 +865,8 @@ service ProjectMemberService {
 
 // SiteMemberService manages site membership operations
 service SiteMemberService {
+  option (libops.v1.options.service_api_visibility) = API_VISIBILITY_PUBLIC;
+
   // List members of a site
   rpc ListSiteMembers(ListSiteMembersRequest) returns (ListSiteMembersResponse) {
     option idempotency_level = NO_SIDE_EFFECTS;
@@ -899,6 +919,8 @@ service SiteMemberService {
 
 // SshKeyService manages SSH keys for accounts
 service SshKeyService {
+  option (libops.v1.options.service_api_visibility) = API_VISIBILITY_PUBLIC;
+
   // List SSH keys for an account
   rpc ListSshKeys(ListSshKeysRequest) returns (ListSshKeysResponse) {
     option idempotency_level = NO_SIDE_EFFECTS;
@@ -937,6 +959,8 @@ service SshKeyService {
 
 // SiteOperationsService manages site deployment and operational tasks
 service SiteOperationsService {
+  option (libops.v1.options.service_api_visibility) = API_VISIBILITY_PUBLIC;
+
   // Get site deployment status
   rpc GetSiteStatus(GetSiteStatusRequest) returns (GetSiteStatusResponse) {
     option idempotency_level = NO_SIDE_EFFECTS;

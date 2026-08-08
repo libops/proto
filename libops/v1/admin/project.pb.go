@@ -10,7 +10,6 @@ import (
 	common "github.com/libops/proto/libops/v1/common"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	_ "google.golang.org/protobuf/types/known/fieldmaskpb"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -115,7 +114,7 @@ var File_libops_v1_admin_project_proto protoreflect.FileDescriptor
 
 const file_libops_v1_admin_project_proto_rawDesc = "" +
 	"\n" +
-	"\x1dlibops/v1/admin/project.proto\x12\x0flibops.v1.admin\x1a\x1elibops/v1/common/project.proto\x1a google/protobuf/field_mask.proto\"\xfb\x02\n" +
+	"\x1dlibops/v1/admin/project.proto\x12\x0flibops.v1.admin\x1a\x1elibops/v1/common/project.proto\"\xfb\x02\n" +
 	"\x12AdminProjectConfig\x127\n" +
 	"\x06config\x18\x01 \x01(\v2\x1f.libops.v1.common.ProjectConfigR\x06config\x12'\n" +
 	"\x0fbilling_account\x18\x02 \x01(\tR\x0ebillingAccount\x121\n" +

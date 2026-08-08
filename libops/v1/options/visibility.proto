@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package libops.v1.options;
+
+import "google/protobuf/descriptor.proto";
+
+option go_package = "github.com/libops/proto/libops/v1/options;optionsv1";
+
+// ApiVisibility controls which API surface may be published to customers.
+// Services must declare a visibility explicitly. Methods inherit their service
+// visibility unless they declare a narrower override.
+enum ApiVisibility {
+  API_VISIBILITY_UNSPECIFIED = 0;
+  API_VISIBILITY_PUBLIC = 1;
+  API_VISIBILITY_INTERNAL = 2;
+}
+
+extend google.protobuf.ServiceOptions {
+  ApiVisibility service_api_visibility = 50004;
+}
+
+extend google.protobuf.MethodOptions {
+  ApiVisibility method_api_visibility = 50005;
+}

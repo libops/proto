@@ -3,11 +3,14 @@ syntax = "proto3";
 package libops.v1;
 
 import "google/protobuf/timestamp.proto";
+import "libops/v1/options/visibility.proto";
 
 option go_package = "github.com/libops/proto/libops/v1;libopsv1";
 
 // OperationService exposes end-to-end status for customer-visible mutations.
 service OperationService {
+  option (libops.v1.options.service_api_visibility) = API_VISIBILITY_PUBLIC;
+
   // Get an operation by public operation ID or request ID.
   rpc GetOperation(GetOperationRequest) returns (GetOperationResponse) {
     option idempotency_level = NO_SIDE_EFFECTS;

@@ -3,12 +3,15 @@ syntax = "proto3";
 package libops.v1;
 
 import "libops/v1/options/scope.proto";
+import "libops/v1/options/visibility.proto";
 import "libops/v1/task_api.proto";
 
 option go_package = "github.com/libops/proto/libops/v1;libopsv1";
 
 // AssistantService manages chat-driven automation requests.
 service AssistantService {
+  option (libops.v1.options.service_api_visibility) = API_VISIBILITY_PUBLIC;
+
   // Chat sends a user request to the assistant automation system.
   rpc Chat(AssistantChatRequest) returns (AssistantChatResponse) {
     option (libops.v1.options.required_scope) = {

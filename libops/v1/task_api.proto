@@ -5,11 +5,14 @@ package libops.v1;
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/struct.proto";
 import "libops/v1/options/scope.proto";
+import "libops/v1/options/visibility.proto";
 
 option go_package = "github.com/libops/proto/libops/v1;libopsv1";
 
 // TaskService manages queued automation tasks.
 service TaskService {
+  option (libops.v1.options.service_api_visibility) = API_VISIBILITY_PUBLIC;
+
   // Create a new task from a natural language prompt.
   rpc CreateTask(CreateTaskRequest) returns (CreateTaskResponse) {
     option (libops.v1.options.required_scope) = {
@@ -69,6 +72,7 @@ service TaskService {
 
   // Append a structured log entry to a task.
   rpc AppendTaskLog(AppendTaskLogRequest) returns (AppendTaskLogResponse) {
+    option (libops.v1.options.method_api_visibility) = API_VISIBILITY_INTERNAL;
     option (libops.v1.options.required_scope) = {
       resource: RESOURCE_TYPE_ORGANIZATION
       level: ACCESS_LEVEL_WRITE

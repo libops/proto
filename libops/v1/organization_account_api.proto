@@ -2,14 +2,16 @@ syntax = "proto3";
 
 package libops.v1;
 
-import "google/protobuf/descriptor.proto";
 import "libops/v1/options/scope.proto";
+import "libops/v1/options/visibility.proto";
 import "libops/v1/common/types.proto";
 
 option go_package = "github.com/libops/proto/libops/v1;libopsv1";
 
 // AccountService provides limited account lookup for authenticated users
 service AccountService {
+  option (libops.v1.options.service_api_visibility) = API_VISIBILITY_PUBLIC;
+
   // Get account information by email (for Terraform provider lookups)
   rpc GetAccountByEmail(GetAccountByEmailRequest) returns (GetAccountByEmailResponse) {
     option idempotency_level = NO_SIDE_EFFECTS;

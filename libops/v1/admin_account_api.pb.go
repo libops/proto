@@ -11,7 +11,6 @@ import (
 	_ "github.com/libops/proto/libops/v1/options"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	_ "google.golang.org/protobuf/types/descriptorpb"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
 	fieldmaskpb "google.golang.org/protobuf/types/known/fieldmaskpb"
 	reflect "reflect"
@@ -1079,7 +1078,7 @@ var File_libops_v1_admin_account_api_proto protoreflect.FileDescriptor
 
 const file_libops_v1_admin_account_api_proto_rawDesc = "" +
 	"\n" +
-	"!libops/v1/admin_account_api.proto\x12\tlibops.v1\x1a google/protobuf/descriptor.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a google/protobuf/field_mask.proto\x1a\x1dlibops/v1/options/scope.proto\x1a\x1clibops/v1/common/types.proto\"\x83\x03\n" +
+	"!libops/v1/admin_account_api.proto\x12\tlibops.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a google/protobuf/field_mask.proto\x1a\x1dlibops/v1/options/scope.proto\x1a\"libops/v1/options/visibility.proto\x1a\x1clibops/v1/common/types.proto\"\x83\x03\n" +
 	"\aAccount\x12\x1d\n" +
 	"\n" +
 	"account_id\x18\x01 \x01(\tR\taccountId\x12\x14\n" +
@@ -1167,7 +1166,7 @@ const file_libops_v1_admin_account_api_proto_rawDesc = "" +
 	"\x1aACCOUNT_STATUS_UNSPECIFIED\x10\x00\x12\x19\n" +
 	"\x15ACCOUNT_STATUS_ACTIVE\x10\x01\x12\x1c\n" +
 	"\x18ACCOUNT_STATUS_SUSPENDED\x10\x02\x12\x1a\n" +
-	"\x16ACCOUNT_STATUS_DELETED\x10\x032\xb6\a\n" +
+	"\x16ACCOUNT_STATUS_DELETED\x10\x032\xbc\a\n" +
 	"\x13AdminAccountService\x12d\n" +
 	"\n" +
 	"GetAccount\x12\x1c.libops.v1.GetAccountRequest\x1a\x1d.libops.v1.GetAccountResponse\"\x19\x92\xb5\x18\x12\b\x01\x10\x03\"\fadmin:system\x90\x02\x01\x12\x83\x01\n" +
@@ -1177,7 +1176,7 @@ const file_libops_v1_admin_account_api_proto_rawDesc = "" +
 	"\rDeleteAccount\x12\x1f.libops.v1.DeleteAccountRequest\x1a\x16.google.protobuf.Empty\"\x16\x92\xb5\x18\x12\b\x01\x10\x03\"\fadmin:system\x12j\n" +
 	"\fListAccounts\x12\x1e.libops.v1.ListAccountsRequest\x1a\x1f.libops.v1.ListAccountsResponse\"\x19\x92\xb5\x18\x12\b\x01\x10\x03\"\fadmin:system\x90\x02\x01\x12\x7f\n" +
 	"\x13ListAccountProjects\x12%.libops.v1.ListAccountProjectsRequest\x1a&.libops.v1.ListAccountProjectsResponse\"\x19\x92\xb5\x18\x12\b\x01\x10\x03\"\fadmin:system\x90\x02\x01\x12\x8b\x01\n" +
-	"\x17ListAccountRepositories\x12).libops.v1.ListAccountRepositoriesRequest\x1a*.libops.v1.ListAccountRepositoriesResponse\"\x19\x92\xb5\x18\x12\b\x01\x10\x03\"\fadmin:system\x90\x02\x01B\x96\x01\n" +
+	"\x17ListAccountRepositories\x12).libops.v1.ListAccountRepositoriesRequest\x1a*.libops.v1.ListAccountRepositoriesResponse\"\x19\x92\xb5\x18\x12\b\x01\x10\x03\"\fadmin:system\x90\x02\x01\x1a\x04\xa0\xb5\x18\x02B\x96\x01\n" +
 	"\rcom.libops.v1B\x14AdminAccountApiProtoP\x01Z*github.com/libops/proto/libops/v1;libopsv1\xa2\x02\x03LXX\xaa\x02\tLibops.V1\xca\x02\tLibops\\V1\xe2\x02\x15Libops\\V1\\GPBMetadata\xea\x02\n" +
 	"Libops::V1b\x06proto3"
 

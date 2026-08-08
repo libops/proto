@@ -3,7 +3,6 @@ syntax = "proto3";
 package libops.v1.admin;
 
 import "libops/v1/common/project.proto";
-import "google/protobuf/field_mask.proto";
 
 option go_package = "github.com/libops/proto/libops/v1/admin;adminv1";
 

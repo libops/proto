@@ -11,7 +11,6 @@ import (
 	_ "github.com/libops/proto/libops/v1/options"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	_ "google.golang.org/protobuf/types/descriptorpb"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -620,7 +619,7 @@ var File_libops_v1_organization_account_api_proto protoreflect.FileDescriptor
 
 const file_libops_v1_organization_account_api_proto_rawDesc = "" +
 	"\n" +
-	"(libops/v1/organization_account_api.proto\x12\tlibops.v1\x1a google/protobuf/descriptor.proto\x1a\x1dlibops/v1/options/scope.proto\x1a\x1clibops/v1/common/types.proto\"\xb9\x01\n" +
+	"(libops/v1/organization_account_api.proto\x12\tlibops.v1\x1a\x1dlibops/v1/options/scope.proto\x1a\"libops/v1/options/visibility.proto\x1a\x1clibops/v1/common/types.proto\"\xb9\x01\n" +
 	"\x13OrganizationAccount\x12\x1d\n" +
 	"\n" +
 	"account_id\x18\x01 \x01(\tR\taccountId\x12\x14\n" +
@@ -668,14 +667,14 @@ const file_libops_v1_organization_account_api_proto_rawDesc = "" +
 	"\n" +
 	"api_key_id\x18\x01 \x01(\tR\bapiKeyId\"0\n" +
 	"\x14RevokeApiKeyResponse\x12\x18\n" +
-	"\asuccess\x18\x01 \x01(\bR\asuccess2\xbe\x03\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess2\xc4\x03\n" +
 	"\x0eAccountService\x12x\n" +
 	"\x11GetAccountByEmail\x12#.libops.v1.GetAccountByEmailRequest\x1a$.libops.v1.GetAccountByEmailResponse\"\x18\x92\xb5\x18\x11\b\x02\x10\x01\x18\x01\"\tread:user\x90\x02\x01\x12e\n" +
 	"\fCreateApiKey\x12\x1e.libops.v1.CreateApiKeyRequest\x1a\x1f.libops.v1.CreateApiKeyResponse\"\x14\x92\xb5\x18\x10\b\x02\x10\x02\"\n" +
 	"write:user\x12d\n" +
 	"\vListApiKeys\x12\x1d.libops.v1.ListApiKeysRequest\x1a\x1e.libops.v1.ListApiKeysResponse\"\x16\x92\xb5\x18\x0f\b\x02\x10\x01\"\tread:user\x90\x02\x01\x12e\n" +
 	"\fRevokeApiKey\x12\x1e.libops.v1.RevokeApiKeyRequest\x1a\x1f.libops.v1.RevokeApiKeyResponse\"\x14\x92\xb5\x18\x10\b\x02\x10\x02\"\n" +
-	"write:userB\x9d\x01\n" +
+	"write:user\x1a\x04\xa0\xb5\x18\x01B\x9d\x01\n" +
 	"\rcom.libops.v1B\x1bOrganizationAccountApiProtoP\x01Z*github.com/libops/proto/libops/v1;libopsv1\xa2\x02\x03LXX\xaa\x02\tLibops.V1\xca\x02\tLibops\\V1\xe2\x02\x15Libops\\V1\\GPBMetadata\xea\x02\n" +
 	"Libops::V1b\x06proto3"
 

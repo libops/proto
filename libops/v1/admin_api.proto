@@ -2,10 +2,10 @@ syntax = "proto3";
 
 package libops.v1;
 
-import "google/protobuf/descriptor.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";
 import "libops/v1/options/scope.proto";
+import "libops/v1/options/visibility.proto";
 import "libops/v1/admin/project.proto";
 import "libops/v1/admin/organization.proto";
 import "libops/v1/admin/site.proto";
@@ -14,6 +14,8 @@ option go_package = "github.com/libops/proto/libops/v1;libopsv1";
 
 // AdminOrganizationService manages admin-level organization operations with full access
 service AdminOrganizationService {
+  option (libops.v1.options.service_api_visibility) = API_VISIBILITY_INTERNAL;
+
   // Get organization configuration (admin view - includes sensitive fields)
   rpc GetOrganization(AdminGetOrganizationRequest) returns (AdminGetOrganizationResponse) {
     option idempotency_level = NO_SIDE_EFFECTS;
@@ -50,6 +52,8 @@ service AdminOrganizationService {
 
 // AdminSiteService manages admin-level site operations with full access
 service AdminSiteService {
+  option (libops.v1.options.service_api_visibility) = API_VISIBILITY_INTERNAL;
+
   // List sites (admin view)
   rpc ListSites(AdminListSitesRequest) returns (AdminListSitesResponse) {
     option idempotency_level = NO_SIDE_EFFECTS;
@@ -116,6 +120,8 @@ service AdminSiteService {
 
 // AdminProjectService manages admin-level project operations with full access
 service AdminProjectService {
+  option (libops.v1.options.service_api_visibility) = API_VISIBILITY_INTERNAL;
+
   // Get project configuration (admin view - includes sensitive fields)
   rpc GetProject(AdminGetProjectRequest) returns (AdminGetProjectResponse) {
     option idempotency_level = NO_SIDE_EFFECTS;
@@ -153,6 +159,8 @@ service AdminProjectService {
 // AdminReconciliationService handles reconciliation operations
 // Called by Cloud Run reconciliation services with GSA authentication
 service AdminReconciliationService {
+  option (libops.v1.options.service_api_visibility) = API_VISIBILITY_INTERNAL;
+
   // Get reconciliation run details from control-plane database
   rpc GetReconciliationRun(GetReconciliationRunRequest) returns (GetReconciliationRunResponse) {
     option idempotency_level = NO_SIDE_EFFECTS;
@@ -171,6 +179,8 @@ service AdminReconciliationService {
 // AdminConvergenceService checks desired-state convergence and can request
 // repair workflows for stuck resources.
 service AdminConvergenceService {
+  option (libops.v1.options.service_api_visibility) = API_VISIBILITY_INTERNAL;
+
   rpc CheckConvergence(CheckConvergenceRequest) returns (CheckConvergenceResponse) {
     option (libops.v1.options.required_scope) = { resource: RESOURCE_TYPE_SYSTEM, level: ACCESS_LEVEL_ADMIN, oauth_scopes: "admin:system" };
   }

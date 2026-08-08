@@ -1781,7 +1781,7 @@ var File_libops_v1_settings_proto protoreflect.FileDescriptor
 
 const file_libops_v1_settings_proto_rawDesc = "" +
 	"\n" +
-	"\x18libops/v1/settings.proto\x12\tlibops.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a google/protobuf/field_mask.proto\x1a!libops/v1/options/assistant.proto\x1a\x1dlibops/v1/options/audit.proto\x1a\x1dlibops/v1/options/scope.proto\x1a\x1clibops/v1/common/types.proto\"\xf5\x01\n" +
+	"\x18libops/v1/settings.proto\x12\tlibops.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a google/protobuf/field_mask.proto\x1a!libops/v1/options/assistant.proto\x1a\x1dlibops/v1/options/scope.proto\x1a\"libops/v1/options/visibility.proto\x1a\x1clibops/v1/common/types.proto\"\xf5\x01\n" +
 	"\x13OrganizationSetting\x12\x1d\n" +
 	"\n" +
 	"setting_id\x18\x01 \x01(\tR\tsettingId\x12'\n" +
@@ -1922,13 +1922,13 @@ const file_libops_v1_settings_proto_rawDesc = "" +
 	"\x18DeleteSiteSettingRequest\x12\x17\n" +
 	"\asite_id\x18\x01 \x01(\tR\x06siteId\x12\x1d\n" +
 	"\n" +
-	"setting_id\x18\x02 \x01(\tR\tsettingId2\xcd\x06\n" +
+	"setting_id\x18\x02 \x01(\tR\tsettingId2\xd3\x06\n" +
 	"\x1aOrganizationSettingService\x12\xaa\x01\n" +
 	"\x19CreateOrganizationSetting\x12+.libops.v1.CreateOrganizationSettingRequest\x1a,.libops.v1.CreateOrganizationSettingResponse\"2\x92\xb5\x18*\b\x03\x10\x02\x18\x01\"\x0fmanage_settings2\x0forganization_id8\x03\x98\xb5\x18\x01\x12\x9c\x01\n" +
 	"\x16GetOrganizationSetting\x12(.libops.v1.GetOrganizationSettingRequest\x1a).libops.v1.GetOrganizationSettingResponse\"-\x92\xb5\x18&\b\x03\x10\x01\x18\x01\"\rread_settings*\x0forganization_id\x90\x02\x01\x12\xa2\x01\n" +
 	"\x18ListOrganizationSettings\x12*.libops.v1.ListOrganizationSettingsRequest\x1a+.libops.v1.ListOrganizationSettingsResponse\"-\x92\xb5\x18&\b\x03\x10\x01\x18\x01\"\rread_settings*\x0forganization_id\x90\x02\x01\x12\xa8\x01\n" +
 	"\x19UpdateOrganizationSetting\x12+.libops.v1.UpdateOrganizationSettingRequest\x1a,.libops.v1.UpdateOrganizationSettingResponse\"0\x92\xb5\x18(\b\x03\x10\x02\x18\x01\"\x0fmanage_settings*\x0forganization_id\x98\xb5\x18\x01\x12\x92\x01\n" +
-	"\x19DeleteOrganizationSetting\x12+.libops.v1.DeleteOrganizationSettingRequest\x1a\x16.google.protobuf.Empty\"0\x92\xb5\x18(\b\x03\x10\x02\x18\x01\"\x0fmanage_settings*\x0forganization_id\x98\xb5\x18\x012\xe9\x05\n" +
+	"\x19DeleteOrganizationSetting\x12+.libops.v1.DeleteOrganizationSettingRequest\x1a\x16.google.protobuf.Empty\"0\x92\xb5\x18(\b\x03\x10\x02\x18\x01\"\x0fmanage_settings*\x0forganization_id\x98\xb5\x18\x01\x1a\x04\xa0\xb5\x18\x012\xef\x05\n" +
 	"\x15ProjectSettingService\x12\x96\x01\n" +
 	"\x14CreateProjectSetting\x12&.libops.v1.CreateProjectSettingRequest\x1a'.libops.v1.CreateProjectSettingResponse\"-\x92\xb5\x18%\b\x04\x10\x02\x18\x01\"\x0fmanage_settings2\n" +
 	"project_id8\x04\x98\xb5\x18\x01\x12\x88\x01\n" +
@@ -1939,13 +1939,13 @@ const file_libops_v1_settings_proto_rawDesc = "" +
 	"\x14UpdateProjectSetting\x12&.libops.v1.UpdateProjectSettingRequest\x1a'.libops.v1.UpdateProjectSettingResponse\"+\x92\xb5\x18#\b\x04\x10\x02\x18\x01\"\x0fmanage_settings*\n" +
 	"project_id\x98\xb5\x18\x01\x12\x83\x01\n" +
 	"\x14DeleteProjectSetting\x12&.libops.v1.DeleteProjectSettingRequest\x1a\x16.google.protobuf.Empty\"+\x92\xb5\x18#\b\x04\x10\x02\x18\x01\"\x0fmanage_settings*\n" +
-	"project_id\x98\xb5\x18\x012\xab\x05\n" +
+	"project_id\x98\xb5\x18\x01\x1a\x04\xa0\xb5\x18\x012\xb1\x05\n" +
 	"\x12SiteSettingService\x12\x8a\x01\n" +
 	"\x11CreateSiteSetting\x12#.libops.v1.CreateSiteSettingRequest\x1a$.libops.v1.CreateSiteSettingResponse\"*\x92\xb5\x18\"\b\x05\x10\x02\x18\x01\"\x0fmanage_settings2\asite_id8\x05\x98\xb5\x18\x01\x12|\n" +
 	"\x0eGetSiteSetting\x12 .libops.v1.GetSiteSettingRequest\x1a!.libops.v1.GetSiteSettingResponse\"%\x92\xb5\x18\x1e\b\x05\x10\x01\x18\x01\"\rread_settings*\asite_id\x90\x02\x01\x12\x82\x01\n" +
 	"\x10ListSiteSettings\x12\".libops.v1.ListSiteSettingsRequest\x1a#.libops.v1.ListSiteSettingsResponse\"%\x92\xb5\x18\x1e\b\x05\x10\x01\x18\x01\"\rread_settings*\asite_id\x90\x02\x01\x12\x88\x01\n" +
 	"\x11UpdateSiteSetting\x12#.libops.v1.UpdateSiteSettingRequest\x1a$.libops.v1.UpdateSiteSettingResponse\"(\x92\xb5\x18 \b\x05\x10\x02\x18\x01\"\x0fmanage_settings*\asite_id\x98\xb5\x18\x01\x12z\n" +
-	"\x11DeleteSiteSetting\x12#.libops.v1.DeleteSiteSettingRequest\x1a\x16.google.protobuf.Empty\"(\x92\xb5\x18 \b\x05\x10\x02\x18\x01\"\x0fmanage_settings*\asite_id\x98\xb5\x18\x01B\x8f\x01\n" +
+	"\x11DeleteSiteSetting\x12#.libops.v1.DeleteSiteSettingRequest\x1a\x16.google.protobuf.Empty\"(\x92\xb5\x18 \b\x05\x10\x02\x18\x01\"\x0fmanage_settings*\asite_id\x98\xb5\x18\x01\x1a\x04\xa0\xb5\x18\x01B\x8f\x01\n" +
 	"\rcom.libops.v1B\rSettingsProtoP\x01Z*github.com/libops/proto/libops/v1;libopsv1\xa2\x02\x03LXX\xaa\x02\tLibops.V1\xca\x02\tLibops\\V1\xe2\x02\x15Libops\\V1\\GPBMetadata\xea\x02\n" +
 	"Libops::V1b\x06proto3"
 

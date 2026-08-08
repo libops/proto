@@ -7,6 +7,7 @@
 package libopsv1
 
 import (
+	_ "github.com/libops/proto/libops/v1/options"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
@@ -341,7 +342,7 @@ var File_libops_v1_operation_api_proto protoreflect.FileDescriptor
 
 const file_libops_v1_operation_api_proto_rawDesc = "" +
 	"\n" +
-	"\x1dlibops/v1/operation_api.proto\x12\tlibops.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"\xcd\x06\n" +
+	"\x1dlibops/v1/operation_api.proto\x12\tlibops.v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\"libops/v1/options/visibility.proto\"\xcd\x06\n" +
 	"\tOperation\x12!\n" +
 	"\foperation_id\x18\x01 \x01(\tR\voperationId\x12\x1d\n" +
 	"\n" +
@@ -374,9 +375,9 @@ const file_libops_v1_operation_api_proto_rawDesc = "" +
 	"\x18OPERATION_STATUS_RUNNING\x10\x01\x12\x1e\n" +
 	"\x1aOPERATION_STATUS_SUCCEEDED\x10\x02\x12\x1b\n" +
 	"\x17OPERATION_STATUS_FAILED\x10\x03\x12\x1d\n" +
-	"\x19OPERATION_STATUS_CANCELED\x10\x042h\n" +
+	"\x19OPERATION_STATUS_CANCELED\x10\x042n\n" +
 	"\x10OperationService\x12T\n" +
-	"\fGetOperation\x12\x1e.libops.v1.GetOperationRequest\x1a\x1f.libops.v1.GetOperationResponse\"\x03\x90\x02\x01B\x93\x01\n" +
+	"\fGetOperation\x12\x1e.libops.v1.GetOperationRequest\x1a\x1f.libops.v1.GetOperationResponse\"\x03\x90\x02\x01\x1a\x04\xa0\xb5\x18\x01B\x93\x01\n" +
 	"\rcom.libops.v1B\x11OperationApiProtoP\x01Z*github.com/libops/proto/libops/v1;libopsv1\xa2\x02\x03LXX\xaa\x02\tLibops.V1\xca\x02\tLibops\\V1\xe2\x02\x15Libops\\V1\\GPBMetadata\xea\x02\n" +
 	"Libops::V1b\x06proto3"
 

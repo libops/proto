@@ -199,7 +199,7 @@ var File_libops_v1_assistant_api_proto protoreflect.FileDescriptor
 
 const file_libops_v1_assistant_api_proto_rawDesc = "" +
 	"\n" +
-	"\x1dlibops/v1/assistant_api.proto\x12\tlibops.v1\x1a\x1dlibops/v1/options/scope.proto\x1a\x18libops/v1/task_api.proto\"\x98\x03\n" +
+	"\x1dlibops/v1/assistant_api.proto\x12\tlibops.v1\x1a\x1dlibops/v1/options/scope.proto\x1a\"libops/v1/options/visibility.proto\x1a\x18libops/v1/task_api.proto\"\x98\x03\n" +
 	"\x14AssistantChatRequest\x12'\n" +
 	"\x0forganization_id\x18\x01 \x01(\tR\x0eorganizationId\x12\x1d\n" +
 	"\n" +
@@ -218,9 +218,9 @@ const file_libops_v1_assistant_api_proto_rawDesc = "" +
 	"\n" +
 	"request_id\x18\x01 \x01(\tR\trequestId\x12\x16\n" +
 	"\x06status\x18\x02 \x01(\tR\x06status\x12\x14\n" +
-	"\x05reply\x18\x03 \x01(\tR\x05reply2\x8e\x01\n" +
+	"\x05reply\x18\x03 \x01(\tR\x05reply2\x94\x01\n" +
 	"\x10AssistantService\x12z\n" +
-	"\x04Chat\x12\x1f.libops.v1.AssistantChatRequest\x1a .libops.v1.AssistantChatResponse\"/\x92\xb5\x18+\b\x03\x10\x02\x18\x01\"\x12write:organization*\x0forganization_idB\x93\x01\n" +
+	"\x04Chat\x12\x1f.libops.v1.AssistantChatRequest\x1a .libops.v1.AssistantChatResponse\"/\x92\xb5\x18+\b\x03\x10\x02\x18\x01\"\x12write:organization*\x0forganization_id\x1a\x04\xa0\xb5\x18\x01B\x93\x01\n" +
 	"\rcom.libops.v1B\x11AssistantApiProtoP\x01Z*github.com/libops/proto/libops/v1;libopsv1\xa2\x02\x03LXX\xaa\x02\tLibops.V1\xca\x02\tLibops\\V1\xe2\x02\x15Libops\\V1\\GPBMetadata\xea\x02\n" +
 	"Libops::V1b\x06proto3"
 

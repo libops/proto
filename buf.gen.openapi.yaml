@@ -1,13 +1,12 @@
 version: v2
 plugins:
-  # Generate OpenAPI spec for ConnectRPC with protoc-gen-connect-openapi
-  # Install: go install github.com/sudorandom/protoc-gen-connect-openapi/cmd/protoc-gen-connect-openapi@latest
-  - local: protoc-gen-connect-openapi
+  # Generate OpenAPI spec for ConnectRPC with a version-pinned Buf plugin.
+  # API metadata is applied by api/scripts/inject-oauth-scopes.py because
+  # remote plugins intentionally disable local base files.
+  - remote: buf.build/community/sudorandom-connect-openapi:v0.21.3
     out: ../api/openapi
-    strategy: all
     opt:
       - format=json
-      - base=openapi-base.yaml
-      - path=openapi.yaml
+      - path=openapi.internal.yaml
       - features=connectrpc;gnostic;protovalidate
       - allow-get

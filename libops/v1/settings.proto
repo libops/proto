@@ -5,8 +5,8 @@ package libops.v1;
 import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";
 import "libops/v1/options/assistant.proto";
-import "libops/v1/options/audit.proto";
 import "libops/v1/options/scope.proto";
+import "libops/v1/options/visibility.proto";
 import "libops/v1/common/types.proto";
 
 option go_package = "github.com/libops/proto/libops/v1;libopsv1";
@@ -17,6 +17,8 @@ option go_package = "github.com/libops/proto/libops/v1;libopsv1";
 
 // OrganizationSettingService manages organization-level settings
 service OrganizationSettingService {
+  option (libops.v1.options.service_api_visibility) = API_VISIBILITY_PUBLIC;
+
   // Create an organization setting
   rpc CreateOrganizationSetting(CreateOrganizationSettingRequest) returns (CreateOrganizationSettingResponse) {
     option (libops.v1.options.assistant_playground) = true;
@@ -76,6 +78,8 @@ service OrganizationSettingService {
 
 // ProjectSettingService manages project-level settings
 service ProjectSettingService {
+  option (libops.v1.options.service_api_visibility) = API_VISIBILITY_PUBLIC;
+
   // Create a project setting
   rpc CreateProjectSetting(CreateProjectSettingRequest) returns (CreateProjectSettingResponse) {
     option (libops.v1.options.assistant_playground) = true;
@@ -135,6 +139,8 @@ service ProjectSettingService {
 
 // SiteSettingService manages site-level settings
 service SiteSettingService {
+  option (libops.v1.options.service_api_visibility) = API_VISIBILITY_PUBLIC;
+
   // Create a site setting
   rpc CreateSiteSetting(CreateSiteSettingRequest) returns (CreateSiteSettingResponse) {
     option (libops.v1.options.assistant_playground) = true;

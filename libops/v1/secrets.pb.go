@@ -11,7 +11,6 @@ import (
 	_ "github.com/libops/proto/libops/v1/options"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	_ "google.golang.org/protobuf/types/descriptorpb"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
 	fieldmaskpb "google.golang.org/protobuf/types/known/fieldmaskpb"
 	reflect "reflect"
@@ -1662,7 +1661,7 @@ var File_libops_v1_secrets_proto protoreflect.FileDescriptor
 
 const file_libops_v1_secrets_proto_rawDesc = "" +
 	"\n" +
-	"\x17libops/v1/secrets.proto\x12\tlibops.v1\x1a google/protobuf/descriptor.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a google/protobuf/field_mask.proto\x1a!libops/v1/options/assistant.proto\x1a\x1dlibops/v1/options/audit.proto\x1a\x1dlibops/v1/options/scope.proto\x1a\x1clibops/v1/common/types.proto\"\xa0\x01\n" +
+	"\x17libops/v1/secrets.proto\x12\tlibops.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a google/protobuf/field_mask.proto\x1a!libops/v1/options/assistant.proto\x1a\x1dlibops/v1/options/audit.proto\x1a\x1dlibops/v1/options/scope.proto\x1a\"libops/v1/options/visibility.proto\x1a\x1clibops/v1/common/types.proto\"\xa0\x01\n" +
 	"\x12OrganizationSecret\x12\x1b\n" +
 	"\tsecret_id\x18\x01 \x01(\tR\bsecretId\x12'\n" +
 	"\x0forganization_id\x18\x02 \x01(\tR\x0eorganizationId\x12\x12\n" +
@@ -1777,30 +1776,30 @@ const file_libops_v1_secrets_proto_rawDesc = "" +
 	"\x06secret\x18\x01 \x01(\v2\x15.libops.v1.SiteSecretR\x06secret\"O\n" +
 	"\x17DeleteSiteSecretRequest\x12\x17\n" +
 	"\asite_id\x18\x01 \x01(\tR\x06siteId\x12\x1b\n" +
-	"\tsecret_id\x18\x02 \x01(\tR\bsecretId2\xbd\x06\n" +
-	"\x19OrganizationSecretService\x12\xa6\x01\n" +
-	"\x18CreateOrganizationSecret\x12*.libops.v1.CreateOrganizationSecretRequest\x1a+.libops.v1.CreateOrganizationSecretResponse\"1\x92\xb5\x18)\b\x03\x10\x02\x18\x01\"\x0emanage_secrets2\x0forganization_id8\x03\x98\xb5\x18\x01\x12\x9a\x01\n" +
+	"\tsecret_id\x18\x02 \x01(\tR\bsecretId2\xbb\x06\n" +
+	"\x19OrganizationSecretService\x12\xa2\x01\n" +
+	"\x18CreateOrganizationSecret\x12*.libops.v1.CreateOrganizationSecretRequest\x1a+.libops.v1.CreateOrganizationSecretResponse\"-\x92\xb5\x18)\b\x03\x10\x02\x18\x01\"\x0emanage_secrets2\x0forganization_id8\x03\x12\x9a\x01\n" +
 	"\x15GetOrganizationSecret\x12'.libops.v1.GetOrganizationSecretRequest\x1a(.libops.v1.GetOrganizationSecretResponse\".\x92\xb5\x18'\b\x03\x10\x02\x18\x01\"\x0emanage_secrets*\x0forganization_id\x90\x02\x01\x12\xa0\x01\n" +
-	"\x17ListOrganizationSecrets\x12).libops.v1.ListOrganizationSecretsRequest\x1a*.libops.v1.ListOrganizationSecretsResponse\".\x92\xb5\x18'\b\x03\x10\x02\x18\x01\"\x0emanage_secrets*\x0forganization_id\x90\x02\x01\x12\xa4\x01\n" +
-	"\x18UpdateOrganizationSecret\x12*.libops.v1.UpdateOrganizationSecretRequest\x1a+.libops.v1.UpdateOrganizationSecretResponse\"/\x92\xb5\x18'\b\x03\x10\x02\x18\x01\"\x0emanage_secrets*\x0forganization_id\x98\xb5\x18\x01\x12\x8f\x01\n" +
-	"\x18DeleteOrganizationSecret\x12*.libops.v1.DeleteOrganizationSecretRequest\x1a\x16.google.protobuf.Empty\"/\x92\xb5\x18'\b\x03\x10\x02\x18\x01\"\x0emanage_secrets*\x0forganization_id\x98\xb5\x18\x012\xd9\x05\n" +
-	"\x14ProjectSecretService\x12\x92\x01\n" +
-	"\x13CreateProjectSecret\x12%.libops.v1.CreateProjectSecretRequest\x1a&.libops.v1.CreateProjectSecretResponse\",\x92\xb5\x18$\b\x04\x10\x02\x18\x01\"\x0emanage_secrets2\n" +
-	"project_id8\x04\x98\xb5\x18\x01\x12\x86\x01\n" +
+	"\x17ListOrganizationSecrets\x12).libops.v1.ListOrganizationSecretsRequest\x1a*.libops.v1.ListOrganizationSecretsResponse\".\x92\xb5\x18'\b\x03\x10\x02\x18\x01\"\x0emanage_secrets*\x0forganization_id\x90\x02\x01\x12\xa0\x01\n" +
+	"\x18UpdateOrganizationSecret\x12*.libops.v1.UpdateOrganizationSecretRequest\x1a+.libops.v1.UpdateOrganizationSecretResponse\"+\x92\xb5\x18'\b\x03\x10\x02\x18\x01\"\x0emanage_secrets*\x0forganization_id\x12\x8f\x01\n" +
+	"\x18DeleteOrganizationSecret\x12*.libops.v1.DeleteOrganizationSecretRequest\x1a\x16.google.protobuf.Empty\"/\x92\xb5\x18'\b\x03\x10\x02\x18\x01\"\x0emanage_secrets*\x0forganization_id\x98\xb5\x18\x01\x1a\x04\xa0\xb5\x18\x012\xd7\x05\n" +
+	"\x14ProjectSecretService\x12\x8e\x01\n" +
+	"\x13CreateProjectSecret\x12%.libops.v1.CreateProjectSecretRequest\x1a&.libops.v1.CreateProjectSecretResponse\"(\x92\xb5\x18$\b\x04\x10\x02\x18\x01\"\x0emanage_secrets2\n" +
+	"project_id8\x04\x12\x86\x01\n" +
 	"\x10GetProjectSecret\x12\".libops.v1.GetProjectSecretRequest\x1a#.libops.v1.GetProjectSecretResponse\")\x92\xb5\x18\"\b\x04\x10\x02\x18\x01\"\x0emanage_secrets*\n" +
 	"project_id\x90\x02\x01\x12\x8c\x01\n" +
 	"\x12ListProjectSecrets\x12$.libops.v1.ListProjectSecretsRequest\x1a%.libops.v1.ListProjectSecretsResponse\")\x92\xb5\x18\"\b\x04\x10\x02\x18\x01\"\x0emanage_secrets*\n" +
-	"project_id\x90\x02\x01\x12\x90\x01\n" +
-	"\x13UpdateProjectSecret\x12%.libops.v1.UpdateProjectSecretRequest\x1a&.libops.v1.UpdateProjectSecretResponse\"*\x92\xb5\x18\"\b\x04\x10\x02\x18\x01\"\x0emanage_secrets*\n" +
-	"project_id\x98\xb5\x18\x01\x12\x80\x01\n" +
+	"project_id\x90\x02\x01\x12\x8c\x01\n" +
+	"\x13UpdateProjectSecret\x12%.libops.v1.UpdateProjectSecretRequest\x1a&.libops.v1.UpdateProjectSecretResponse\"&\x92\xb5\x18\"\b\x04\x10\x02\x18\x01\"\x0emanage_secrets*\n" +
+	"project_id\x12\x80\x01\n" +
 	"\x13DeleteProjectSecret\x12%.libops.v1.DeleteProjectSecretRequest\x1a\x16.google.protobuf.Empty\"*\x92\xb5\x18\"\b\x04\x10\x02\x18\x01\"\x0emanage_secrets*\n" +
-	"project_id\x98\xb5\x18\x012\x9b\x05\n" +
-	"\x11SiteSecretService\x12\x86\x01\n" +
-	"\x10CreateSiteSecret\x12\".libops.v1.CreateSiteSecretRequest\x1a#.libops.v1.CreateSiteSecretResponse\")\x92\xb5\x18!\b\x05\x10\x02\x18\x01\"\x0emanage_secrets2\asite_id8\x05\x98\xb5\x18\x01\x12z\n" +
+	"project_id\x98\xb5\x18\x01\x1a\x04\xa0\xb5\x18\x012\x99\x05\n" +
+	"\x11SiteSecretService\x12\x82\x01\n" +
+	"\x10CreateSiteSecret\x12\".libops.v1.CreateSiteSecretRequest\x1a#.libops.v1.CreateSiteSecretResponse\"%\x92\xb5\x18!\b\x05\x10\x02\x18\x01\"\x0emanage_secrets2\asite_id8\x05\x12z\n" +
 	"\rGetSiteSecret\x12\x1f.libops.v1.GetSiteSecretRequest\x1a .libops.v1.GetSiteSecretResponse\"&\x92\xb5\x18\x1f\b\x05\x10\x02\x18\x01\"\x0emanage_secrets*\asite_id\x90\x02\x01\x12\x80\x01\n" +
-	"\x0fListSiteSecrets\x12!.libops.v1.ListSiteSecretsRequest\x1a\".libops.v1.ListSiteSecretsResponse\"&\x92\xb5\x18\x1f\b\x05\x10\x02\x18\x01\"\x0emanage_secrets*\asite_id\x90\x02\x01\x12\x84\x01\n" +
-	"\x10UpdateSiteSecret\x12\".libops.v1.UpdateSiteSecretRequest\x1a#.libops.v1.UpdateSiteSecretResponse\"'\x92\xb5\x18\x1f\b\x05\x10\x02\x18\x01\"\x0emanage_secrets*\asite_id\x98\xb5\x18\x01\x12w\n" +
-	"\x10DeleteSiteSecret\x12\".libops.v1.DeleteSiteSecretRequest\x1a\x16.google.protobuf.Empty\"'\x92\xb5\x18\x1f\b\x05\x10\x02\x18\x01\"\x0emanage_secrets*\asite_id\x98\xb5\x18\x01B\x8e\x01\n" +
+	"\x0fListSiteSecrets\x12!.libops.v1.ListSiteSecretsRequest\x1a\".libops.v1.ListSiteSecretsResponse\"&\x92\xb5\x18\x1f\b\x05\x10\x02\x18\x01\"\x0emanage_secrets*\asite_id\x90\x02\x01\x12\x80\x01\n" +
+	"\x10UpdateSiteSecret\x12\".libops.v1.UpdateSiteSecretRequest\x1a#.libops.v1.UpdateSiteSecretResponse\"#\x92\xb5\x18\x1f\b\x05\x10\x02\x18\x01\"\x0emanage_secrets*\asite_id\x12w\n" +
+	"\x10DeleteSiteSecret\x12\".libops.v1.DeleteSiteSecretRequest\x1a\x16.google.protobuf.Empty\"'\x92\xb5\x18\x1f\b\x05\x10\x02\x18\x01\"\x0emanage_secrets*\asite_id\x98\xb5\x18\x01\x1a\x04\xa0\xb5\x18\x01B\x8e\x01\n" +
 	"\rcom.libops.v1B\fSecretsProtoP\x01Z*github.com/libops/proto/libops/v1;libopsv1\xa2\x02\x03LXX\xaa\x02\tLibops.V1\xca\x02\tLibops\\V1\xe2\x02\x15Libops\\V1\\GPBMetadata\xea\x02\n" +
 	"Libops::V1b\x06proto3"
 

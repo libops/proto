@@ -2,16 +2,18 @@ syntax = "proto3";
 
 package libops.v1;
 
-import "google/protobuf/descriptor.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";
 import "libops/v1/options/scope.proto";
+import "libops/v1/options/visibility.proto";
 import "libops/v1/common/types.proto";
 
 option go_package = "github.com/libops/proto/libops/v1;libopsv1";
 
 // AdminAccountService manages user accounts (admin only)
 service AdminAccountService {
+  option (libops.v1.options.service_api_visibility) = API_VISIBILITY_INTERNAL;
+
   // Get account information by ID
   rpc GetAccount(GetAccountRequest) returns (GetAccountResponse) {
     option idempotency_level = NO_SIDE_EFFECTS;

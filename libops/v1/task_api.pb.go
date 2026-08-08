@@ -1526,7 +1526,7 @@ var File_libops_v1_task_api_proto protoreflect.FileDescriptor
 
 const file_libops_v1_task_api_proto_rawDesc = "" +
 	"\n" +
-	"\x18libops/v1/task_api.proto\x12\tlibops.v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1cgoogle/protobuf/struct.proto\x1a\x1dlibops/v1/options/scope.proto\"\xb1\x01\n" +
+	"\x18libops/v1/task_api.proto\x12\tlibops.v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1cgoogle/protobuf/struct.proto\x1a\x1dlibops/v1/options/scope.proto\x1a\"libops/v1/options/visibility.proto\"\xb1\x01\n" +
 	"\fTaskLogEntry\x128\n" +
 	"\ttimestamp\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\ttimestamp\x12\x14\n" +
 	"\x05level\x18\x02 \x01(\tR\x05level\x12\x18\n" +
@@ -1665,7 +1665,7 @@ const file_libops_v1_task_api_proto_rawDesc = "" +
 	"\x13TASK_HARNESS_CLAUDE\x10\x02\x12\x13\n" +
 	"\x0fTASK_HARNESS_PI\x10\x03\x12\x19\n" +
 	"\x15TASK_HARNESS_OPENCODE\x10\x04\x12\x17\n" +
-	"\x13TASK_HARNESS_GEMINI\x10\x052\xf7\x05\n" +
+	"\x13TASK_HARNESS_GEMINI\x10\x052\x81\x06\n" +
 	"\vTaskService\x12z\n" +
 	"\n" +
 	"CreateTask\x12\x1c.libops.v1.CreateTaskRequest\x1a\x1d.libops.v1.CreateTaskResponse\"/\x92\xb5\x18+\b\x03\x10\x02\x18\x01\"\x12write:organization*\x0forganization_id\x12s\n" +
@@ -1674,8 +1674,8 @@ const file_libops_v1_task_api_proto_rawDesc = "" +
 	"\n" +
 	"UpdateTask\x12\x1c.libops.v1.UpdateTaskRequest\x1a\x1d.libops.v1.UpdateTaskResponse\"/\x92\xb5\x18+\b\x03\x10\x02\x18\x01\"\x12write:organization*\x0forganization_id\x12z\n" +
 	"\n" +
-	"CancelTask\x12\x1c.libops.v1.CancelTaskRequest\x1a\x1d.libops.v1.CancelTaskResponse\"/\x92\xb5\x18+\b\x03\x10\x02\x18\x01\"\x12write:organization*\x0forganization_id\x12\x83\x01\n" +
-	"\rAppendTaskLog\x12\x1f.libops.v1.AppendTaskLogRequest\x1a .libops.v1.AppendTaskLogResponse\"/\x92\xb5\x18+\b\x03\x10\x02\x18\x01\"\x12write:organization*\x0forganization_idB\x8e\x01\n" +
+	"CancelTask\x12\x1c.libops.v1.CancelTaskRequest\x1a\x1d.libops.v1.CancelTaskResponse\"/\x92\xb5\x18+\b\x03\x10\x02\x18\x01\"\x12write:organization*\x0forganization_id\x12\x87\x01\n" +
+	"\rAppendTaskLog\x12\x1f.libops.v1.AppendTaskLogRequest\x1a .libops.v1.AppendTaskLogResponse\"3\x92\xb5\x18+\b\x03\x10\x02\x18\x01\"\x12write:organization*\x0forganization_id\xa8\xb5\x18\x02\x1a\x04\xa0\xb5\x18\x01B\x8e\x01\n" +
 	"\rcom.libops.v1B\fTaskApiProtoP\x01Z*github.com/libops/proto/libops/v1;libopsv1\xa2\x02\x03LXX\xaa\x02\tLibops.V1\xca\x02\tLibops\\V1\xe2\x02\x15Libops\\V1\\GPBMetadata\xea\x02\n" +
 	"Libops::V1b\x06proto3"
 

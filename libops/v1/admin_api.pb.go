@@ -11,7 +11,6 @@ import (
 	_ "github.com/libops/proto/libops/v1/options"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	_ "google.golang.org/protobuf/types/descriptorpb"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
 	fieldmaskpb "google.golang.org/protobuf/types/known/fieldmaskpb"
 	reflect "reflect"
@@ -3250,7 +3249,7 @@ var File_libops_v1_admin_api_proto protoreflect.FileDescriptor
 
 const file_libops_v1_admin_api_proto_rawDesc = "" +
 	"\n" +
-	"\x19libops/v1/admin_api.proto\x12\tlibops.v1\x1a google/protobuf/descriptor.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a google/protobuf/field_mask.proto\x1a\x1dlibops/v1/options/scope.proto\x1a\x1dlibops/v1/admin/project.proto\x1a\"libops/v1/admin/organization.proto\x1a\x1alibops/v1/admin/site.proto\"`\n" +
+	"\x19libops/v1/admin_api.proto\x12\tlibops.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a google/protobuf/field_mask.proto\x1a\x1dlibops/v1/options/scope.proto\x1a\"libops/v1/options/visibility.proto\x1a\x1dlibops/v1/admin/project.proto\x1a\"libops/v1/admin/organization.proto\x1a\x1alibops/v1/admin/site.proto\"`\n" +
 	"\x16AdminGetProjectRequest\x12'\n" +
 	"\x0forganization_id\x18\x01 \x01(\tR\x0eorganizationId\x12\x1d\n" +
 	"\n" +
@@ -3495,14 +3494,14 @@ const file_libops_v1_admin_api_proto_rawDesc = "" +
 	"%CONVERGENCE_RESOURCE_TYPE_UNSPECIFIED\x10\x00\x12*\n" +
 	"&CONVERGENCE_RESOURCE_TYPE_ORGANIZATION\x10\x01\x12%\n" +
 	"!CONVERGENCE_RESOURCE_TYPE_PROJECT\x10\x02\x12\"\n" +
-	"\x1eCONVERGENCE_RESOURCE_TYPE_SITE\x10\x032\xb7\x06\n" +
+	"\x1eCONVERGENCE_RESOURCE_TYPE_SITE\x10\x032\xbd\x06\n" +
 	"\x18AdminOrganizationService\x12}\n" +
 	"\x0fGetOrganization\x12&.libops.v1.AdminGetOrganizationRequest\x1a'.libops.v1.AdminGetOrganizationResponse\"\x19\x92\xb5\x18\x12\b\x01\x10\x03\"\fadmin:system\x90\x02\x01\x12\x83\x01\n" +
 	"\x12CreateOrganization\x12).libops.v1.AdminCreateOrganizationRequest\x1a*.libops.v1.AdminCreateOrganizationResponse\"\x16\x92\xb5\x18\x12\b\x01\x10\x03\"\fadmin:system\x12\x83\x01\n" +
 	"\x12UpdateOrganization\x12).libops.v1.AdminUpdateOrganizationRequest\x1a*.libops.v1.AdminUpdateOrganizationResponse\"\x16\x92\xb5\x18\x12\b\x01\x10\x03\"\fadmin:system\x12o\n" +
 	"\x12DeleteOrganization\x12).libops.v1.AdminDeleteOrganizationRequest\x1a\x16.google.protobuf.Empty\"\x16\x92\xb5\x18\x12\b\x01\x10\x03\"\fadmin:system\x12\x83\x01\n" +
 	"\x11ListOrganizations\x12(.libops.v1.AdminListOrganizationsRequest\x1a).libops.v1.AdminListOrganizationsResponse\"\x19\x92\xb5\x18\x12\b\x01\x10\x03\"\fadmin:system\x90\x02\x01\x12\x98\x01\n" +
-	"\x18ListOrganizationProjects\x12/.libops.v1.AdminListOrganizationProjectsRequest\x1a0.libops.v1.AdminListOrganizationProjectsResponse\"\x19\x92\xb5\x18\x12\b\x01\x10\x03\"\fadmin:system\x90\x02\x012\x9b\t\n" +
+	"\x18ListOrganizationProjects\x12/.libops.v1.AdminListOrganizationProjectsRequest\x1a0.libops.v1.AdminListOrganizationProjectsResponse\"\x19\x92\xb5\x18\x12\b\x01\x10\x03\"\fadmin:system\x90\x02\x01\x1a\x04\xa0\xb5\x18\x022\xa1\t\n" +
 	"\x10AdminSiteService\x12k\n" +
 	"\tListSites\x12 .libops.v1.AdminListSitesRequest\x1a!.libops.v1.AdminListSitesResponse\"\x19\x92\xb5\x18\x12\b\x01\x10\x03\"\fadmin:system\x90\x02\x01\x12e\n" +
 	"\aGetSite\x12\x1e.libops.v1.AdminGetSiteRequest\x1a\x1f.libops.v1.AdminGetSiteResponse\"\x19\x92\xb5\x18\x12\b\x01\x10\x03\"\fadmin:system\x90\x02\x01\x12k\n" +
@@ -3518,7 +3517,7 @@ const file_libops_v1_admin_api_proto_rawDesc = "" +
 	"\x0fGetSiteFirewall\x12!.libops.v1.GetSiteFirewallRequest\x1a\".libops.v1.GetSiteFirewallResponse\"\x03\x90\x02\x01\x12N\n" +
 	"\vSiteCheckIn\x12\x1d.libops.v1.SiteCheckInRequest\x1a\x1e.libops.v1.SiteCheckInResponse\"\x00\x12T\n" +
 	"\fSyncManifest\x12\x1e.libops.v1.SyncManifestRequest\x1a\x1f.libops.v1.SyncManifestResponse\"\x03\x90\x02\x01\x12E\n" +
-	"\aGetBlob\x12\x19.libops.v1.GetBlobRequest\x1a\x1a.libops.v1.GetBlobResponse\"\x03\x90\x02\x012\xcd\x05\n" +
+	"\aGetBlob\x12\x19.libops.v1.GetBlobRequest\x1a\x1a.libops.v1.GetBlobResponse\"\x03\x90\x02\x01\x1a\x04\xa0\xb5\x18\x022\xd3\x05\n" +
 	"\x13AdminProjectService\x12n\n" +
 	"\n" +
 	"GetProject\x12!.libops.v1.AdminGetProjectRequest\x1a\".libops.v1.AdminGetProjectResponse\"\x19\x92\xb5\x18\x12\b\x01\x10\x03\"\fadmin:system\x90\x02\x01\x12t\n" +
@@ -3526,13 +3525,13 @@ const file_libops_v1_admin_api_proto_rawDesc = "" +
 	"\rUpdateProject\x12$.libops.v1.AdminUpdateProjectRequest\x1a%.libops.v1.AdminUpdateProjectResponse\"\x16\x92\xb5\x18\x12\b\x01\x10\x03\"\fadmin:system\x12e\n" +
 	"\rDeleteProject\x12$.libops.v1.AdminDeleteProjectRequest\x1a\x16.google.protobuf.Empty\"\x16\x92\xb5\x18\x12\b\x01\x10\x03\"\fadmin:system\x12t\n" +
 	"\fListProjects\x12#.libops.v1.AdminListProjectsRequest\x1a$.libops.v1.AdminListProjectsResponse\"\x19\x92\xb5\x18\x12\b\x01\x10\x03\"\fadmin:system\x90\x02\x01\x12}\n" +
-	"\x0fListAllProjects\x12&.libops.v1.AdminListAllProjectsRequest\x1a'.libops.v1.AdminListAllProjectsResponse\"\x19\x92\xb5\x18\x12\b\x01\x10\x03\"\fadmin:system\x90\x02\x012\xf8\x02\n" +
+	"\x0fListAllProjects\x12&.libops.v1.AdminListAllProjectsRequest\x1a'.libops.v1.AdminListAllProjectsResponse\"\x19\x92\xb5\x18\x12\b\x01\x10\x03\"\fadmin:system\x90\x02\x01\x1a\x04\xa0\xb5\x18\x022\xfe\x02\n" +
 	"\x1aAdminReconciliationService\x12l\n" +
 	"\x14GetReconciliationRun\x12&.libops.v1.GetReconciliationRunRequest\x1a'.libops.v1.GetReconciliationRunResponse\"\x03\x90\x02\x01\x12{\n" +
 	"\x1aUpdateReconciliationStatus\x12,.libops.v1.UpdateReconciliationStatusRequest\x1a-.libops.v1.UpdateReconciliationStatusResponse\"\x00\x12o\n" +
-	"\x15GenerateTerraformVars\x12'.libops.v1.GenerateTerraformVarsRequest\x1a(.libops.v1.GenerateTerraformVarsResponse\"\x03\x90\x02\x012\x8e\x01\n" +
+	"\x15GenerateTerraformVars\x12'.libops.v1.GenerateTerraformVarsRequest\x1a(.libops.v1.GenerateTerraformVarsResponse\"\x03\x90\x02\x01\x1a\x04\xa0\xb5\x18\x022\x94\x01\n" +
 	"\x17AdminConvergenceService\x12s\n" +
-	"\x10CheckConvergence\x12\".libops.v1.CheckConvergenceRequest\x1a#.libops.v1.CheckConvergenceResponse\"\x16\x92\xb5\x18\x12\b\x01\x10\x03\"\fadmin:systemB\x8f\x01\n" +
+	"\x10CheckConvergence\x12\".libops.v1.CheckConvergenceRequest\x1a#.libops.v1.CheckConvergenceResponse\"\x16\x92\xb5\x18\x12\b\x01\x10\x03\"\fadmin:system\x1a\x04\xa0\xb5\x18\x02B\x8f\x01\n" +
 	"\rcom.libops.v1B\rAdminApiProtoP\x01Z*github.com/libops/proto/libops/v1;libopsv1\xa2\x02\x03LXX\xaa\x02\tLibops.V1\xca\x02\tLibops\\V1\xe2\x02\x15Libops\\V1\\GPBMetadata\xea\x02\n" +
 	"Libops::V1b\x06proto3"
 
